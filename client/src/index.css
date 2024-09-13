@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+  font-family:"Raleway", sans-serif;
+  background: #000;
+  color:#fff;
+}
+
+.text-input{
+  border:1px rgba(26, 31, 19, 0.40);
+}
+
+.text-input:focus{
+  border:1px rgba(26, 31, 19, 0.40);
+  outline: none;
+}
+
+.userNameList{
+  li{  
+    margin-bottom: 8px;
+    a{
+      padding:12px 8px;
+      cursor: pointer;
+      display: block;
+    }
+  }
+  li:nth-child(odd){
+    background-color: #615f5f;
+    /* color:#000 */
+  }
+  li:nth-child(even){
+    background-color: #a1a0a0;
+    /* color:#000 */
+  }
+}
+
+.container{max-width: 1280px; display: block; margin-left:auto; margin-right: auto;}
+input.onboarding:checked + label img.normal{display: none !important;}
+input.onboarding:checked + label img.selected{display: block !important;}
+input.onboarding + label img.selected{display: none !important;}
+input.onboarding {display: none;}
+.admin_left_bar a.active{background: #0049FF;}
