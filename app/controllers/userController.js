@@ -89,6 +89,7 @@ const userEditAdmin = async (req,res) => {
           email: updatedUser.email,
           status: updatedUser.status,
           role: updatedUser.role,
+          success:true,
         })
 
         // Create a transporter object
@@ -112,13 +113,13 @@ const userEditAdmin = async (req,res) => {
 
         // Send the email
         
-        transporter.sendMail(mailOptions, function(error, info){
-          if (error) {
-            console.log('Error:', error);
-          } else {
-            console.log('Email sent:', info.response);
-          }
-        });
+        // transporter.sendMail(mailOptions, function(error, info){
+        //   if (error) {
+        //     console.log('Error:', error);
+        //   } else {
+        //     console.log('Email sent:', info.response);
+        //   }
+        // });
              
         
 

@@ -1,35 +1,34 @@
 import React from 'react'
 import { Outlet, NavLink } from "react-router-dom";
-import BlueLogo from '../assets/LogoBlue.svg'
-import Settings from '../assets/settings.svg'
-import Notification from '../assets/notification.svg'
-import User from '../assets/user.png'
-import DashIcon from '../assets/dash-icon.svg'
-import HomeIcon from '../assets/home-icon.svg'
-import SolIcon from '../assets/sol-icon.svg'
-import CalIcon from '../assets/cal-icon.svg'
-import TermsIcon from '../assets/terms-icon.svg'
-import InfoIcon from '../assets/info-circle.svg'
-import KeyIcon from'../assets/key-icon.svg'
+import BlueLogo from '../../assets/LogoBlue.svg'
+import Settings from '../../assets/settings.svg'
+import Notification from '../../assets/notification.svg'
+import User from '../../assets/user.png'
+import DashIcon from '../../assets/dash-icon.svg'
+import HomeIcon from '../../assets/home-icon.svg'
+import SolIcon from '../../assets/sol-icon.svg'
+import CalIcon from '../../assets/cal-icon.svg'
+import TermsIcon from '../../assets/terms-icon.svg'
+import InfoIcon from '../../assets/info-circle.svg'
+import KeyIcon from'../../assets/key-icon.svg'
 
 
 const AdminLayout = () => {
   return (
     <>
       <div className="admin_container mx-auto px-[40px] max-w-[1480px]">
+        
         <div className="header flex justify-between items-center py-5 ">
           <img src={BlueLogo} alt="" />
-          
           <div className='flex justify-end gap-4 items-center'>
             <div className="flex gap-1 items-center">
               <div className="cursor-pointer "><img src={Settings} alt="" /></div>
-              
               <div className="cursor-pointer "><img src={Notification} alt="" /></div>
             </div>
-
             <div className="cursor-pointer "><img className='w-10' src={User} alt="" /></div>
           </div>
         </div>
+
         <div className="admin_content flex gap-4">
           <div className="admin_left_bar min-w-[264px]">
             <ul className="admin_lists flex flex-col gap-2">

@@ -14,6 +14,7 @@ export default {
       colors: {
         'primary-blue':'#0049FF',
         'primary-black':'#1C1C1C',
+        'gray-300':'#B0B0B0',
       }
     },
 

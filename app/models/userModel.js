@@ -9,8 +9,8 @@ const userSchema = mongoose.Schema({
   },
   status:{
     type:String,
-    default:"pending",
-    enum : ['pending','approved']
+    default:"Pending",
+    enum : ['Pending','Accepted','Rejected']
   },
   firstName:{
     type:String,

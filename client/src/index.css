@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 body{
   font-family:"Raleway", sans-serif;
   background: #000;
@@ -42,3 +43,11 @@ input.onboarding:checked + label img.selected{display: block !important;}
 input.onboarding + label img.selected{display: none !important;}
 input.onboarding {display: none;}
 .admin_left_bar a.active{background: #0049FF;}
+.rdrDefinedRangesWrapper{color:#000; display: none;}
+.date{position: relative;}
+.rdrDateRangePickerWrapper{position: absolute; right: 0; top: 0;}
+.statusSelect{position: absolute; top: 100%; right: 0; z-index: 9;}
+.status_selector{position: relative;}
+.accept_modal{position: fixed; top: 0; left: 0; height: 100%; width: 100%; background:rgba(0,0,0,.5); display: flex;align-items: center; justify-content: center; backdrop-filter: blur(5px); z-index: 99; }
+
+.user_options{background: #6c6767;}

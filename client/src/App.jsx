@@ -15,13 +15,13 @@ import UserList from './components/admin/UserList';
 import AdminUserEdit from './components/admin/AdminUserEdit';
 import SetPassword from './components/SetPassword';
 import OnBoarding from './components/OnBoarding';
-import AdminLayout from './components/AdminLayout';
+import AdminLayout from './components/admin/AdminLayout';
+import AdminUserDetails from './components/admin/AdminUserDetails';
 
 
 function App() {
-  const [count, setCount] = useState(0)
-
-
+    
+  
   return (
     <>
       <ToastContainer />
@@ -29,8 +29,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="/admin/users" element={<UserList />} />
-            <Route path="/admin/users/:id" element={<AdminUserEdit />} />           
+            {/* <Route path="/admin/users" element={<UserList />} /> */}
+            {/* <Route path="/admin/users/:id" element={<AdminUserEdit />} />            */}
 
             
             {/* <Route path="*" element={<NoPage />} /> */}
@@ -39,6 +39,7 @@ function App() {
           <Route path="/admin" element={<AdminLayout />}>
             <Route path="/admin/dashboard" element={<Admin />} />
             <Route path="/admin/solutions" element={<Solutions />} />
+            <Route path="/admin/user/:id" element={<AdminUserDetails />} />
           </Route>
 
 
