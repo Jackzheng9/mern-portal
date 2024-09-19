@@ -25,13 +25,15 @@ export const userApiSlice = apiSlice.injectEndpoints({
         headers: {
           'Content-Type': 'application/json'
         },
-      })
+      }),
+      providesTags: ['User'],
     }),
     getUserById:builder.query({
       query:({id}) => ({
         url:`${USERS_URL}/admin/users/${id}`,
         method: "GET",
-      })
+      }),
+      providesTags: ['User'],
     }),
     getUserByEmail:builder.mutation({
       query:(data) => ({
@@ -45,7 +47,8 @@ export const userApiSlice = apiSlice.injectEndpoints({
         url:`${USERS_URL}/admin/useredit`,
         method: "POST",
         body:data
-      })
+      }),
+      invalidatesTags: ['User'],
     }),
     editUser:builder.mutation({
       query:(data) => ({

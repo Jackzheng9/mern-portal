@@ -16,6 +16,8 @@ const UserListItem = ({ user }) => {
     console.log("New status", status)
     setUserStatus(status)
   }
+
+  console.log("User status",userStatus)
   
 
   return (
