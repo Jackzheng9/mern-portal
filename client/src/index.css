@@ -51,3 +51,4 @@ input.onboarding {display: none;}
 .accept_modal{position: fixed; top: 0; left: 0; height: 100%; width: 100%; background:rgba(0,0,0,.5); display: flex;align-items: center; justify-content: center; backdrop-filter: blur(5px); z-index: 99; }
 
 .user_options{background: #6c6767;}
+.main_menu_wrap a.active{color:#fff}

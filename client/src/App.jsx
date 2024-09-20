@@ -11,12 +11,12 @@ import Solutions from './components/admin/Solutions';
 import Register from './components/Register';
 import Login from './components/Login';
 import Admin from './components/admin/Admin';
-import UserList from './components/admin/UserList';
-import AdminUserEdit from './components/admin/AdminUserEdit';
 import SetPassword from './components/SetPassword';
 import OnBoarding from './components/OnBoarding';
 import AdminLayout from './components/admin/AdminLayout';
 import AdminUserDetails from './components/admin/AdminUserDetails';
+import UserSolutions from './components/UserSolutions';
+import UserResources from './components/UserResources';
 
 
 function App() {
@@ -29,8 +29,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            {/* <Route path="/admin/users" element={<UserList />} /> */}
-            {/* <Route path="/admin/users/:id" element={<AdminUserEdit />} />            */}
+            <Route path="/solutions" element={<UserSolutions />} />
+            <Route path="/resources" element={<UserResources />} />           
 
             
             {/* <Route path="*" element={<NoPage />} /> */}

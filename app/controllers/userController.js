@@ -203,9 +203,12 @@ const getAllUsers = async (req,res) => {
     if(user.role === 'admin' || user.role === 'superAdmin'){
       // const users = await User.find({role:'user'})
       const users = await User.find({ role:'user'})
-      console.log("Users", users)
-      console.log("Get all users hit!")
-      res.status(200).json({message:"Success!", users})
+      // console.log("Users", users)
+      const allCount = await User.countDocuments({role:'user'})
+      const allAccepted = await User.countDocuments({role:'user',status:"Accepted"})
+      const allPending = await User.countDocuments({role:'user',status:"Pending"})
+      // console.log("allCount",allCount, allAccepted, allPending)
+      res.status(200).json({message:"Success!", users, total:allCount, accepted: allAccepted, pending: allPending})
     }else{
       throw new Error('User is not authenticated to perform this action!')
     }

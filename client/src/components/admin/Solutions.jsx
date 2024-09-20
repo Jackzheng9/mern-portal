@@ -1,5 +1,4 @@
 import React from 'react'
-import AdminSideMenu from './AdminSideMenu'
 
 const Solutions = () => {
   return (

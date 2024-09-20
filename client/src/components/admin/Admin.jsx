@@ -72,7 +72,8 @@ const Admin = () => {
   if (isError) return <div>An error has occurred!</div>
 
   if (isLoading) return <div>Loading</div>
-
+  
+  console.log("data",data)
 
 
 
@@ -188,7 +189,7 @@ const Admin = () => {
           <img src={MsgIcon} className='w-14' alt="" />
           <div className="flex flex-col">
             <p className="text-[#E7E7E7] text-sm font-semibold">Total Requests</p>
-            <p className="font-bold text-xl text-bold color-white">0000</p>
+            <p className="font-bold text-xl text-bold color-white">{data.total}</p>
             <p className="text-sm text-[#E7E7E7]">All request including pending, accepted</p>
           </div>
         </div>
@@ -197,8 +198,8 @@ const Admin = () => {
           <img src={TimeIcon} className='w-14' alt="" />
           <div className="flex flex-col">
             <p className="text-[#E7E7E7] text-sm font-semibold">Pending Requests</p>
-            <p className="font-bold text-xl text-bold color-white">0000</p>
-            <p className="text-sm text-[#E7E7E7]">Total of 10</p>
+            <p className="font-bold text-xl text-bold color-white">{data.pending}</p>
+            <p className="text-sm text-[#E7E7E7]">Total of {data.total}</p>
           </div>
         </div>
 
@@ -206,15 +207,15 @@ const Admin = () => {
           <img src={TickIcon} className='w-14' alt="" />
           <div className="flex flex-col">
             <p className="text-[#E7E7E7] text-sm font-semibold">Accepted Requests</p>
-            <p className="font-bold text-xl text-bold color-white">0000</p>
-            <p className="text-sm text-[#E7E7E7]">Total of 10</p>
+            <p className="font-bold text-xl text-bold color-white">{data.accepted}</p>
+            <p className="text-sm text-[#E7E7E7]">Total of {data.total}</p>
           </div>
         </div>
 
 
       </div>
 
-      <div className="users_list">
+      <div className="users_list mt-20">
         <div className="user_list_header flex justify-between">
           <p className="">Access Request</p>
           <div className="flex items-center gap-4">

@@ -16,6 +16,10 @@ const Login = () => {
 
   const formHandler = async (e) => {
     e.preventDefault();
+    if(password.length < 6){
+      toast.error("Password should be at least 6 characters long");
+      return;
+    }
     const data = {
       email,password
     }
@@ -59,7 +63,7 @@ const Login = () => {
             <div className="form-group flex flex-col md:flex-row w-full mb-6">
               <div className="flex flex-col gap-3 w-full">
                 <label htmlFor="password" className='text-white'>Password</label>
-                <input type="text" id="password" className='bg-[#1C1C1C] text-input text-white px-4 py-2 rounded-md w-full' placeholder='Password' required value={password} onChange={(e) => setPassword(e.target.value)}/>
+                <input type="password" id="password" className='bg-[#1C1C1C] text-input text-white px-4 py-2 rounded-md w-full' placeholder='Password' required value={password} onChange={(e) => setPassword(e.target.value)}/>
               </div>
             </div>
 
