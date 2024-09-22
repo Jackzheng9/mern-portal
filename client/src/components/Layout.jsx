@@ -27,7 +27,7 @@ const Layout = () => {
                 <li><NavLink to=""><div className="header_cta bg-primary-blue rounded-[100px] px-6 h-12 flex items-center">Let's Build</div></NavLink></li>
                 <li><NavLink to=""><img src={Settings} alt="" /></NavLink></li>
                 <li><NavLink to=""><img src={Notification} alt="" /></NavLink></li>
-                <li><NavLink to=""><div className="initials bg-dark-blue text-lg font-medium h-12 w-12 rounded-[100px] flex items-center justify-center">MG</div></NavLink></li>
+                <li><div className="initials bg-dark-blue text-lg font-medium h-12 w-12 rounded-[100px] flex items-center justify-center">MG</div></li>
               </ul>
             </div>
             
