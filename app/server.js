@@ -6,6 +6,7 @@ import userRouter from "./routes/userRoutes.js";
 import connect from "./config/db.js";
 import cookieParser from 'cookie-parser';
 import cors from 'cors'
+import solutionRouter from "./routes/solutionRoutes.js";
 
 
 const app = express();
@@ -35,7 +36,8 @@ app.get('/',(req,res) => {
   res.status(200).json({message:"App is running"})
 })
 
-app.use('/api/users', userRouter)
+app.use('/api/users', userRouter);
+app.use('/api/solutions', solutionRouter);
 
 
 
