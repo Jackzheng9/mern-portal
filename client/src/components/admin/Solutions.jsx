@@ -16,6 +16,7 @@ const Solutions = () => {
 
   const [showUpload, setShowUpload] = useState(true)
   const [solutionTitle, setSolutionTitle] = useState("")
+  const [category, setCategory] = useState("")
   const [solutionDescription, setSolutionDescription] = useState("")
   const [solutionImage, setSolutionImage] = useState('')
   const [solutionImageName, setSolutionImageName] = useState('')
@@ -136,27 +137,34 @@ const Solutions = () => {
 
   const [addSolution, {isLoading, isError}] = useAddSolutionMutation()
 
-  const publishHandler = async () => {
-    console.log("Benefits", benefits)
-    console.log("title", solutionTitle)
-    console.log("desc", solutionDescription)
-    console.log("img", solutionImage)
+  const categoryChangeHandler = (e) => {
+    console.log("cat changed:", e.target.value)
+    setCategory(e.target.value)
+  }
+
+  const publishHandler = async (status) => {
+
+    console.log("Category:", category)
     const slug = slugify(solutionTitle,{
       lower: true,
       strict: true,
       trim: true         
     })
-    console.log("slug",slug)
+
     const data = {
       title:solutionTitle,
+      category:category,
       description: solutionDescription,
       image:solutionImage,
       benefits,
       workflows,
       tools,
       features,
-      slug
+      slug,
+      status
     }
+
+    console.log("data", data)
 
     try {
       const resData = await addSolution(data).unwrap();
@@ -223,6 +231,17 @@ const Solutions = () => {
                 <div className="inputGroup flex flex-col gap-1.5 mb-7">
                   <label htmlFor="">Title</label>
                   <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={solutionTitle} onChange={(e) => setSolutionTitle(e.target.value)} placeholder='Title goes here...' />
+                </div>
+
+                <div className="inputGroup flex flex-col gap-1.5 mb-7">
+                  <label htmlFor="category">Category</label>
+                  <select value={category} onChange={categoryChangeHandler } name="category" id="category" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow'>
+                    <option value="">Select One</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Education">Education</option>
+                  </select>
                 </div>
 
                 <div className="inputGroup flex flex-col gap-1.5 bg-[#1B1B1F] rounded-2xl px-12 py-6 mb-5">
@@ -335,7 +354,6 @@ const Solutions = () => {
                 <div className="solution_area_title flex justify-between mb-4">
                   <div className="flex flex-col gap-1">
                     <p className="text-lg">Tools and technology</p>
-                    {/* <p className="text-gray-300 text-xs">You can upload up to 6  workflows</p> */}
                   </div>
 
                   <div onClick={toolAddHandler} className="flex gap-2 items-center bg-primary-blue rounded-[100px] h-11 pl-9 pr-11 cursor-pointer">
@@ -408,11 +426,11 @@ const Solutions = () => {
               </form>
               <div className="flex justify-between">
                 <div className="">
-                  <div className="">Cancel</div>
+                  <div onClick={() => setShowUpload(false)} className="border h-11 flex items-center px-5 rounded-[100px] cursor-pointer">Cancel</div>
                 </div>
-                <div className="">
-
-                  <div className="" onClick={publishHandler}>Publish</div>
+                <div className="flex gap-4">
+                  <div onClick={() => publishHandler("Draft")} className="border h-11 flex items-center px-5 rounded-[100px] cursor-pointer">Save as Draft</div>
+                  <div className="bg-primary-blue rounded-[100px] h-11 flex items-center justify-center px-5 cursor-pointer" onClick={() => publishHandler("Publish")}>Publish</div>
                 </div>
               </div>
               

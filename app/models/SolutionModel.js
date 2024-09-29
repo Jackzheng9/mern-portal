@@ -29,7 +29,6 @@ const SolutionSchema = mongoose.Schema({
   },
   category:{
     type:String,
-    default : ''
   },
   status:{
     type:String,
