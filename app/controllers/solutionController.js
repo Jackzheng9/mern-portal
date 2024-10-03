@@ -8,6 +8,11 @@ const getAdminAllSolution = async (req,res) => {
   res.status(201).json({message:"Success", solutions:allSolutions})
 }
 
+const getAllSolution = async (req,res) => {
+  const allSolutions = await Solution.find();
+  res.status(201).json({message:"Success", solutions:allSolutions})
+}
+
 const createSolution = async (req, res) => {
   const { title, description, image, benefits, workflows,tools,features,category,status, slug } = req.body;
   // console.log("Body Data", title, description, image, benefits, workflows, tools, features, category,status, slug);
@@ -32,10 +37,10 @@ const createSolution = async (req, res) => {
 }
 
 const getSolutionBySlug = async (req,res) => {
-  console.log("solution by slug hit!")
+  // console.log("solution by slug hit!")
   const slug = req.params.slug;
   const solution = await Solution.find({slug})
-  console.log("solution", solution)
+  // console.log("solution", solution)
   res.status(200).json({solution:solution[0]})
 }
 
@@ -65,4 +70,4 @@ const editSolution = async (req,res) => {
   
 }
 
-export { createSolution, getAdminAllSolution, getSolutionBySlug, editSolution };
+export { createSolution, getAdminAllSolution, getSolutionBySlug, editSolution, getAllSolution };

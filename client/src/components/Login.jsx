@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import Logo from '../assets/logo.svg'
+import Key from '../assets/key.svg'
 import { useLoginMutation } from '../slices/userApiSlice';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../slices/authSlice';
 
@@ -73,6 +74,11 @@ const Login = () => {
 
 
           </form>
+
+          <Link to="/register/" className="flex flex-col gap-4 justify-center items-center">
+            <img className='w-8 h-8' src={Key} alt="" />
+            <p className="font-mediul">Request An Access</p>
+          </Link>
         </div>
       </div>
     </>

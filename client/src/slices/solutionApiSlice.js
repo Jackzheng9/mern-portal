@@ -22,6 +22,14 @@ export const solutionApiSlice = apiSlice.injectEndpoints({
       providesTags: ['Solutions'],
     }),
 
+    getSolutions: builder.query({
+      query : () =>({
+        url:`${SOLUTION_URL}/all`,
+        method: "GET",
+      }),
+      providesTags: ['Solutions'],
+    }),
+
     getSolutionBySlug: builder.query({
       query : (slug) =>({
         url:`${SOLUTION_URL}/${slug}`,
@@ -44,4 +52,4 @@ export const solutionApiSlice = apiSlice.injectEndpoints({
 })
 
 
-export const {useAddSolutionMutation, useGetAllSolutionQuery, useGetSolutionBySlugQuery, useEditSolutionMutation} = solutionApiSlice;
+export const {useAddSolutionMutation, useGetAllSolutionQuery, useGetSolutionBySlugQuery, useEditSolutionMutation, useGetSolutionsQuery} = solutionApiSlice;

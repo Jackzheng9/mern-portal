@@ -58,7 +58,6 @@ const userLogin = async (req,res) => {
         status:user.status,
         phone:user.phone,
         company:user.company
-
       })
     }else{
       throw new Error('Invalid email or password')
@@ -113,13 +112,13 @@ const userEditAdmin = async (req,res) => {
 
         // Send the email
         
-        // transporter.sendMail(mailOptions, function(error, info){
-        //   if (error) {
-        //     console.log('Error:', error);
-        //   } else {
-        //     console.log('Email sent:', info.response);
-        //   }
-        // });
+        transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            console.log('Error:', error);
+          } else {
+            console.log('Email sent:', info.response);
+          }
+        });
              
         
 
@@ -145,8 +144,8 @@ const editUser = async (req,res) => {
   console.log("Edit user hitted!")
   const {user:jwtuser} = req
   //console.log("auth user", jwtuser)
-  const {industry,employee,goal,workflow,manualWorks,mainIssue,improveArea,achieveArea} = req.body
-  console.log("req data",industry,employee,goal,workflow,manualWorks,mainIssue,improveArea,achieveArea);
+  const {industry,employee,goal,workflow,manualWorks,mainIssue,improveArea,achieveArea,password} = req.body
+  //console.log("req data",industry,employee,goal,workflow,manualWorks,mainIssue,improveArea,achieveArea);
   
   try {
     const user = await User.findOne({email:jwtuser.email})
@@ -165,6 +164,7 @@ const editUser = async (req,res) => {
       user.mainIssue = mainIssue || user.mainIssue ;
       user.improveArea = improveArea || user.improveArea ;
       user.achieveArea = achieveArea || user.achieveArea ;
+      user.password = password || user.password ;
       
 
 

@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import Logo from '../assets/logo.svg'
+import UserIcon from '../assets/user.svg'
 import { useRegisterMutation } from '../slices/userApiSlice';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [firstName, setFirstName] = useState('');
@@ -24,8 +25,8 @@ const Register = () => {
       const apiData = await register(data).unwrap();
       // const apiData = await register(data);
       console.log(apiData.userInfo)
-      toast.success("User created successfully!")
-      navigate('/')
+      toast.success("User created successfully. An admin will review you submission and you will be notified through email!")
+      //navigate('/')
     } catch (error) {
       console.log(error)
       console.log(error.data.msg)
@@ -81,6 +82,13 @@ const Register = () => {
 
 
           </form>
+
+          <Link to="/login/" className="flex flex-col gap-4 justify-center items-center">
+            <img className='w-8 h-8' src={UserIcon} alt="" />
+            <p className="font-mediul">Login to your Account</p>
+          </Link>
+
+
         </div>
       </div>
     </>

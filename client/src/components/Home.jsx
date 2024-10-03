@@ -6,17 +6,27 @@ import ArrowRightUp from '../assets/arrow-right-up.svg'
 import SolImg from '../assets/solution-1.png'
 import ArrowRightTopRed from '../assets/arrow-right-top-red.svg'
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const Home = () => {
   const [searchParams] = useSearchParams();
-  console.log(searchParams.get("setpass"))
+  // console.log(searchParams.get("setpass"))
 
   const navigate = useNavigate();
+  const user = useSelector(state => state.auth);
+  console.log("User:", user)
 
 
   useEffect(() => {
+    
     if(searchParams.get("setpass")){
       navigate('/setpassword')
+    }
+
+    if(!searchParams.get("setpass") && !user.userInfo){
+      toast.info("Please login to see the page!")
+      navigate('/login')
     }
 
   },[])
