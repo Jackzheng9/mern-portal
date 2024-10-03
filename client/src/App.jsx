@@ -17,6 +17,7 @@ import AdminLayout from './components/admin/AdminLayout';
 import AdminUserDetails from './components/admin/AdminUserDetails';
 import UserSolutions from './components/UserSolutions';
 import UserResources from './components/UserResources';
+import SolutionDetails from './components/admin/SolutionDetails';
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
           <Route path="/admin" element={<AdminLayout />}>
             <Route path="/admin/dashboard" element={<Admin />} />
             <Route path="/admin/solutions" element={<Solutions />} />
+            <Route path="/admin/solutions/:slug" element={<SolutionDetails />} />
             <Route path="/admin/user/:id" element={<AdminUserDetails />} />
           </Route>
 

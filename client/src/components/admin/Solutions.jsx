@@ -11,10 +11,11 @@ import ArrowUpBlue from '../../assets/ArrowUpBlue.svg'
 import { useAddSolutionMutation } from '../../slices/solutionApiSlice'
 import slugify from 'slugify'
 import {toast} from 'react-toastify'
+import SoultionList from './SoultionList'
 
 const Solutions = () => {
 
-  const [showUpload, setShowUpload] = useState(true)
+  const [showUpload, setShowUpload] = useState(false)
   const [solutionTitle, setSolutionTitle] = useState("")
   const [category, setCategory] = useState("")
   const [solutionDescription, setSolutionDescription] = useState("")
@@ -142,6 +143,7 @@ const Solutions = () => {
     setCategory(e.target.value)
   }
 
+
   const publishHandler = async (status) => {
 
     console.log("Category:", category)
@@ -170,13 +172,20 @@ const Solutions = () => {
       const resData = await addSolution(data).unwrap();
       console.log(resData)
       toast.success(`Solution ${solutionTitle} has been created successfully!`)
+      setShowUpload(false)
     } catch (error) {
       console.log(error)
       if(error.data.error.code == 11000){
         toast.error("There is alreay a solution with same title. Please try changing Solution Title.")
+      }else{
+        toast.error(error.data.message)
       }
     }
     
+  }
+
+  const showUploadContent = () => {
+    setShowUpload(true)
   }
 
   return (
@@ -204,16 +213,7 @@ const Solutions = () => {
 
       </div>
 
-      <div className="nothing_found flex flex-col mx-auto items-center">
-          <img src={FolderIcon} className='mx-auto block w-20 mb-4'  alt="" />
-          <p className="text-[#F6F6F6] text-lg font-semibold mx-auto mb-2">No Content found</p>
-          <p className="text-gray-300">No content found! the requested content is missing or unavailable.</p>
-          <div className="h-11 inline-flex items-center pl-9 pr-11 gap-2 border border-blue-600 rounded-[100px] mx-auto mt-6 cursor-pointer text-blue-600 hover:bg-black hover:text-white">
-            <img src={BluePlus} alt="" className="" />
-            <p className="">Upload Content</p>
-            
-          </div>
-      </div>
+      <SoultionList showUpload={showUploadContent} />
 
       {showUpload && (
         
@@ -430,7 +430,7 @@ const Solutions = () => {
                 </div>
                 <div className="flex gap-4">
                   <div onClick={() => publishHandler("Draft")} className="border h-11 flex items-center px-5 rounded-[100px] cursor-pointer">Save as Draft</div>
-                  <div className="bg-primary-blue rounded-[100px] h-11 flex items-center justify-center px-5 cursor-pointer" onClick={() => publishHandler("Publish")}>Publish</div>
+                  <div className="bg-primary-blue rounded-[100px] h-11 flex items-center justify-center px-5 cursor-pointer" onClick={() => publishHandler("Published")}>Publish</div>
                 </div>
               </div>
               

@@ -1,11 +1,13 @@
 import express from 'express'
-import { createSolution } from '../controllers/solutionController.js'
+import { createSolution, getAdminAllSolution, getSolutionBySlug,editSolution } from '../controllers/solutionController.js'
+import isAdmin from '../middlewares/isAdmin.js'
+import protect from '../middlewares/authMiddleWare.js'
 
 const solutionRouter = express.Router()
 
-solutionRouter.get('/',(req,res) => {
-  res.status(200).json({message:"Solution Route"})
-})
+solutionRouter.get('/', isAdmin, getAdminAllSolution)
+solutionRouter.get('/:slug',protect, getSolutionBySlug)
+solutionRouter.post('/edit',isAdmin, editSolution)
 
 solutionRouter.post('/newsolution', createSolution)
 

@@ -37,7 +37,7 @@ const SolutionSchema = mongoose.Schema({
   slug: { type: String, unique:true },
 
 
-})
+},{timestamps:true})
 
 
 const Solution = mongoose.model("Solution", SolutionSchema);

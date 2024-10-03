@@ -12,8 +12,8 @@ const UserListItem = ({ user }) => {
   };
 
   const changeUserStatus = (status) => {
-    console.log("status change called!")
-    console.log("New status", status)
+    // console.log("status change called!")
+    // console.log("New status", status)
     setUserStatus(status)
   }
 
