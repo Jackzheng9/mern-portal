@@ -1,31 +1,29 @@
 import React, { useState } from 'react'
-import ArrowUp from '../../assets/arrow-up.svg'
-import SearchIcon from '../../assets/searchLarge.svg'
-import Bars from '../../assets/bars.svg'
-import FolderIcon from '../../assets/FolderIcon.svg'
-import BluePlus from '../../assets/BluePlus.svg'
-import BtnCloseLg from '../../assets/BtnCloseLg.svg'
 import UploadIcon from '../../assets/UploadIcon.svg'
 import PlusWhite from '../../assets/PlusWhite.svg'
 import ArrowUpBlue from '../../assets/ArrowUpBlue.svg'
-import { useAddSolutionMutation } from '../../slices/solutionApiSlice'
-import slugify from 'slugify'
-import {toast} from 'react-toastify'
-import SoultionList from './SoultionList'
+import { useEditSolutionMutation } from '../../slices/solutionApiSlice'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
-const Solutions = () => {
-
-  const [showUpload, setShowUpload] = useState(false)
-  const [solutionTitle, setSolutionTitle] = useState("")
-  const [category, setCategory] = useState("")
-  const [solutionDescription, setSolutionDescription] = useState("")
-  const [solutionImage, setSolutionImage] = useState('')
+const EditSolutionForm = ({solution}) => {
+  // console.log("solution from edit form page",solution)
+  const [solutionTitle, setSolutionTitle] = useState(solution.title)
+  const [category, setCategory] = useState(solution.category)
+  const [solutionDescription, setSolutionDescription] = useState(solution.description)
+  const [solutionImage, setSolutionImage] = useState(solution.image)
   const [solutionImageName, setSolutionImageName] = useState('')
-  const [benefits, setBenefits] = useState([{title:"", desc:"", image:"", imgName:""}])
-  const [workflows, setWorkflows] = useState([{title:"", desc:"", image:"", imgName:""}])
-  const [tools, setTools] = useState([{title:"", desc:""}])
-  const [features, setFeatures] = useState([{title:"", desc:"", image:"", imgName:""}])
+  const [benefits, setBenefits] = useState(solution.benefits)
+  const [workflows, setWorkflows] = useState(solution.workflows)
+  const [tools, setTools] = useState(solution.tools)
+  const [features, setFeatures] = useState(solution.features)
 
+  const navigate = useNavigate();
+
+  const categoryChangeHandler = (e) => {
+    console.log("cat changed:", e.target.value)
+    setCategory(e.target.value)
+  }
 
   const submitImage = (e) => {
     console.log("Image uploaded")
@@ -135,24 +133,12 @@ const Solutions = () => {
 
   }
 
-  const [addSolution, {isLoading, isError}] = useAddSolutionMutation()
-
-  const categoryChangeHandler = (e) => {
-    console.log("cat changed:", e.target.value)
-    setCategory(e.target.value)
-  }
-
+  const [ editSolution ,{isLoading, isError}] = useEditSolutionMutation()
 
   const publishHandler = async (status) => {
 
-    console.log("Category:", category)
-    const slug = slugify(solutionTitle,{
-      lower: true,
-      strict: true,
-      trim: true         
-    })
-
     const data = {
+      id:solution._id,
       title:solutionTitle,
       category:category,
       description: solutionDescription,
@@ -161,17 +147,16 @@ const Solutions = () => {
       workflows,
       tools,
       features,
-      slug,
       status
     }
 
     console.log("data", data)
 
     try {
-      const resData = await addSolution(data).unwrap();
+      const resData = await editSolution(data).unwrap();
       console.log(resData)
-      toast.success(`Solution ${solutionTitle} has been created successfully!`)
-      setShowUpload(false)
+      toast.success(`Post has been edited successfully!`)
+      navigate(`/admin/solutions/${solution.slug}`)
     } catch (error) {
       console.log(error)
       if(error.data.error.code == 11000){
@@ -183,46 +168,14 @@ const Solutions = () => {
     
   }
 
-  const showUploadContent = () => {
-    setShowUpload(true)
-  }
 
   return (
-    <div className='px-6 relative'>
-      <div className="flex items-center justify-between">
-          <p className="">Manage Solutions</p>
-          <div onClick={() => setShowUpload(true) } className="bg-primary-blue rounded-[100px] flex items-center pl-9 pr-11 h-11 gap-2 cursor-pointer">
-            <img src={ArrowUp} alt="" />
-            <p className="">Upload Content</p>
-          </div>
-      </div>
-
-      <div className="flex justify-between mt-8">
-        <form action="">
-          <div className="relative">
-            <img className='absolute left-[14px] top-[12px] ' src={SearchIcon} alt="" />
-            <input className='searchBordered h-11 bg-transparent rounded-lg pl-11' placeholder="Search" type="text" />
-          </div>
-        </form>
-
-        <div className="flex gap-1 items-center">
-          <p className="text-gray-300 font-medium">All</p> <img src="" alt="" />
-          <img src={Bars} className='w-5' alt="" />
-        </div>
-
-      </div>
-
-      <SoultionList showUpload={showUploadContent} />
-
-      {showUpload && (
-        
-        <div className="upload_solution left-0 top-0 w-full h-full bg-black">
+    <>
+    
+    <div className="upload_solution left-0 top-0 w-full h-full bg-black">
           <div className="upload_solution_inner container py-11">
             
-            <div className="flex justify-between">
-              <p className="text-2xl">Upload Solution</p>
-              <img onClick={() => setShowUpload(false)} src={BtnCloseLg} alt="" className="cursor-pointer" />
-            </div>
+
 
             <div className=''>
               <form action="">
@@ -437,16 +390,11 @@ const Solutions = () => {
           </div>
           
         </div>
-
-      )}
-
-
-
-
-
-
-    </div>
+    
+    
+    
+    </>
   )
 }
 
-export default Solutions
+export default EditSolutionForm

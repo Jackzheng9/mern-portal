@@ -32,8 +32,11 @@ const createSolution = async (req, res) => {
 }
 
 const getSolutionBySlug = async (req,res) => {
+  console.log("solution by slug hit!")
   const slug = req.params.slug;
-  res.status(200).json({slug})
+  const solution = await Solution.find({slug})
+  console.log("solution", solution)
+  res.status(200).json({solution:solution[0]})
 }
 
 const editSolution = async (req,res) => {

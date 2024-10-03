@@ -46,35 +46,8 @@ const SoultionList = ({showUpload}) => {
 
         </div>
 
-        {/* {data.solutions.map(solution => {
-          return (
-            <div className="flex py-5">
-
-              <div className=" flex items-center gap-4 grow-[2] basis-0"><img src={solution.image} className='w-8 h-8' alt="" /><p className="">{solution.title}</p></div>
-              <div className="grow basis-0">{solution.status}</div>
-              <div className="grow basis-0">date</div>
-              <div className="grow basis-0">{solution.category}</div>
-              <div className="grow basis-0"><img src={VerDots} className='' alt="" /></div>
-      
-            </div>   
-
-
-          )
-        })} */}
-
-
         {data.solutions.map(solution => <SolutionListItem key={solution._id} solution={solution} />)}
 
-
-        {/* <div className="flex py-5">
-
-          <div className=" flex gap-4 grow-[2] basis-0"><img src="" className='w-8' alt="" /><p className="">Supply Chain Automation</p></div>
-          <div className="grow basis-0">Published</div>
-          <div className="grow basis-0">7/21/2024</div>
-          <div className="grow basis-0">Category</div>
-          <div className="grow basis-0"><img src={VerDots} className='' alt="" /></div>
-
-        </div> */}
 
       </> }
     
