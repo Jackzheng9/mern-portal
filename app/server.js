@@ -7,6 +7,8 @@ import connect from "./config/db.js";
 import cookieParser from 'cookie-parser';
 import cors from 'cors'
 import solutionRouter from "./routes/solutionRoutes.js";
+import signatureRouter from "./routes/genSignature.js";
+import resourceRouter from "./routes/resourceRoutes.js";
 
 
 const app = express();
@@ -38,6 +40,8 @@ app.get('/',(req,res) => {
 
 app.use('/api/users', userRouter);
 app.use('/api/solutions', solutionRouter);
+app.use('/api/resources', resourceRouter);
+app.use('/api/gensignature', signatureRouter);
 
 
 

@@ -19,6 +19,7 @@ const Solutions = () => {
   const [solutionTitle, setSolutionTitle] = useState("")
   const [category, setCategory] = useState("")
   const [solutionDescription, setSolutionDescription] = useState("")
+  const [solShortDescription, setSolShortDescription] = useState("")
   const [solutionImage, setSolutionImage] = useState('')
   const [solutionImageName, setSolutionImageName] = useState('')
   const [benefits, setBenefits] = useState([{title:"", desc:"", image:"", imgName:""}])
@@ -145,7 +146,7 @@ const Solutions = () => {
 
   const publishHandler = async (status) => {
 
-    console.log("Category:", category)
+    // console.log("Category:", category)
     const slug = slugify(solutionTitle,{
       lower: true,
       strict: true,
@@ -156,6 +157,7 @@ const Solutions = () => {
       title:solutionTitle,
       category:category,
       description: solutionDescription,
+      shortDesc: solShortDescription,
       image:solutionImage,
       benefits,
       workflows,
@@ -259,6 +261,11 @@ const Solutions = () => {
                 <div className="inputGroup flex flex-col gap-1.5 mb-5">
                   <label htmlFor="">Description</label>
                   <textarea className='h-32 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow flex items-start' value={solutionDescription} placeholder='Description.....' onChange={e => setSolutionDescription(e.target.value)} />
+                </div>
+
+                <div className="inputGroup flex flex-col gap-1.5 mb-5">
+                  <label htmlFor="">Short Description</label>
+                  <textarea className='h-32 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow flex items-start' value={solShortDescription} placeholder='Short Description.....' onChange={e => setSolShortDescription(e.target.value)} />
                 </div>
 
 

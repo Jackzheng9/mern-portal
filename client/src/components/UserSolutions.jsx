@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 const UserSolutions = () => {
   const [searcFormTerm, setSearchFormTerm] = useState('')
   const {data, isLoading, isError} = useGetSolutionsQuery();
-  console.log("data", data)
+  // console.log("data", data)
 
   const dispatch = useDispatch();
   const searchFilterTerm = useSelector(state => state.solutionsFilter.searchTerm)

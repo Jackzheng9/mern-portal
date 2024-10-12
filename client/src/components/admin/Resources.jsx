@@ -1,45 +1,53 @@
 import React, { useState } from 'react'
+import ArrowUp from '../../assets/arrow-up.svg'
+import SearchIcon from '../../assets/searchLarge.svg'
+import Bars from '../../assets/bars.svg'
+import FolderIcon from '../../assets/FolderIcon.svg'
+import BluePlus from '../../assets/BluePlus.svg'
+import BtnCloseLg from '../../assets/BtnCloseLg.svg'
 import UploadIcon from '../../assets/UploadIcon.svg'
 import PlusWhite from '../../assets/PlusWhite.svg'
 import ArrowUpBlue from '../../assets/ArrowUpBlue.svg'
-import { useEditSolutionMutation } from '../../slices/solutionApiSlice'
-import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
+import { useAddSolutionMutation } from '../../slices/solutionApiSlice'
+import { useCreateResourceMutation } from '../../slices/resourcesApiSlice'
+import slugify from 'slugify'
+import {toast} from 'react-toastify'
+import ResourceList from './ResourceList'
 
-const EditSolutionForm = ({solution}) => {
-  // console.log("solution from edit form page",solution)
-  const [solutionTitle, setSolutionTitle] = useState(solution.title)
-  const [category, setCategory] = useState(solution.category)
-  const [solutionDescription, setSolutionDescription] = useState(solution.description)
-  const [shortDesc, setShortDesc] = useState(solution.shortDesc)
-  const [solutionImage, setSolutionImage] = useState(solution.image)
-  const [solutionImageName, setSolutionImageName] = useState('')
-  const [benefits, setBenefits] = useState(solution.benefits)
-  const [workflows, setWorkflows] = useState(solution.workflows)
-  const [tools, setTools] = useState(solution.tools)
-  const [features, setFeatures] = useState(solution.features)
+const Resources = () => {
 
-  const navigate = useNavigate();
+  const [showUpload, setShowUpload] = useState(true)
+  const [monthlyTag, setMonthly] = useState("")
+  const [resourceTitle, setResourceTitle] = useState("")
+  const [month, setMonth] = useState("")
+  const [resourceDescription, setResourceDescription] = useState("")
+  const [resShortDescription, setResShortDescription] = useState("")
+  const [resourceImage, setResourceImage] = useState('')
+  const [resourceImageName, setResourceImageName] = useState('')
+  const [lectures, setLectures] = useState([{title:"", desc:"", type:"", files:[], image:"", imageName:""}])
 
-  const categoryChangeHandler = (e) => {
-    console.log("cat changed:", e.target.value)
-    setCategory(e.target.value)
-  }
+  const [benefits, setBenefits] = useState([{title:"", desc:"", image:"", imgName:""}])
+  const [workflows, setWorkflows] = useState([{title:"", desc:"", image:"", imgName:""}])
+  const [tools, setTools] = useState([{title:"", desc:""}])
+  const [features, setFeatures] = useState([{title:"", desc:"", image:"", imgName:""}])
+
 
   const submitImage = (e) => {
     console.log("Image uploaded")
     console.log(e.target.files[0])
     const data = new FormData();
     data.append('file', e.target.files[0]);
-    data.append('upload_preset', 'ey3f99zw');
-    data.append('cloud_name', 'dj1eiczym');
-    const uploaded = fetch('https://api.cloudinary.com/v1_1/dj1eiczym/image/upload/',{
+    // data.append('upload_preset', 'ey3f99zw');
+    const cloud_name = import.meta.env.VITE_CLOUD_NAME
+    data.append('upload_preset', import.meta.env.VITE_UPLOAD_PRESET);
+    data.append('cloud_name',cloud_name);
+    const uploaded = fetch(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload/`,{
       method:"POST",
       body:data
     })
     .then(res => res.json())
-    .then(data => setSolutionImage(data.url))
-    setSolutionImageName(e.target.files[0].name)
+    .then(data => setResourceImage(data.url))
+    setResourceImageName(e.target.files[0].name)
 
   }
 
@@ -134,31 +142,44 @@ const EditSolutionForm = ({solution}) => {
 
   }
 
-  const [ editSolution ,{isLoading, isError}] = useEditSolutionMutation()
+  const [addSolution, {isLoading, isError}] = useAddSolutionMutation()
+
+  const monthChangeHandler = (e) => {
+    console.log("month changed:", e.target.value)
+    setMonth(e.target.value)
+  }
+
 
   const publishHandler = async (status) => {
 
+    // console.log("Category:", category)
+    const slug = slugify(solutionTitle,{
+      lower: true,
+      strict: true,
+      trim: true         
+    })
+
     const data = {
-      id:solution._id,
       title:solutionTitle,
       category:category,
       description: solutionDescription,
-      shortDesc: shortDesc,
+      shortDesc: solShortDescription,
       image:solutionImage,
       benefits,
       workflows,
       tools,
       features,
+      slug,
       status
     }
 
     console.log("data", data)
 
     try {
-      const resData = await editSolution(data).unwrap();
+      const resData = await addSolution(data).unwrap();
       console.log(resData)
-      toast.success(`Post has been edited successfully!`)
-      navigate(`/admin/solutions/${solution.slug}`)
+      toast.success(`Solution ${solutionTitle} has been created successfully!`)
+      setShowUpload(false)
     } catch (error) {
       console.log(error)
       if(error.data.error.code == 11000){
@@ -170,32 +191,53 @@ const EditSolutionForm = ({solution}) => {
     
   }
 
+  const showUploadContent = () => {
+    setShowUpload(true)
+  }
 
   return (
-    <>
-    
-    <div className="upload_solution left-0 top-0 w-full h-full bg-black">
+    <div className='px-6 relative'>
+      <div className="flex items-center justify-between">
+          <p className="">Monthly Content</p>
+          <div onClick={() => setShowUpload(true) } className="bg-primary-blue rounded-[100px] flex items-center pl-9 pr-11 h-11 gap-2 cursor-pointer">
+            <img src={ArrowUp} alt="" />
+            <p className="">Upload Content</p>
+          </div>
+      </div>
+
+      <div className="flex justify-between mt-8">
+        <form action="">
+          <div className="relative">
+            <img className='absolute left-[14px] top-[12px] ' src={SearchIcon} alt="" />
+            <input className='searchBordered h-11 bg-transparent rounded-lg pl-11' placeholder="Search" type="text" />
+          </div>
+        </form>
+
+        <div className="flex gap-1 items-center">
+          <p className="text-gray-300 font-medium">All</p> <img src="" alt="" />
+          <img src={Bars} className='w-5' alt="" />
+        </div>
+
+      </div>
+
+      <ResourceList showUpload={showUploadContent} />
+
+      {showUpload && (
+        
+        <div className="upload_solution left-0 top-0 w-full h-full bg-black">
           <div className="upload_solution_inner container py-11">
             
-
+            <div className="flex justify-between">
+              <p className="text-2xl">Upload Monthly Content</p>
+              <img onClick={() => setShowUpload(false)} src={BtnCloseLg} alt="" className="cursor-pointer" />
+            </div>
 
             <div className=''>
               <form action="">
                 
                 <div className="inputGroup flex flex-col gap-1.5 mb-7">
-                  <label htmlFor="">Title</label>
-                  <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={solutionTitle} onChange={(e) => setSolutionTitle(e.target.value)} placeholder='Title goes here...' />
-                </div>
-
-                <div className="inputGroup flex flex-col gap-1.5 mb-7">
-                  <label htmlFor="category">Category</label>
-                  <select value={category} onChange={categoryChangeHandler } name="category" id="category" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow'>
-                    <option value="">Select One</option>
-                    <option value="Technology">Technology</option>
-                    <option value="Healthcare">Healthcare</option>
-                    <option value="Finance">Finance</option>
-                    <option value="Education">Education</option>
-                  </select>
+                  <label htmlFor="">Monthly Tag</label>
+                  <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={monthlyTag} onChange={(e) => setMonthlyTag(e.target.value)} placeholder='Monthly Tag goes here...' />
                 </div>
 
                 <div className="inputGroup flex flex-col gap-1.5 bg-[#1B1B1F] rounded-2xl px-12 py-6 mb-5">
@@ -205,20 +247,48 @@ const EditSolutionForm = ({solution}) => {
                   </label>
                   <input onChange={submitImage} id="solImg" className='hidden' type="file" />
                   <div className="flex items-center gap-2">
-                    <img src={solutionImage} alt="" className='w-10' />
-                    <p className="">{solutionImageName}</p>
+                    <img src={resourceImage} alt="" className='w-10' />
+                    <p className="">{resourceImageName}</p>
                   </div>
                   
+                </div>                
+
+                <div className="inputGroup flex flex-col gap-1.5 mb-7">
+                  <label htmlFor="">Deep Dive Title</label>
+                  <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={resourceTitle} onChange={(e) => setResourceTitle(e.target.value)} placeholder='Deep dive title goes here...' />
                 </div>
 
                 <div className="inputGroup flex flex-col gap-1.5 mb-5">
                   <label htmlFor="">Description</label>
-                  <textarea className='h-32 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow flex items-start' value={solutionDescription} placeholder='Description.....' onChange={e => setSolutionDescription(e.target.value)} />
+                  <textarea className='h-32 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow flex items-start' value={resourceDescription} placeholder='Description.....' onChange={e => setResourceDescription(e.target.value)} />
                 </div>
+
+
+
+                <div className="inputGroup flex flex-col gap-1.5 mb-7">
+                  <label htmlFor="category">Month</label>
+                  <select value={month} onChange={monthChangeHandler } name="month" id="month" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow'>
+                    <option value="">Select One</option>
+                    <option value="0">January</option>
+                    <option value="1">February</option>
+                    <option value="2">March</option>
+                    <option value="3">April</option>
+                    <option value="4">May</option>
+                    <option value="5">June</option>
+                    <option value="6">July</option>
+                    <option value="7">August</option>
+                    <option value="8">September</option>
+                    <option value="9">October</option>
+                    <option value="10">November</option>
+                    <option value="11">December</option>
+                  </select>
+                </div>
+
+
 
                 <div className="inputGroup flex flex-col gap-1.5 mb-5">
                   <label htmlFor="">Short Description</label>
-                  <textarea className='h-32 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow flex items-start' value={shortDesc} placeholder='Short Description.....' onChange={e => setShortDesc(e.target.value)} />
+                  <textarea className='h-32 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow flex items-start' value={resShortDescription} placeholder='Short Description.....' onChange={e => setResShortDescription(e.target.value)} />
                 </div>
 
 
@@ -397,11 +467,16 @@ const EditSolutionForm = ({solution}) => {
           </div>
           
         </div>
-    
-    
-    
-    </>
+
+      )}
+
+
+
+
+
+
+    </div>
   )
 }
 
-export default EditSolutionForm
+export default Resources

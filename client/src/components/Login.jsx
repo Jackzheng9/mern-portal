@@ -32,7 +32,7 @@ const Login = () => {
       toast.success("Login successful!")
       dispatch(setCredentials(apiData))
       if(apiData.role == 'admin' || apiData.role == 'superAdmin'){
-        navigate('/admin')
+        navigate('/admin/dashboard')
       }else{
         navigate('/')
       }

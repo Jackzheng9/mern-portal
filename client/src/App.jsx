@@ -19,6 +19,8 @@ import UserSolutions from './components/UserSolutions';
 import UserResources from './components/UserResources';
 import SolutionDetails from './components/admin/SolutionDetails';
 import EditSolution from './components/admin/EditSolution';
+import UserSolutionDetails from './components/UserSolutionDetails';
+import Resources from './components/admin/Resources';
 
 
 function App() {
@@ -32,7 +34,8 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="/solutions" element={<UserSolutions />} />
-            <Route path="/resources" element={<UserResources />} />           
+            <Route path="/solutions/:slug" element={<UserSolutionDetails />} />         
+            <Route path="/resources" element={<UserResources />} />         
 
             
             {/* <Route path="*" element={<NoPage />} /> */}
@@ -44,6 +47,7 @@ function App() {
             <Route path="/admin/solutions/:slug" element={<SolutionDetails />} />
             <Route path="/admin/solutions/:slug/edit" element={<EditSolution />} />
             <Route path="/admin/user/:id" element={<AdminUserDetails />} />
+            <Route path="/admin/monthly-content" element={<Resources />} />
           </Route>
 
 

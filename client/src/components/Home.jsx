@@ -28,6 +28,9 @@ const Home = () => {
       toast.info("Please login to see the page!")
       navigate('/login')
     }
+    if(user && ( user.userInfo.role == 'superAdmin' || user.userInfo.role == 'admin') ){
+      navigate('/admin/dashboard')
+    }
 
   },[])
 

@@ -36,11 +36,12 @@ const SolutionDetails = () => {
       <div className="content mt-8">
         <p className="font-semibold mb-2">{data.solution.title}</p>
         <p className="text-[#B0B0B0] mb-5">{data.solution.description}</p>
+        <p className="text-[#B0B0B0] mb-5">Short Description: {data.solution.shortDesc}</p>
         <img className='w-full' src={data.solution.image} alt="" />
 
         <p className="font-medium text-lg mt-5 mb-10 ">Benefits</p>
 
-        {data.solution.benefits.map(benefit => <div className='mb-6'>
+        {data.solution.benefits.map(benefit => <div key={benefit.title} className='mb-6'>
           <img className='mb-2' src={benefit.image} alt="" />
           <p className='mb-2'>{benefit.title}</p>
           <p className='text-[#B0B0B0]'>{benefit.desc}</p>
@@ -48,7 +49,7 @@ const SolutionDetails = () => {
         </div>)}
 
         <p className="font-medium text-lg mt-11 mb-10 ">Workflow</p>     
-        {data.solution.workflows.map(benefit => <div className='mb-6'>
+        {data.solution.workflows.map(benefit => <div key={benefit.title} className='mb-6'>
           <p className='mb-2'>{benefit.title}</p>
           <p className='text-[#B0B0B0]'>{benefit.desc}</p>
           <img className='mt-2' src={benefit.image} alt="" />
@@ -56,13 +57,13 @@ const SolutionDetails = () => {
 
 
         <p className="font-medium text-lg mt-11 mb-10 ">Tools and technology</p>     
-        {data.solution.tools.map(benefit => <div className='mb-6'>
+        {data.solution.tools.map(benefit => <div key={benefit.title} className='mb-6'>
           <p className='mb-2'>{benefit.title}</p>
           <p className='text-[#B0B0B0]'>{benefit.desc}</p>
         </div>)}
 
         <p className="font-medium text-lg mt-11 mb-10 ">Features</p>     
-        {data.solution.features.map(benefit => <div className='mb-6'>
+        {data.solution.features.map(benefit => <div  key={benefit.title}  className='mb-6'>
           <img className='mb-2' src={benefit.image} alt="" />
           <p className='mb-2'>{benefit.title}</p>
           <p className='text-[#B0B0B0]'>{benefit.desc}</p>

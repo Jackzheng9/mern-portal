@@ -9,7 +9,10 @@ const UserSolutionsList = ({solutions}) => {
     return "Loading..."
   }
 
-  console.log("solutions on list comp",solutions )
+  // console.log("solutions on list comp",solutions )
+  if(solutions.length == 0 ){
+    return "No solution found!"
+  }
 
   return (
     <div className='flex gap-6  flex-wrap'>

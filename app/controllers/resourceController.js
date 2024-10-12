@@ -1,17 +1,40 @@
-import Solution from "../models/SolutionModel.js";
-import { MongooseError } from "mongoose"; // Ensure you import MongooseError if needed
+import Resource from "../models/resourceModel.js";
+import { MongooseError } from "mongoose";
 
 
 
-const getAdminAllSolution = async (req,res) => {
-  const allSolutions = await Solution.find();
-  res.status(201).json({message:"Success", solutions:allSolutions})
+const getAdminAllResources = async (req,res) => {
+  const allResources = await Resource.find();
+  res.status(201).json({message:"Success", resources:allResources})
 }
 
-const getAllSolution = async (req,res) => {
-  const allSolutions = await Solution.find();
-  res.status(201).json({message:"Success", solutions:allSolutions})
+
+const createResource = async (req, res) => {
+  const { title, description, shortDesc, image, benefits, workflows,tools,features,category,status, slug } = req.body;
+  // console.log("Body Data", title, description, image, benefits, workflows, tools, features, category,status, slug);
+ 
+  try {
+    if(!title){
+      throw new Error("Resource title must not be empty!")
+    }
+
+    const newMonthly = await MonthlyContent.create({ title, description,shortDesc, image, benefits, workflows, tools, features,category,status, slug });
+    res.status(201).json({ message: "New solution created!", monthly: newMonthly });
+  } catch (error) {
+    if (error instanceof MongooseError) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: error.message, error:error });
+    }
+  } 
+
+
+
 }
+
+
+/*
+
 
 const createSolution = async (req, res) => {
   const { title, description, shortDesc, image, benefits, workflows,tools,features,category,status, slug } = req.body;
@@ -70,5 +93,5 @@ const editSolution = async (req,res) => {
 
   
 }
-
-export { createSolution, getAdminAllSolution, getSolutionBySlug, editSolution, getAllSolution };
+*/
+export { getAdminAllResources, createResource };
