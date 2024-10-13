@@ -1,5 +1,11 @@
 import mongoose from "mongoose";
 
+const LessonSchema = mongoose.Schema({
+  url:{type:String},
+  assetType:{type:String}
+})
+
+
 const ResourceSchema = mongoose.Schema({
   title:{
     type:String,
@@ -20,10 +26,14 @@ const ResourceSchema = mongoose.Schema({
   shortDesc:{
     type:String,
   },
-  lectures:{
-    type:Array,
-    default : [] 
-  },
+
+  lectures:[{ 
+    title:{type:String},
+    desc:{type:String},
+    image:{type:String}, 
+    files:[{type:LessonSchema, default:{}}]  
+  }],
+
   status:{
     type:String,
     default : 'Published'

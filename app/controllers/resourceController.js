@@ -10,7 +10,7 @@ const getAdminAllResources = async (req,res) => {
 
 
 const createResource = async (req, res) => {
-  const { title, description, shortDesc, image, benefits, workflows,tools,features,category,status, slug } = req.body;
+  const { title, description, shortDesc, image, lectures,status, slug } = req.body;
   // console.log("Body Data", title, description, image, benefits, workflows, tools, features, category,status, slug);
  
   try {
@@ -18,8 +18,8 @@ const createResource = async (req, res) => {
       throw new Error("Resource title must not be empty!")
     }
 
-    const newMonthly = await MonthlyContent.create({ title, description,shortDesc, image, benefits, workflows, tools, features,category,status, slug });
-    res.status(201).json({ message: "New solution created!", monthly: newMonthly });
+    const newResource = await Resource.create({ title, description, shortDesc, image, lectures,status, slug });
+    res.status(201).json({ message: "New solution created!", resource: newResource });
   } catch (error) {
     if (error instanceof MongooseError) {
       res.status(500).json({ message: error.message });
