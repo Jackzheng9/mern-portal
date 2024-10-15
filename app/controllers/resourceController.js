@@ -33,6 +33,16 @@ const createResource = async (req, res) => {
 }
 
 
+const getResourceBySlug = async (req,res) => {
+  // console.log("resource by slug hit!")
+  const slug = req.params.slug;
+  const resource = await Resource.find({slug})
+  // console.log("solution", solution)
+  res.status(200).json({resource:resource[0]})
+}
+
+
+
 /*
 
 
@@ -59,13 +69,6 @@ const createSolution = async (req, res) => {
 
 }
 
-const getSolutionBySlug = async (req,res) => {
-  // console.log("solution by slug hit!")
-  const slug = req.params.slug;
-  const solution = await Solution.find({slug})
-  // console.log("solution", solution)
-  res.status(200).json({solution:solution[0]})
-}
 
 const editSolution = async (req,res) => {
   const {id, title, description,shortDesc, image, benefits, workflows,tools,features,category,status} = req.body;
@@ -94,4 +97,4 @@ const editSolution = async (req,res) => {
   
 }
 */
-export { getAdminAllResources, createResource };
+export { getAdminAllResources, createResource,getResourceBySlug };

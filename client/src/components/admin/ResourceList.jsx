@@ -3,7 +3,9 @@ import BluePlus from '../../assets/BluePlus.svg'
 import { useState,useEffect } from 'react'
 import { useGetResourceQuery } from '../../slices/resourcesApiSlice'
 
-import SolutionListItem from './SolutionListItem'
+import ResourceListItem from './ResourceListItem';
+
+import Loader from '../Loader'
 
 
 const ResourceList = ({showUpload}) => {
@@ -22,7 +24,7 @@ const ResourceList = ({showUpload}) => {
 
   return (
     <>
-      {isLoading && <>Loading....</>}
+      {isLoading && <Loader />}
       { data && data.resources.length == 0 && <>
           <div className="nothing_found flex flex-col mx-auto items-center">
             <img src={FolderIcon} className='mx-auto block w-20 mb-4'  alt="" />
@@ -46,7 +48,7 @@ const ResourceList = ({showUpload}) => {
 
         </div>
 
-        {data.resources.map(solution => <SolutionListItem key={solution._id} solution={solution} />)}
+        {data.resources.map(resource => <ResourceListItem key={resource._id} resource={resource} />)}
 
 
       </> }

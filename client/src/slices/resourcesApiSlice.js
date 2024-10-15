@@ -30,6 +30,13 @@ export const resourceApiSlice = apiSlice.injectEndpoints({
       providesTags: ['Resources'],
     }),
 
+    getResourceBySlug: builder.query({
+      query : (slug) =>({
+        url:`${RESOURCES_URL}/${slug}`,
+        method: "GET",
+      }),
+      providesTags: ['Resources'],
+    }),
 
 
 
@@ -42,4 +49,4 @@ export const resourceApiSlice = apiSlice.injectEndpoints({
 })
 
 
-export const {useGetSignatureMutation, useCreateResourceMutation, useGetResourceQuery} = resourceApiSlice;
+export const {useGetSignatureMutation, useCreateResourceMutation, useGetResourceQuery, useGetResourceBySlugQuery} = resourceApiSlice;

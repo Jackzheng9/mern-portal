@@ -211,6 +211,7 @@ const UploadResource = ({hideUploadContent}) => {
 
   const publishHandler = async (status) => {
 
+    setShowLoader(true)
     // console.log("Category:", category)
     const slug = slugify(resourceTitle,{
       lower: true,
@@ -231,7 +232,7 @@ const UploadResource = ({hideUploadContent}) => {
     console.log("resoruceData", resoruceData)
     
 
-    /*
+    
     try {
       const resData = await createResource(resoruceData).unwrap();
       console.log("resData",resData)
@@ -245,10 +246,14 @@ const UploadResource = ({hideUploadContent}) => {
       }else{
         //toast.error(error.data.message)
       }
+    } finally{
+      setShowLoader(false)
+      setShowUpload(false)
+
     }
 
 
-    */
+    
   
     
   }
@@ -366,4 +371,5 @@ const UploadResource = ({hideUploadContent}) => {
   )
 }
 
-export default UploadResource
+export default UploadResource;
+

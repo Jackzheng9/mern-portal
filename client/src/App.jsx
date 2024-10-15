@@ -21,6 +21,7 @@ import SolutionDetails from './components/admin/SolutionDetails';
 import EditSolution from './components/admin/EditSolution';
 import UserSolutionDetails from './components/UserSolutionDetails';
 import Resources from './components/admin/Resources';
+import ResourceDetails from './components/admin/ResourceDetails';
 
 
 function App() {
@@ -47,7 +48,8 @@ function App() {
             <Route path="/admin/solutions/:slug" element={<SolutionDetails />} />
             <Route path="/admin/solutions/:slug/edit" element={<EditSolution />} />
             <Route path="/admin/user/:id" element={<AdminUserDetails />} />
-            <Route path="/admin/monthly-content" element={<Resources />} />
+            <Route path="/admin/resources" element={<Resources />} />
+            <Route path="/admin/resources/:slug" element={<ResourceDetails />} />
           </Route>
 
 

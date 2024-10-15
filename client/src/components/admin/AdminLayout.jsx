@@ -35,7 +35,7 @@ const AdminLayout = () => {
               <li><NavLink className={`flex gap-3 font-semibold text-base py-3 px-4 rounded-md `} to="/admin/dashboard"><img src={DashIcon} alt="" />Dashboard</NavLink></li>
               <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md' to="/admin/homecontent"><img src={HomeIcon} alt="" />Home Content</NavLink></li>
               <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md' to="/admin/solutions/"><img src={SolIcon} alt="" />Manage Solutions</NavLink></li>
-              <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md' to="/admin/monthly-content"><img src={CalIcon} alt="" />Monthly Content</NavLink></li>
+              <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md' to="/admin/resources"><img src={CalIcon} alt="" />Monthly Content</NavLink></li>
               <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md' to="/admin/terms"><img src={TermsIcon} alt="" />Terms & Conditions</NavLink></li>
               <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md' to="/admin/support"><img src={InfoIcon} alt="" />Support</NavLink></li>
               <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md' to="/admin/demo"><img src={KeyIcon} alt="" />Demo Request</NavLink></li>
