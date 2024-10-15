@@ -13,6 +13,7 @@ import slugify from 'slugify'
 import {toast} from 'react-toastify'
 import ResourceList from './ResourceList'
 import Loader from '../Loader'
+import UploadResource from './UploadResource'
 
 const Resources = () => {
 
@@ -226,6 +227,8 @@ const Resources = () => {
     setShowUpload(true)
   }
 
+  const hideUploadContent = () => setShowUpload(false)
+
   return (
     <div className='px-6 relative'>
       <div className="flex items-center justify-between">
@@ -260,173 +263,7 @@ const Resources = () => {
 
       <ResourceList showUpload={showUploadContent} />
 
-      {showUpload && (
-        
-        <div className="upload_solution left-0 top-0 w-full h-full bg-black">
-          <div className="upload_solution_inner container py-11">
-            
-            <div className="flex justify-between">
-              <p className="text-2xl">Upload Monthly Content</p>
-              <img onClick={() => setShowUpload(false)} src={BtnCloseLg} alt="" className="cursor-pointer" />
-            </div>
-
-            <div className=''>
-              <form action="">
-                
-                <div className="inputGroup flex flex-col gap-1.5 mb-7">
-                  <label htmlFor="">Monthly Tag</label>
-                  <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={monthlyTag} onChange={(e) => setMonthlyTag(e.target.value)} placeholder='Monthly Tag goes here...' />
-                </div>
-
-                <div className="inputGroup flex flex-col gap-1.5 bg-[#1B1B1F] rounded-2xl px-12 py-6 mb-5">
-                  <label htmlFor="solImg" className='cursor-pointer'>
-                    <img className='w-12 mx-auto block' src={UploadIcon} alt="" />
-                    <p className="max-w-64 mx-auto text-primary-blue text-center">Click to upload Thumbnail <span className='text-gray-600'>or drag and drop SVG, PNG, JPG </span> </p>
-                  </label>
-                  <input onChange={submitImage} id="solImg" className='hidden' type="file" />
-                  <div className="flex items-center gap-2">
-                    <img src={resourceImage} alt="" className='w-10' />
-                    <p className="">{resourceImageName}</p>
-                  </div>
-                  
-                </div>                
-
-                <div className="inputGroup flex flex-col gap-1.5 mb-7">
-                  <label htmlFor="">Deep Dive Title</label>
-                  <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={resourceTitle} onChange={(e) => setResourceTitle(e.target.value)} placeholder='Deep dive title goes here...' />
-                </div>
-
-                <div className="inputGroup flex flex-col gap-1.5 mb-5">
-                  <label htmlFor="">Description</label>
-                  <textarea className='h-32 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow flex items-start' value={resourceDescription} placeholder='Description.....' onChange={e => setResourceDescription(e.target.value)} />
-                </div>
-
-
-
-                <div className="inputGroup flex flex-col gap-1.5 mb-7">
-                  <label htmlFor="category">Month</label>
-                  <select value={month} onChange={monthChangeHandler } name="month" id="month" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow'>
-                    <option value="">Select One</option>
-                    <option value="0">January</option>
-                    <option value="1">February</option>
-                    <option value="2">March</option>
-                    <option value="3">April</option>
-                    <option value="4">May</option>
-                    <option value="5">June</option>
-                    <option value="6">July</option>
-                    <option value="7">August</option>
-                    <option value="8">September</option>
-                    <option value="9">October</option>
-                    <option value="10">November</option>
-                    <option value="11">December</option>
-                  </select>
-                </div>
-
-
-
-                <div className="inputGroup flex flex-col gap-1.5 mb-5">
-                  <label htmlFor="">Short Description</label>
-                  <textarea className='h-32 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow flex items-start' value={resShortDescription} placeholder='Short Description.....' onChange={e => setResShortDescription(e.target.value)} />
-                </div>
-
-
-
-
-                <div className="solution_area_title flex justify-between mb-4">
-                  <div className="flex flex-col gap-1">
-                    <p className="text-lg">Lectures</p>
-                    {/* <p className="text-gray-300 text-xs">You can upload up to 6  benefits</p> */}
-                  </div>
-
-                  <div onClick={lectureAddHandler} className="flex gap-2 items-center bg-primary-blue rounded-[100px] h-11 pl-9 pr-11 cursor-pointer">
-                    <img src={PlusWhite} className='w-6' alt="" />
-                    <p className="font-semibold">Add </p>
-                  </div>
-                  
-                </div>
-
-                {lectures.map((lecture, index) => {
-                  return(
-                  <div className="px-4 mb-4" key={index}>
-                    
-                    <div className="mb-4">
-                      <div className="flex gap-2">
-                        <label className='inline-flex cursor-pointer gap-4 items-center text-primary-blue border border-primary-blue h-11 pl-6 pr-5 rounded-[100px]'> <img src={ArrowUpBlue} alt="" /> Upload Icon</label>
-                        
-                      </div>
-
-                      <div className="inputGroup flex flex-col gap-1.5 bg-[#1B1B1F] rounded-2xl px-12 py-6 mb-5">
-                        <label htmlFor={`lecimage-${index}`} className='cursor-pointer'>
-                          <img className='w-12 mx-auto block' src={UploadIcon} alt="" />
-                          <p className="max-w-64 mx-auto text-primary-blue text-center">Click to upload Thumbnail <span className='text-gray-600'>or drag and drop SVG, PNG, JPG </span> </p>
-                        </label>
-                        <input onChange={(event) => fileChangeHandler(index,event)} id={`lecimage-${index}`} className='hidden' type="file" name="files" multiple/>
-                        {/* <div className="flex items-center gap-2">
-                          <img src={lecture.image} alt="" className='w-10' />
-                          <p className="">{lecture.imgName}</p>
-                        </div> */}
-                        
-                      </div>
-
-                      <div onClick={() => uploadFileHandler(index)} className="cursor-pointer">
-                        Upload files
-                      </div>                    
-                      
-                    </div>
-
-                    <div className="mb-4 flex flex-col gap-1.5">
-                      <label htmlFor="">Title</label>
-                      <input className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' name="title" type="text" placeholder='Title' value={lecture.title} onChange={(event) => lectureChangeHandler(index,event)} />
-                    </div>
-
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="">Description</label>
-                      <input className='px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' name="desc" type="text" placeholder='Description' value={lecture.desc} onChange={(event) => lectureChangeHandler(index,event)} />
-                    </div>
-
-                    <div className="inputGroup flex flex-col gap-1.5 bg-[#1B1B1F] rounded-2xl px-12 py-6 mb-5">
-                      <label htmlFor={`image-${index}`} className='cursor-pointer'>
-                        <img className='w-12 mx-auto block' src={UploadIcon} alt="" />
-                        <p className="max-w-64 mx-auto text-primary-blue text-center">Click to upload Thumbnail <span className='text-gray-600'>or drag and drop SVG, PNG, JPG </span> </p>
-                      </label>
-                      <input onChange={(event) => lectureChangeHandler(index,event)} id={`image-${index}`} className='hidden' type="file" name="image"/>
-                      <div className="flex items-center gap-2">
-                        <img src={lecture.image} alt="" className='w-10' />
-                        <p className="">{lecture.imgName}</p>
-                      </div>
-                      
-                    </div>
-
-
-                    
-                  </div>
-                  )
-                })}
-              
-
-
-              </form>
-              <div className="flex justify-between">
-                <div className="">
-                  <div onClick={() => setShowUpload(false)} className="border h-11 flex items-center px-5 rounded-[100px] cursor-pointer">Cancel</div>
-                </div>
-                <div className="flex gap-4">
-                  <div onClick={() => publishHandler("Unpublished")} className="border h-11 flex items-center px-5 rounded-[100px] cursor-pointer">Save as Draft</div>
-                  <div className="bg-primary-blue rounded-[100px] h-11 flex items-center justify-center px-5 cursor-pointer" onClick={() => publishHandler("Published")}>Publish</div>
-                </div>
-              </div>
-              
-            </div>
-          </div>
-          
-        </div>
-
-      )}
-
-
-
-
-
+      {showUpload && <UploadResource hideUploadContent={hideUploadContent} />}
 
     </div>
   )
