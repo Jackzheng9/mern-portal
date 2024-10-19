@@ -10,15 +10,15 @@ import PlusWhite from '../../assets/PlusWhite.svg'
 
 import { useCreateResourceMutation } from '../../slices/resourcesApiSlice'
 import slugify from 'slugify'
-// import {toast} from 'react-toastify'
+import {toast} from 'react-toastify'
 // import ResourceList from './ResourceList'
 import Loader from '../Loader'
 import LectureUpload from './LectureUpload'
 
 
-const UploadResource = ({hideUploadContent}) => {
+const UploadResource = ({hideUploadContent,setShowUpload}) => {
   
-  const [showUpload, setShowUpload] = useState(false)
+  // const [showUpload, setShowUpload] = useState(false)
   const [showFileUpload, setShowFileUpload] = useState(false)
   const [monthlyTag, setMonthlyTag] = useState("")
   const [resourceTitle, setResourceTitle] = useState("")
@@ -208,6 +208,11 @@ const UploadResource = ({hideUploadContent}) => {
     setMonth(e.target.value)
   }
 
+  const showUploadPanHandler = () => {
+    setShowUploadPan(true);
+    setTempFiles([])
+  }
+
 
   const publishHandler = async (status) => {
 
@@ -226,36 +231,31 @@ const UploadResource = ({hideUploadContent}) => {
       image:resourceImage,
       lectures,
       slug,
-      status
+      status,
+      monthlyTag,
+      month,
+
     }
 
     console.log("resoruceData", resoruceData)
-    
 
-    
     try {
       const resData = await createResource(resoruceData).unwrap();
       console.log("resData",resData)
       toast.success(`Solution ${resourceTitle} has been created successfully!`)
-      setShowUpload(false)
+      // setShowUpload(false)
     } catch (error) {
-
       console.log("Error",error)
       if(error?.data?.error?.code == 11000){
         toast.error("There is alreay a solution with same title. Please try changing Solution Title.")
       }else{
-        //toast.error(error.data.message)
+        toast.error(error.data.message)
       }
     } finally{
       setShowLoader(false)
       setShowUpload(false)
-
     }
 
-
-    
-  
-    
   }
 
   const showUploadContent = () => {
@@ -349,11 +349,12 @@ const UploadResource = ({hideUploadContent}) => {
               
             </div>
 
-            {lectures.map((lecture, index) => <LectureUpload fileChangeHandler={fileChangeHandler} key={index} lecture={lecture} index={index} uploadFileHandler={uploadFileHandler} lectureChangeHandler={lectureChangeHandler} tempFiles={tempFiles} showUploadPan={showUploadPan} setShowUploadPan={setShowUploadPan} removeTempFile={removeTempFile} />)}
+            {lectures.map((lecture, index) => <LectureUpload fileChangeHandler={fileChangeHandler} key={index} lecture={lecture} index={index} uploadFileHandler={uploadFileHandler} lectureChangeHandler={lectureChangeHandler} tempFiles={tempFiles} showUploadPanHandler={showUploadPanHandler} showUploadPan={showUploadPan} setShowUploadPan={setShowUploadPan} removeTempFile={removeTempFile} />)}
           
 
 
           </form>
+
           <div className="flex justify-between">
             <div className="">
               <div onClick={hideUploadContent}  className="border h-11 flex items-center px-5 rounded-[100px] cursor-pointer">Cancel</div>

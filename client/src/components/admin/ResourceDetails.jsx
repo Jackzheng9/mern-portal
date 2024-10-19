@@ -5,6 +5,7 @@ import ArrowLeft from '../../assets/arrow-left.svg'
 import PencilWhite from '../../assets/pencil-white.svg'
 import { Link } from 'react-router-dom';
 import Loader from '../Loader';
+import ResourceDetailsContent from './ResourceDetailsContent';
 
 
 const ResourceDetails = () => {
@@ -35,12 +36,16 @@ const ResourceDetails = () => {
       
 
       <div className="content mt-8">
-        <p className="font-semibold mb-2">{data.resource.title}</p>
+        <ResourceDetailsContent resource={data} />
+        
+
+
+        {/* <p className="font-semibold mb-2">{data.resource.title}</p>
         <p className="text-[#B0B0B0] mb-5">{data.resource.description}</p>
         <p className="text-[#B0B0B0] mb-5">Short Description: {data.resource.shortDesc}</p>
         <img className='w-full' src={data.resource.image} alt="" />
 
-        <p className="font-medium text-lg mt-5 mb-10 ">Benefits</p>
+        <p className="font-medium text-lg mt-5 mb-10 ">Benefits</p> */}
 
         {/* {data.solution.benefits.map(benefit => <div key={benefit.title} className='mb-6'>
           <img className='mb-2' src={benefit.image} alt="" />

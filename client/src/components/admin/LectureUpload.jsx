@@ -7,7 +7,7 @@ import X from '../../assets/Close-dimmed.svg'
 import Video from '../../assets/Video.svg'
 import PDF from '../../assets/PDF.svg'
 
-const LectureUpload = ({lecture,tempFiles, index,fileChangeHandler,lectureChangeHandler,uploadFileHandler,showUploadPan, setShowUploadPan, removeTempFile}) => {
+const LectureUpload = ({lecture,tempFiles, index,fileChangeHandler,lectureChangeHandler,uploadFileHandler,showUploadPan, setShowUploadPan, removeTempFile, showUploadPanHandler}) => {
 
   const [showLoader, setShowLoader] = useState(false)
   
@@ -21,7 +21,7 @@ const LectureUpload = ({lecture,tempFiles, index,fileChangeHandler,lectureChange
     <div className="px-4 mb-4" key={index}>
                 
       <div className="mb-4">
-        <div  onClick={() => setShowUploadPan(true)} className="flex gap-2">
+        <div  onClick={showUploadPanHandler} className="flex gap-2">
           <label className='inline-flex cursor-pointer gap-4 items-center text-primary-blue border border-primary-blue h-11 pl-6 pr-5 rounded-[100px]'> <img src={ArrowUpBlue} alt="" /> Upload Video or PDF</label>
           
         </div>

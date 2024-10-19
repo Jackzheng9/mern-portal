@@ -263,7 +263,7 @@ const Resources = () => {
 
       <ResourceList showUpload={showUploadContent} />
 
-      {showUpload && <UploadResource hideUploadContent={hideUploadContent} />}
+      {showUpload && <UploadResource setShowUpload={setShowUpload} hideUploadContent={hideUploadContent} />}
 
     </div>
   )

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Outlet, NavLink } from "react-router-dom";
 import BlueLogo from '../../assets/LogoBlue.svg'
 import Settings from '../../assets/settings.svg'
@@ -11,9 +11,21 @@ import CalIcon from '../../assets/cal-icon.svg'
 import TermsIcon from '../../assets/terms-icon.svg'
 import InfoIcon from '../../assets/info-circle.svg'
 import KeyIcon from'../../assets/key-icon.svg'
+import { logOut } from '../../slices/authSlice';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 
 const AdminLayout = () => {
+  const [showUserOptions, setShowUserOptions] = useState(false)
+  const [reload, setReload] = useState(false)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const logOutHandler = () => {
+    dispatch(logOut())
+    navigate('/login')
+  }
+
   return (
     <>
       <div className="admin_container mx-auto px-[40px] max-w-[1480px]">
@@ -25,7 +37,12 @@ const AdminLayout = () => {
               <div className="cursor-pointer "><img src={Settings} alt="" /></div>
               <div className="cursor-pointer "><img src={Notification} alt="" /></div>
             </div>
-            <div className="cursor-pointer "><img className='w-10' src={User} alt="" /></div>
+            <div className="cursor-pointer relative">
+              <img className='w-10' src={User} alt="" />
+              <ul className="user_dropdown absolute top-[100%] p-2 mt-2 rounded bg-gray-600">
+                <li onClick={logOutHandler} className=''>Logout</li>
+              </ul>
+            </div>
           </div>
         </div>
 
