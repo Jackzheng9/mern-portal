@@ -10,7 +10,7 @@ const getAdminAllResources = async (req,res) => {
 
 
 const createResource = async (req, res) => {
-  const { title, description, shortDesc, image, lectures,status, slug } = req.body;
+  const { title, description, shortDesc, image, imgName, lectures,status, slug,tag, month } = req.body;
   // console.log("Body Data", title, description, image, benefits, workflows, tools, features, category,status, slug);
  
   try {
@@ -18,7 +18,7 @@ const createResource = async (req, res) => {
       throw new Error("Resource title must not be empty!")
     }
 
-    const newResource = await Resource.create({ title, description, shortDesc, image, lectures,status, slug });
+    const newResource = await Resource.create({ title, description, shortDesc, image, imgName, lectures,status, slug,tag, month });
     res.status(201).json({ message: "New solution created!", resource: newResource });
   } catch (error) {
     if (error instanceof MongooseError) {
@@ -26,6 +26,49 @@ const createResource = async (req, res) => {
     } else {
       res.status(500).json({ message: error.message, error:error });
     }
+  } 
+
+
+
+}
+
+
+const editResource = async (req, res) => {
+  const { id, title, description, shortDesc, image,imgName, lectures,status, slug,tag, month } = req.body;
+  console.log("Body Data", id, title, description, shortDesc, image,imgName, lectures,status, slug,tag, month);
+ 
+  try {
+
+    if(!id){
+      throw new Error("Post ID is a must!")
+    }
+    const resource = await Resource.findById(id)
+    
+    console.log("Resoruce found!", resource)
+
+    resource.title = title || resource.title;
+    resource.description = description|| resource.description;
+    resource.shortDesc = shortDesc|| resource.shortDesc;
+    resource.image = image|| resource.image;
+    resource.imgName = imgName|| resource.imgName;
+    resource.lectures = lectures|| resource.lectures;
+    resource.status = status|| resource.status;
+    resource.slug = slug|| resource.slug;
+    resource.tag = tag || resource.tag;
+    resource.month = month || resource.month;
+
+    const updatedResource = await resource.save();
+    res.status(201).json({ message: "Successfully updated!", resource: updatedResource });
+
+
+  } catch (error) {
+
+    if (error instanceof MongooseError) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: error.message, error });
+    }
+
   } 
 
 
@@ -97,4 +140,4 @@ const editSolution = async (req,res) => {
   
 }
 */
-export { getAdminAllResources, createResource,getResourceBySlug };
+export { getAdminAllResources, createResource,getResourceBySlug, editResource };

@@ -38,7 +38,14 @@ export const resourceApiSlice = apiSlice.injectEndpoints({
       providesTags: ['Resources'],
     }),
 
-
+    editResource: builder.mutation({
+      query : (data) =>({
+        url:`/api/resources/edit`,
+        method: "POST",
+        body:data
+      }),
+      invalidatesTags: ['Resources'],
+    }),
 
 
 
@@ -49,4 +56,4 @@ export const resourceApiSlice = apiSlice.injectEndpoints({
 })
 
 
-export const {useGetSignatureMutation, useCreateResourceMutation, useGetResourceQuery, useGetResourceBySlugQuery} = resourceApiSlice;
+export const {useGetSignatureMutation, useCreateResourceMutation, useGetResourceQuery, useGetResourceBySlugQuery, useEditResourceMutation} = resourceApiSlice;

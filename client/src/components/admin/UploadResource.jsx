@@ -42,7 +42,6 @@ const UploadResource = ({hideUploadContent,setShowUpload}) => {
     console.log(e.target.files[0])
     const data = new FormData();
     data.append('file', e.target.files[0]);
-    // data.append('upload_preset', 'ey3f99zw');
     
     data.append('upload_preset',upload_preset );
     data.append('cloud_name',cloud_name);
@@ -138,7 +137,8 @@ const UploadResource = ({hideUploadContent,setShowUpload}) => {
         console.log("Current Lectures", currentLecture)
         let curFiles = currentLecture[index].files
         console.log("Current files", curFiles)
-        let newFiles = [...curFiles, {url:uploaded.url, assetType:uploaded.resource_type}]
+        let newFiles = [...curFiles, {url:uploaded.url, assetType:uploaded.format, assetName:uploaded.
+          display_name}]
         currentLecture[index].files = newFiles;
         setLectures(currentLecture)
         setShowUploadPan(false)
@@ -149,7 +149,8 @@ const UploadResource = ({hideUploadContent,setShowUpload}) => {
         console.log("Uploaded file:", uploaded)
         let currentLecture = [...lectures]
         let curFiles = currentLecture[index].files
-        let newFiles = [...curFiles, {url:uploaded.url, assetType:uploaded.resource_type}]
+        let newFiles = [...curFiles, {url:uploaded.url, assetType:uploaded.resource_type,assetName:uploaded.
+          display_name}]
         currentLecture[index].files = newFiles;
         setLectures(currentLecture)  
         setShowUploadPan(false)      
@@ -232,7 +233,7 @@ const UploadResource = ({hideUploadContent,setShowUpload}) => {
       lectures,
       slug,
       status,
-      monthlyTag,
+      tag:monthlyTag,
       month,
 
     }

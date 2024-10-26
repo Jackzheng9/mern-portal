@@ -14,7 +14,8 @@ const LectureUpload = ({lecture,tempFiles, index,fileChangeHandler,lectureChange
   const cloud_name = import.meta.env.VITE_CLOUD_NAME;
   const upload_preset = import.meta.env.VITE_UPLOAD_PRESET;
 
-
+  console.log("lecture",lecture)
+  console.log("tempFiles",tempFiles)
 
 
   return (
@@ -25,6 +26,10 @@ const LectureUpload = ({lecture,tempFiles, index,fileChangeHandler,lectureChange
           <label className='inline-flex cursor-pointer gap-4 items-center text-primary-blue border border-primary-blue h-11 pl-6 pr-5 rounded-[100px]'> <img src={ArrowUpBlue} alt="" /> Upload Video or PDF</label>
           
         </div>
+        {lecture.files.map(file => {
+          return <li>{file.assetName}</li>
+        })}
+        
         
 
         {showUploadPan && (
