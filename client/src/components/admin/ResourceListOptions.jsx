@@ -107,7 +107,7 @@ const ResourceListOptions = ({resource}) => {
                 alt=""
               />
             </div>
-            <p className="text-lg font-semibold mb-1">Accept request</p>
+            <p className="text-lg font-semibold mb-1">Publish Resource?</p>
             <p className="text-[#B0B0B0] text-sm">
               Are you sure you want to to make this resource published?
             </p>
@@ -140,9 +140,9 @@ const ResourceListOptions = ({resource}) => {
                 alt=""
               />
             </div>
-            <p className="text-lg font-semibold mb-1">Reject request</p>
+            <p className="text-lg font-semibold mb-1">Unpublish Resource?</p>
             <p className="text-[#B0B0B0] text-sm">
-              Are you sure you want to make this soltion Draft? 
+              Are you sure you want to make this resource Draft? 
             </p>
             <div className="flex gap-4 mt-8">
               <div

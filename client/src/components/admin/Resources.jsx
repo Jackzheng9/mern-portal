@@ -14,6 +14,10 @@ import {toast} from 'react-toastify'
 import ResourceList from './ResourceList'
 import Loader from '../Loader'
 import UploadResource from './UploadResource'
+import { useDispatch, useSelector } from 'react-redux'
+import { setSearchTerm } from '../../slices/ResourceListslice'
+
+
 
 const Resources = () => {
 
@@ -29,6 +33,15 @@ const Resources = () => {
   const [lectures, setLectures] = useState([{title:"", desc:"", files:[], image:"", imgName:""}])
   const [tempFiles, setTempFiles] = useState([])
   const [showLoader, setShowLoader] = useState(false)
+
+  const dispatch = useDispatch();
+  
+
+  
+
+
+
+
 
   const cloud_name = import.meta.env.VITE_CLOUD_NAME;
   const upload_preset = import.meta.env.VITE_UPLOAD_PRESET;
@@ -229,6 +242,12 @@ const Resources = () => {
 
   const hideUploadContent = () => setShowUpload(false)
 
+  const searchTextChangeHandler = (e) => {
+    const searchText = e.target.value;
+    // console.log("searchText", searchText)
+    dispatch(setSearchTerm(searchText))
+  }
+
   return (
     <div className='px-6 relative'>
       <div className="flex items-center justify-between">
@@ -241,16 +260,11 @@ const Resources = () => {
 
       {showLoader && <Loader />}
       
-
-
-
-      
-
       <div className="flex justify-between mt-8">
         <form action="">
           <div className="relative">
             <img className='absolute left-[14px] top-[12px] ' src={SearchIcon} alt="" />
-            <input className='searchBordered h-11 bg-transparent rounded-lg pl-11' placeholder="Search" type="text" />
+            <input onChange={searchTextChangeHandler} className='searchBordered h-11 bg-transparent rounded-lg pl-11' placeholder="Search" type="text" />
           </div>
         </form>
 

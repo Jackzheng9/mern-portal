@@ -2,10 +2,10 @@ import FolderIcon from '../../assets/FolderIcon.svg'
 import BluePlus from '../../assets/BluePlus.svg'
 import { useState,useEffect } from 'react'
 import { useGetResourceQuery } from '../../slices/resourcesApiSlice'
-
 import ResourceListItem from './ResourceListItem';
-
 import Loader from '../Loader'
+import { useSelector } from 'react-redux';
+
 
 
 const ResourceList = ({showUpload}) => {
@@ -14,12 +14,16 @@ const ResourceList = ({showUpload}) => {
   const [loading, setLoading] = useState(true)
   const {data, isLoading, isError} = useGetResourceQuery();
   console.log("data",data);
-
- 
+  const searchTerm = useSelector(state => state.resourceFilter.searchTerm)
+ console.log("searchTerm", searchTerm)
 
   useEffect(() => {
     console.log("Use Effect working!")
   },[])
+
+  const searchFilterHandler = (resource) => {
+    return resource?.title?.toLowerCase()?.includes(searchTerm.toLowerCase());
+  }
 
 
   return (
@@ -48,7 +52,7 @@ const ResourceList = ({showUpload}) => {
 
         </div>
 
-        {data.resources.map(resource => <ResourceListItem key={resource._id} resource={resource} />)}
+        {data.resources.filter(searchFilterHandler).map(resource => <ResourceListItem key={resource._id} resource={resource} />)}
 
 
       </> }

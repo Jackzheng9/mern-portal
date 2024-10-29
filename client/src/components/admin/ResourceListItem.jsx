@@ -1,6 +1,7 @@
 import React from 'react'
 import ResourceListOptions from './ResourceListOptions'
 import dayjs from 'dayjs'
+import { Months } from '../../utils/months'
 
 const ResourceListItem = ({resource}) => {
 
@@ -9,14 +10,16 @@ const ResourceListItem = ({resource}) => {
     return formattedDate;
   };
 
+  
+
 
   return (
     <div className="flex items-center py-5">
 
       <div className=" flex items-center gap-4 grow-[2] basis-0"><img src={resource.image} className='w-8 h-8' alt="" /><p className="">{resource.title}</p></div>
       <div className="grow basis-0">{resource.status}</div>
-      <div className="grow basis-0">{formatDate(resource.createdAt)} </div>
-      <div className="grow basis-0">{resource.category}</div>
+      <div className="grow basis-0">{Months[resource.month]} </div>
+      <div className="grow basis-0">{resource.tag}</div>
       <ResourceListOptions resource={resource} />
       
     </div> 
