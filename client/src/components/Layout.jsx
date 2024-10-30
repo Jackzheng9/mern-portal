@@ -1,12 +1,31 @@
-import React from 'react'
-import { Outlet, Link, NavLink } from "react-router-dom";
+import React, { useState } from 'react'
+import { Outlet, Link, NavLink, useNavigate } from "react-router-dom";
 import Logo from '../assets/logo.svg'
 import Settings from '../assets/settingsGray.svg'
 import Twitter from '../assets/twitter.svg'
 import LinkedIn from '../assets/linkedIn.svg'
 import Notification from '../assets/notificationGray.svg'
+import { logOut } from '../slices/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 const Layout = () => {
+  // const user = useSelector(state => state.auth.userInfo)
+  // console.log("User", user)
+
+  const [showAccOptions, setShowAccOptions] = useState(false)
+
+  const accountOptionsHandler = () => {
+    setShowAccOptions(!showAccOptions)
+  }
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    dispatch(logOut())
+    navigate('/login')
+  }
+
   return (
     <>
 
@@ -27,7 +46,16 @@ const Layout = () => {
                 <li><NavLink to=""><div className="header_cta bg-primary-blue rounded-[100px] px-6 h-12 flex items-center">Let's Build</div></NavLink></li>
                 <li><NavLink to=""><img src={Settings} alt="" /></NavLink></li>
                 <li><NavLink to=""><img src={Notification} alt="" /></NavLink></li>
-                <li><div className="initials bg-dark-blue text-lg font-medium h-12 w-12 rounded-[100px] flex items-center justify-center">MG</div></li>
+                <li className='relative'>
+                  <div onClick={accountOptionsHandler} className="initials bg-dark-blue text-lg font-medium h-12 w-12 rounded-[100px] flex items-center justify-center cursor-pointer">MG</div>
+                  {showAccOptions && (
+                    <ul className="absolute top-[100%] w-full l-0">
+                      <li onClick={logoutHandler} className='cursor-pointer'>Logout</li>
+                    </ul>
+
+                  )}
+                  
+                </li>
               </ul>
             </div>
             

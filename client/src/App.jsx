@@ -22,6 +22,7 @@ import EditSolution from './components/admin/EditSolution';
 import UserSolutionDetails from './components/UserSolutionDetails';
 import Resources from './components/admin/Resources';
 import ResourceDetails from './components/admin/ResourceDetails';
+import UserResourceDetails from './components/UserResourceDetails';
 
 
 function App() {
@@ -36,7 +37,8 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/solutions" element={<UserSolutions />} />
             <Route path="/solutions/:slug" element={<UserSolutionDetails />} />         
-            <Route path="/resources" element={<UserResources />} />         
+            <Route path="/resources" element={<UserResources />} />       
+            <Route path="/resources/:slug" element={<UserResourceDetails />} />       
 
             
             {/* <Route path="*" element={<NoPage />} /> */}

@@ -37,7 +37,7 @@ body{
   }
 }
 
-.container{max-width: 1280px; display: block; margin-left:auto; margin-right: auto;}
+.container{max-width: 1320px; display: block; margin-left:auto; margin-right: auto; padding-left: 20px; padding-right: 20px;}
 input.onboarding:checked + label img.normal{display: none !important;}
 input.onboarding:checked + label img.selected{display: block !important;}
 input.onboarding + label img.selected{display: none !important;}

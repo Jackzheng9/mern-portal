@@ -56,6 +56,10 @@ const userSchema = mongoose.Schema({
   achieveArea:{
     type:String,
   },
+  completedFiles:{
+    type:[{}],
+  },
+
 },{timestamps: true})
 
 

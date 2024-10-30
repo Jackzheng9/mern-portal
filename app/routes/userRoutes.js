@@ -1,6 +1,6 @@
 import express from 'express'
 import nodemailer from 'nodemailer';
-import { registerUser,userEditAdmin,userLogin,getAllUsers,getUserById,getUserByEmail,editUser,userSetPassword } from '../controllers/userController.js';
+import { registerUser,userEditAdmin,userLogin,getAllUsers,getUserById,getUserByEmail,editUser,userSetPassword, addFileToUser,removeFileFromUser } from '../controllers/userController.js';
 import protect from '../middlewares/authMiddleWare.js';
 
 const userRouter = express.Router()
@@ -16,6 +16,8 @@ userRouter.post('/admin/useredit',protect,userEditAdmin)
 userRouter.get('/admin/users',protect,getAllUsers)
 userRouter.get('/admin/users/:id',protect,getUserById)
 userRouter.post('/getUser', getUserByEmail)
+userRouter.post('/addfile',protect, addFileToUser)
+userRouter.post('/removefile',protect, removeFileFromUser)
 
 userRouter.get('/email',(req,res) => {
 

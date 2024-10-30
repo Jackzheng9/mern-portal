@@ -57,6 +57,22 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body:data
       })
     }),
+    addFiletoUser:builder.mutation({
+      query:(data) => ({
+        url:`${USERS_URL}/addfile`,
+        method: "POST",
+        body:data
+      }),
+      invalidatesTags: ['User'],
+    }),
+    removeFileFromUser:builder.mutation({
+      query:(data) => ({
+        url:`${USERS_URL}/removefile`,
+        method: "POST",
+        body:data
+      }),
+      invalidatesTags: ['User'],
+    }),
     setUserPass:builder.mutation({
       query:(data) => ({
         url:`${USERS_URL}/setpassword`,
@@ -69,4 +85,4 @@ export const userApiSlice = apiSlice.injectEndpoints({
 })
 
 
-export const {useRegisterMutation, useLoginMutation, useGetUsersQuery, useGetUserByIdQuery, useEditUserMutation, useLazyGetUserByIdQuery, useGetUserByEmailMutation, useEditUserAdminMutation, useSetUserPassMutation } = userApiSlice;
+export const {useRegisterMutation, useLoginMutation, useGetUsersQuery, useGetUserByIdQuery, useEditUserMutation, useLazyGetUserByIdQuery, useGetUserByEmailMutation, useEditUserAdminMutation, useSetUserPassMutation, useAddFiletoUserMutation, useRemoveFileFromUserMutation } = userApiSlice;

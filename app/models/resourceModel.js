@@ -18,6 +18,9 @@ const ResourceSchema = mongoose.Schema({
   month:{
     type:String,
   },
+  year:{
+    type:String,
+  },
   image:{
     type:String,
   },

@@ -57,7 +57,9 @@ const userLogin = async (req,res) => {
         role:user.role,
         status:user.status,
         phone:user.phone,
-        company:user.company
+        company:user.company,
+        status:user.status,
+        completedFiles:user.completedFiles,
       })
     }else{
       throw new Error('Invalid email or password')
@@ -197,6 +199,71 @@ const editUser = async (req,res) => {
   
 }
 
+
+const addFileToUser = async (req,res) => {
+  console.log("Add Lecture hitted!")
+  const {user:jwtuser} = req
+  //console.log("auth user", jwtuser)
+  const {file} = req.body
+  console.log("Requested File",File);
+  
+  try {
+    const user = await User.findOne({email:jwtuser.email})
+    if(user){
+      if(user.status == 'pending'){
+        throw new Error("Your account is not approved yet! Contact an Admin.")
+      }
+      user.completedFiles = [...user.completedFiles, file];
+
+      //user.password = req.body.password;
+      const updatedUser = await user.save();
+  
+      res.status(200).json({
+        _id: updatedUser._id,
+        completedFiles: updatedUser.completedFiles,        
+      })
+    }else{
+      throw new Error("Something went wrong!")
+    }
+  } catch (error) {
+    res.status(401).json({message:error.message})
+  }
+  
+}
+
+
+const removeFileFromUser = async (req,res) => {
+  console.log("Remove file hitted!")
+  const {user:jwtuser} = req
+  //console.log("auth user", jwtuser)
+  const {fileId} = req.body
+  console.log("Remove File",fileId);
+  
+  try {
+    const user = await User.findOne({email:jwtuser.email})
+    if(user){
+      if(user.status == 'pending'){
+        throw new Error("Your account is not approved yet! Contact an Admin.")
+      }
+      const newFiles = [...user.completedFiles].filter(file => file.fileId !== fileId)
+      console.log("Newfiles", newFiles)
+      user.completedFiles = newFiles;
+      //user.password = req.body.password;
+      const updatedUser = await user.save();
+  
+      res.status(200).json({
+        _id: updatedUser._id,
+        completedFiles: updatedUser.completedFiles,        
+      })
+    }else{
+      throw new Error("Something went wrong!")
+    }
+  } catch (error) {
+    res.status(401).json({message:error.message})
+  }
+  
+}
+
 const getAllUsers = async (req,res) => {
   const {user} = req
   try {
@@ -288,4 +355,4 @@ const userSetPassword = async (req, res) => {
 
 }
 
-export {registerUser,userEditAdmin,userLogin, getAllUsers,getUserById, getUserByEmail, editUser, userSetPassword}
+export {registerUser,userEditAdmin,userLogin, getAllUsers,getUserById, getUserByEmail, editUser, userSetPassword, addFileToUser, removeFileFromUser}

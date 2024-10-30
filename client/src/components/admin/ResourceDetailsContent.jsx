@@ -6,6 +6,7 @@ import { useEditResourceMutation } from '../../slices/resourcesApiSlice'
 import Loader from '../Loader'
 import { toast } from 'react-toastify'
 import ResourceLectureDetails from './ResourceLectureDetails'
+import dayjs from 'dayjs'
 
 
 const ResourceDetailsContent = ({resource}) => {
@@ -18,13 +19,27 @@ const ResourceDetailsContent = ({resource}) => {
   const [tag, setTag ] = useState(resource.tag)
   const [lectures, setLectures ] = useState(resource.lectures)
   const [month, setMonth ] = useState(resource.month)
+  const [year, setYear ] = useState(resource.year)
   const [showLoader ,setShowLoader] = useState(false)
   const [showTitleEdit, setShowTitleEdit] = useState(false)
   const [tempFiles, setTempFiles] = useState([])
   const [showUploadPan, setShowUploadPan ] = useState(false)
   const [showSave, setShowSave] = useState(false)
 
+  const currentYear = dayjs().year();
+  const startYear =  currentYear - 5;
+  const endYear =  currentYear + 10;
 
+  console.log("currentYear", currentYear)
+  console.log("year", year)
+  console.log("start", startYear)
+  console.log("end", endYear)
+
+  const yearOptions = [];
+  for (let i = startYear; i <= endYear; i++) {
+    yearOptions.push(<option key={i} value={i}>{i}</option>);
+  }
+  console.log("yearOptions", yearOptions)
 
   const cloud_name = import.meta.env.VITE_CLOUD_NAME;
   const upload_preset = import.meta.env.VITE_UPLOAD_PRESET;
@@ -225,7 +240,8 @@ const ResourceDetailsContent = ({resource}) => {
       imgName,
       lectures,
       tag,
-      month
+      month,
+      year
 
     }
 
@@ -342,6 +358,13 @@ const ResourceDetailsContent = ({resource}) => {
                 <option value="9">October</option>
                 <option value="10">November</option>
                 <option value="11">December</option>
+              </select>
+            </div>
+
+            <div className="inputGroup flex flex-col gap-1.5 mb-7">
+              <label htmlFor="year">Year</label>
+              <select value={year} onChange={(e) => setYear(e.target.value)} name="year" id="year" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow'>
+                {yearOptions}
               </select>
             </div>
 

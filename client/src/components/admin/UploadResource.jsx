@@ -14,6 +14,7 @@ import {toast} from 'react-toastify'
 // import ResourceList from './ResourceList'
 import Loader from '../Loader'
 import LectureUpload from './LectureUpload'
+import dayjs from 'dayjs'
 
 
 const UploadResource = ({hideUploadContent,setShowUpload}) => {
@@ -23,6 +24,7 @@ const UploadResource = ({hideUploadContent,setShowUpload}) => {
   const [monthlyTag, setMonthlyTag] = useState("")
   const [resourceTitle, setResourceTitle] = useState("")
   const [month, setMonth] = useState("")
+  const [year, setYear] = useState("")
   const [resourceDescription, setResourceDescription] = useState("")
   const [resShortDescription, setResShortDescription] = useState("")
   const [resourceImage, setResourceImage] = useState('')
@@ -32,6 +34,11 @@ const UploadResource = ({hideUploadContent,setShowUpload}) => {
   const [showLoader, setShowLoader] = useState(false)
   const [showUploadPan, setShowUploadPan] = useState(false)
   
+
+  const currentYear = dayjs().year();
+  const years = Array.from({ length: 5 }, (_, i) => currentYear + i);
+  
+
 
   const cloud_name = import.meta.env.VITE_CLOUD_NAME;
   const upload_preset = import.meta.env.VITE_UPLOAD_PRESET;
@@ -205,8 +212,11 @@ const UploadResource = ({hideUploadContent,setShowUpload}) => {
   const [createResource, {isLoading, isError}] = useCreateResourceMutation()
 
   const monthChangeHandler = (e) => {
-    console.log("month changed:", e.target.value)
+    // console.log("month changed:", e.target.value)
     setMonth(e.target.value)
+  }
+  const yearChangeHandler = (e) => {
+    setYear(e.target.value)
   }
 
   const showUploadPanHandler = () => {
@@ -235,6 +245,7 @@ const UploadResource = ({hideUploadContent,setShowUpload}) => {
       status,
       tag:monthlyTag,
       month,
+      year,
 
     }
 
@@ -327,6 +338,14 @@ const UploadResource = ({hideUploadContent,setShowUpload}) => {
               </select>
             </div>
 
+            <div className="inputGroup flex flex-col gap-1.5 mb-7">
+              <label htmlFor="year">Year</label>
+              <select onChange={yearChangeHandler} id="year" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow'>
+                {years.map(year => (
+                  <option key={year} value={year}>{year}</option>
+                ))}
+              </select>
+            </div>
 
 
             <div className="inputGroup flex flex-col gap-1.5 mb-5">

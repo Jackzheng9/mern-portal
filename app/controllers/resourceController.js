@@ -10,7 +10,7 @@ const getAdminAllResources = async (req,res) => {
 
 
 const createResource = async (req, res) => {
-  const { title, description, shortDesc, image, imgName, lectures,status, slug,tag, month } = req.body;
+  const { title, description, shortDesc, image, imgName, lectures,status, slug,tag, month, year } = req.body;
   // console.log("Body Data", title, description, image, benefits, workflows, tools, features, category,status, slug);
  
   try {
@@ -18,7 +18,7 @@ const createResource = async (req, res) => {
       throw new Error("Resource title must not be empty!")
     }
 
-    const newResource = await Resource.create({ title, description, shortDesc, image, imgName, lectures,status, slug,tag, month });
+    const newResource = await Resource.create({ title, description, shortDesc, image, imgName, lectures,status, slug,tag, month, year });
     res.status(201).json({ message: "New solution created!", resource: newResource });
   } catch (error) {
     if (error instanceof MongooseError) {
@@ -34,8 +34,10 @@ const createResource = async (req, res) => {
 
 
 const editResource = async (req, res) => {
-  const { id, title, description, shortDesc, image,imgName, lectures,status, slug,tag, month } = req.body;
-  console.log("Body Data", id, title, description, shortDesc, image,imgName, lectures,status, slug,tag, month);
+  const { id, title, description, shortDesc, image,imgName, lectures,status, slug,tag, month, year } = req.body;
+  // console.log("Body Data", id, title, description, shortDesc, image,imgName, lectures,status, slug,tag, month, year);
+
+  console.log("year", year)
  
   try {
 
@@ -44,7 +46,7 @@ const editResource = async (req, res) => {
     }
     const resource = await Resource.findById(id)
     
-    console.log("Resoruce found!", resource)
+    // console.log("Resoruce found!", resource)
 
     resource.title = title || resource.title;
     resource.description = description|| resource.description;
@@ -56,6 +58,7 @@ const editResource = async (req, res) => {
     resource.slug = slug|| resource.slug;
     resource.tag = tag || resource.tag;
     resource.month = month || resource.month;
+    resource.year = year || resource.year;
 
     const updatedResource = await resource.save();
     res.status(201).json({ message: "Successfully updated!", resource: updatedResource });
@@ -140,4 +143,4 @@ const editSolution = async (req,res) => {
   
 }
 */
-export { getAdminAllResources, createResource,getResourceBySlug, editResource };
+export { getAdminAllResources, createResource, getResourceBySlug, editResource };

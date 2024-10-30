@@ -10,11 +10,4 @@ resourceRouter.post('/newresource',createResource)
 resourceRouter.get('/:slug',getResourceBySlug)
 resourceRouter.post('/edit',editResource)
 
-// solutionRouter.get('/', isAdmin, getAdminAllSolution)
-// solutionRouter.get('/all', protect, getAllSolution)
-// solutionRouter.get('/:slug',protect, getSolutionBySlug)
-// solutionRouter.post('/edit',isAdmin, editSolution)
-
-// solutionRouter.post('/newsolution', createSolution)
-
 export default resourceRouter;

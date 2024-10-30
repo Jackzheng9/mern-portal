@@ -27,6 +27,7 @@ const Home = () => {
     if(!searchParams.get("setpass") && !user.userInfo){
       toast.info("Please login to see the page!")
       navigate('/login')
+      return;
     }
     if(user && ( user.userInfo.role == 'superAdmin' || user.userInfo.role == 'admin') ){
       navigate('/admin/dashboard')
