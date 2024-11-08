@@ -7,13 +7,13 @@ import Loader from './Loader';
 
 
 const NotificaionContent = ({all,read}) => {
-  // console.log("All", all)
-  // console.log("Read", read)
+  console.log("All", all)
+  console.log("Read", read)
   const dispatch = useDispatch();
   const [showLoader, setShowLoader] = useState(false)
 
   const unReadNotifications = all.filter(notification => !read.some(readItem => readItem.notification === notification._id))
-  // console.log("unReadNotifications", unReadNotifications)
+  console.log("unReadNotifications", unReadNotifications)
 
   const [showAllNoti, setShowAllNoti] = useState(true)
   const [editUserMutation ] = useEditUserMutation();
@@ -22,7 +22,7 @@ const NotificaionContent = ({all,read}) => {
     setShowLoader(true)
     console.log("Adding - ", notification)
     const addNoti = await editUserMutation({notification}).unwrap();
-    dispatch(setReadNotifications({notification, readStatus:true}))
+    dispatch(setReadNotifications([{notification, readStatus:true}]))
     console.log("API Res: ", addNoti);
     setShowLoader(false)
   }
@@ -37,7 +37,7 @@ const NotificaionContent = ({all,read}) => {
         <div className="notifications_content">
           <div className="notifications_list_header flex gap-4 items-center mb-6">
             <p onClick={() => setShowAllNoti(true)} className= {`cursor-pointer px-3 py-2  ${showAllNoti ? 'font-bold border-b border-primary-blue' : '' } `}>All</p>
-            <p onClick={() => setShowAllNoti(false)} className={`cursor-pointer px-3 py-2 ${!showAllNoti ? 'font-bold border-b border-primary-blue' : '' }`}>Unread (12)</p>
+            <p onClick={() => setShowAllNoti(false)} className={`cursor-pointer px-3 py-2 ${!showAllNoti ? 'font-bold border-b border-primary-blue' : '' }`}>Unread ({unReadNotifications.length})</p>
           </div>
 
           {showAllNoti && (

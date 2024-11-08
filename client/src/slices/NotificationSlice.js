@@ -15,7 +15,7 @@ const notifiationSlice = createSlice({
       state.allNotifications = action.payload
     },
     setReadNotifications : (state,action) => {
-      state.readNotifications = [...state.readNotifications, action.payload]
+      state.readNotifications = [...state.readNotifications, ...action.payload]
     }
   }
 })
