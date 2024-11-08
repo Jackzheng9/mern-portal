@@ -4,6 +4,7 @@ import apiSlice from "./slices/apiSlice";
 import usersListSliceReducer from "./slices/usersListSlice";
 import solutionListSliceReducer from './slices/SolutionListSlice'
 import resourceListSliceReducer from './slices/ResourceListslice'
+import notificationReducer from './slices/NotificationSlice'
 
 const store = configureStore({
   reducer:{
@@ -12,6 +13,7 @@ const store = configureStore({
     usersFilter:usersListSliceReducer,
     solutionsFilter:solutionListSliceReducer,
     resourceFilter:resourceListSliceReducer,
+    notification:notificationReducer,
   },
   middleware : (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
   devTools:true,

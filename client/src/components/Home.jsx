@@ -15,7 +15,7 @@ const Home = () => {
 
   const navigate = useNavigate();
   const user = useSelector(state => state.auth);
-  console.log("User:", user)
+  // console.log("User:", user)
 
 
   useEffect(() => {

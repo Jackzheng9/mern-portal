@@ -8,14 +8,19 @@ import { useSelector, useDispatch } from 'react-redux'
 import dayjs from 'dayjs'
 import { setCredentials } from '../slices/authSlice'
 import { Link } from 'react-router-dom'
+import { setCurrentFile } from '../slices/ResourceListslice'
+import { useNavigate } from 'react-router-dom'
 
-const UserResourceLectureFile = ({file, year}) => {
+
+
+const UserResourceLectureFile = ({file, year, resource}) => {
   // console.log("file",file)
   const fileId = file._id;
   // console.log("fileId",fileId)
   const curYear = dayjs().year();
   
   const user = useSelector(state => state.auth.userInfo);
+  
   // console.log("User", user)
   
   const [addFiletoUser ,{isLoading: addFileLoading, isError: addFileError}] = useAddFiletoUserMutation();
@@ -47,13 +52,17 @@ const UserResourceLectureFile = ({file, year}) => {
       dispatch( setCredentials(newUserInfo) )
     }
   }
-  const fileDetailsHandler = (fileId) => {
+
+  const navigate = useNavigate()
+  const showFileDetailsHandler = (fileId) => {
     console.log("File ID", fileId)
+    dispatch(setCurrentFile({file, resource}))
+    navigate('/resources/file/')
   }
 
   return (
     <li  className='flex justify-between items-center mb-6'>
-      <div onClick={() => fileDetailsHandler(fileId)} className="cursor-pointer flex gap-2">
+      <div onClick={() => showFileDetailsHandler(fileId)} className="cursor-pointer flex gap-2">
         <img src={file.assetType == 'image' ? PdfIcon : VideoIcon } alt="" />
         <p className="">{file.assetName}</p>
       </div>

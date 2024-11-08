@@ -19,11 +19,18 @@ import { useNavigate } from 'react-router-dom';
 const AdminLayout = () => {
   const [showUserOptions, setShowUserOptions] = useState(false)
   const [reload, setReload] = useState(false)
+
+
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const logOutHandler = () => {
     dispatch(logOut())
     navigate('/login')
+  }
+
+  const userOptionsHandler = () => {
+    setShowUserOptions(!showUserOptions)
   }
 
   return (
@@ -38,10 +45,16 @@ const AdminLayout = () => {
               <div className="cursor-pointer "><img src={Notification} alt="" /></div>
             </div>
             <div className="cursor-pointer relative">
-              <img className='w-10' src={User} alt="" />
-              <ul className="user_dropdown absolute top-[100%] p-2 mt-2 rounded bg-gray-600">
-                <li onClick={logOutHandler} className=''>Logout</li>
-              </ul>
+              <img onClick={userOptionsHandler} className='w-10' src={User} alt="" />
+
+              {showUserOptions && (
+                <ul className="user_dropdown absolute top-[100%] p-2 mt-2 rounded bg-gray-600">
+                  <li onClick={logOutHandler} className=''>Logout</li>
+                </ul>
+              )}
+              
+
+
             </div>
           </div>
         </div>

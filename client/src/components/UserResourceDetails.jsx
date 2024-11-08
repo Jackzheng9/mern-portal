@@ -25,7 +25,7 @@ const UserResourceDetails = () => {
       </section>
 
       <section className="">
-        {resource.lectures.map(lecture => <UserResourceLecture key={lecture._id} lecture={lecture} year={resource.year} />)}
+        {resource.lectures.map(lecture => <UserResourceLecture key={lecture._id} lecture={lecture} year={resource.year} resource={resource} />)}
       </section>
 
 

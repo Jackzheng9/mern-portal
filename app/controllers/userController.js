@@ -146,8 +146,8 @@ const editUser = async (req,res) => {
   console.log("Edit user hitted!")
   const {user:jwtuser} = req
   //console.log("auth user", jwtuser)
-  const {industry,employee,goal,workflow,manualWorks,mainIssue,improveArea,achieveArea,password} = req.body
-  //console.log("req data",industry,employee,goal,workflow,manualWorks,mainIssue,improveArea,achieveArea);
+  const {industry,employee,goal,workflow,manualWorks,mainIssue,improveArea,achieveArea,password,notification} = req.body
+  console.log("User edit req data",industry,employee,goal,workflow,manualWorks,mainIssue,improveArea,achieveArea,notification);
   
   try {
     const user = await User.findOne({email:jwtuser.email})
@@ -167,6 +167,14 @@ const editUser = async (req,res) => {
       user.improveArea = improveArea || user.improveArea ;
       user.achieveArea = achieveArea || user.achieveArea ;
       user.password = password || user.password ;
+      if(notification){
+        user.notifications.push({
+          notification: notification,
+          readStatus: true,
+          //receivedAt: new Date(),
+        });
+      }
+      
       
 
 
@@ -188,6 +196,7 @@ const editUser = async (req,res) => {
         mainIssue: updatedUser.mainIssue,
         improveArea: updatedUser.improveArea,
         achieveArea: updatedUser.achieveArea,
+        notifications: updatedUser.notifications,
         success:true
       })
     }else{
@@ -198,6 +207,7 @@ const editUser = async (req,res) => {
   }
   
 }
+
 
 
 const addFileToUser = async (req,res) => {
@@ -301,6 +311,22 @@ const getUserById = async (req,res) => {
     res.status(401).json({success:false, message:error.message})
   }
 }
+const queryUserByEmail = async (req,res) => {
+  const {user} = req
+  console.log("get usr by Id")
+  try {
+    
+    const email = req.params.email;
+    const user = await User.find({email})
+    res.status(200).json({message:"Success!", user})
+    
+  } catch (error) {
+    res.status(401).json({success:false, message:error.message})
+  }
+}
+
+
+
 const getUserByEmail = async (req,res) => {
   const {email} = req.body
   console.log(email)
@@ -355,4 +381,4 @@ const userSetPassword = async (req, res) => {
 
 }
 
-export {registerUser,userEditAdmin,userLogin, getAllUsers,getUserById, getUserByEmail, editUser, userSetPassword, addFileToUser, removeFileFromUser}
+export {registerUser,userEditAdmin,userLogin, getAllUsers,getUserById, getUserByEmail, editUser, userSetPassword, addFileToUser, removeFileFromUser,queryUserByEmail}

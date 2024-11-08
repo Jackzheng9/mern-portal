@@ -1,19 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Outlet, Link, NavLink, useNavigate } from "react-router-dom";
 import Logo from '../assets/logo.svg'
 import Settings from '../assets/settingsGray.svg'
 import Twitter from '../assets/twitter.svg'
 import LinkedIn from '../assets/linkedIn.svg'
 import Notification from '../assets/notificationGray.svg'
+import NotificationWhite from '../assets/notificationWhite.svg'
+
 import { logOut } from '../slices/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 
+
+import Notifications from './Notifications';
+
+
 const Layout = () => {
-  // const user = useSelector(state => state.auth.userInfo)
-  // console.log("User", user)
+  const user = useSelector(state => state.auth.userInfo)
+  const userEmail = user.email;
 
   const [showAccOptions, setShowAccOptions] = useState(false)
+  const [showNotiPanel, setShowNotiPanel] = useState(false)
+  
 
   const accountOptionsHandler = () => {
     setShowAccOptions(!showAccOptions)
@@ -26,12 +34,59 @@ const Layout = () => {
     navigate('/login')
   }
 
+
+
+  const toggleNotification = () => {
+    setShowNotiPanel(!showNotiPanel)
+  }
+
+  
+  
+  
+  
+  
+
+
+  
+
+
+  
+
+
+
+/*
+  const allItems = [{id:1, title:"Item 1"}, {id:2, title:"Item 2"},{id:3, title:"Item 3"}, {id:4, title:"Item 4"}]
+  const readItems = [{id:1, text:"Item 1"}, {id:3, text:"Item 3"}]
+
+  const notInReadItems = allItems.filter(item => 
+    !readItems.some(readItem => readItem.id === item.id)
+  );
+// console.log("notInReadItems", notInReadItems)
+
+*/
+
+
+
+
+
+  
+  
+ 
+ 
+
+  
+  
+
+
+
+
+
   return (
     <>
 
       <div className="header">
         <div className="container">
-          <div className="flex justify-between gap-2 py-4 items-center">
+          <div className="flex justify-between gap-2 py-4 items-center relative">
             <Link to="/"><img src={Logo} alt="" /></Link>
             <div className="main_menu_wrap">
               <ul className='flex gap-2'>
@@ -45,14 +100,17 @@ const Layout = () => {
               <ul className='flex gap-4 items-center'>
                 <li><NavLink to=""><div className="header_cta bg-primary-blue rounded-[100px] px-6 h-12 flex items-center">Let's Build</div></NavLink></li>
                 <li><NavLink to=""><img src={Settings} alt="" /></NavLink></li>
-                <li><NavLink to=""><img src={Notification} alt="" /></NavLink></li>
+                <li>
+                  {!showNotiPanel && <img onClick={toggleNotification} className="cursor-pointer" src={Notification} alt="" /> }
+                  {showNotiPanel && <img onClick={toggleNotification} className=" cursor-pointer" src={NotificationWhite} alt="" /> }
+                  { showNotiPanel && <Notifications />}
+                </li>
                 <li className='relative'>
                   <div onClick={accountOptionsHandler} className="initials bg-dark-blue text-lg font-medium h-12 w-12 rounded-[100px] flex items-center justify-center cursor-pointer">MG</div>
                   {showAccOptions && (
                     <ul className="absolute top-[100%] w-full l-0">
                       <li onClick={logoutHandler} className='cursor-pointer'>Logout</li>
                     </ul>
-
                   )}
                   
                 </li>

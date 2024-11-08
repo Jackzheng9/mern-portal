@@ -42,13 +42,20 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body:data
       })
     }),
+    queryUserByEmail:builder.query({
+      query:({email}) => ({
+        url:`${USERS_URL}/getuser/${email}`,
+        method: "GET",
+      }),
+      providesTags: ['User'],
+    }),
     editUserAdmin:builder.mutation({
       query:(data) => ({
         url:`${USERS_URL}/admin/useredit`,
         method: "POST",
         body:data
       }),
-      invalidatesTags: ['User'],
+      invalidatesTags: ['User', 'Notifications'],
     }),
     editUser:builder.mutation({
       query:(data) => ({
@@ -85,4 +92,4 @@ export const userApiSlice = apiSlice.injectEndpoints({
 })
 
 
-export const {useRegisterMutation, useLoginMutation, useGetUsersQuery, useGetUserByIdQuery, useEditUserMutation, useLazyGetUserByIdQuery, useGetUserByEmailMutation, useEditUserAdminMutation, useSetUserPassMutation, useAddFiletoUserMutation, useRemoveFileFromUserMutation } = userApiSlice;
+export const {useRegisterMutation, useLoginMutation, useGetUsersQuery, useGetUserByIdQuery, useEditUserMutation, useLazyGetUserByIdQuery, useGetUserByEmailMutation, useEditUserAdminMutation, useSetUserPassMutation, useAddFiletoUserMutation, useRemoveFileFromUserMutation, useQueryUserByEmailQuery } = userApiSlice;

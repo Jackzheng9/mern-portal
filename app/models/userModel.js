@@ -1,5 +1,14 @@
 import mongoose from "mongoose";
 import bcrypt from 'bcryptjs'
+import Notification from "./notificationModel.js";
+
+const userNotificationSchema = new mongoose.Schema({
+  notification: { type: mongoose.Schema.Types.ObjectId, ref: 'Notification', required: true },
+  readStatus: { type: Boolean, default: true },
+  // receivedAt: { type: Date, default: Date.now },
+});
+
+
 
 const userSchema = mongoose.Schema({
   role:{
@@ -59,6 +68,8 @@ const userSchema = mongoose.Schema({
   completedFiles:{
     type:[{}],
   },
+
+  notifications: [userNotificationSchema],
 
 },{timestamps: true})
 
