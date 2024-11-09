@@ -168,15 +168,19 @@ const editUser = async (req,res) => {
       user.achieveArea = achieveArea || user.achieveArea ;
       user.password = password || user.password ;
       if(notification){
-        user.notifications.push({
-          notification: notification,
-          readStatus: true,
-          //receivedAt: new Date(),
-        });
-      }
-      
-      
+        const oldNotifications = user.notifications;
 
+        const isIncluded = oldNotifications.some(noti => noti.notification.toString() === notification);
+        //console.log(isIncluded);
+        if(!isIncluded){
+          user.notifications.push({
+            notification: notification,
+            readStatus: true,
+            //receivedAt: new Date(),
+          });
+        }
+        
+      }
 
       //user.password = req.body.password;
       const updatedUser = await user.save();

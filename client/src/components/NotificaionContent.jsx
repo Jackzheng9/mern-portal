@@ -4,11 +4,14 @@ import { useEditUserMutation } from '../slices/userApiSlice';
 import { useDispatch } from 'react-redux';
 import { setReadNotifications } from '../slices/NotificationSlice';
 import Loader from './Loader';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
 
 const NotificaionContent = ({all,read}) => {
   console.log("All", all)
   console.log("Read", read)
+  dayjs.extend(relativeTime);
   const dispatch = useDispatch();
   const [showLoader, setShowLoader] = useState(false)
 
@@ -44,14 +47,14 @@ const NotificaionContent = ({all,read}) => {
           <div className="notifications_list">
             <ul>
               
-              {all.map(notification => <li onClick={() => addNotiToUser(notification._id) } key={notification._id} className='flex gap-6 items-center justify-between mb-6'>
+              {all.map(notification => <li onClick={() => addNotiToUser(notification._id) } key={notification._id} className='flex gap-6 items-center justify-between mb-6 cursor-pointer'>
                 <div><img src={NotifyIcon} className='min-w-11' alt="" /></div>
                 <div>
                   <p className="noti_title font-semibold text-sm mb-2">{notification.title}</p>
                   <p className="noti_text text-[#BFC0C1] text-xs">{notification.message}</p>
                 </div>
                 <div className="min-w-[55px]">
-                  <p className='text-[#BFC0C1]'>1m ago</p>
+                  <p className='text-[#BFC0C1]'>{dayjs(notification.createdAt).fromNow()}</p>
                 </div>
               </li>)}
 
@@ -66,14 +69,14 @@ const NotificaionContent = ({all,read}) => {
           <div className="notifications_list">
             <ul>
               
-            {unReadNotifications.map(notification => <li key={notification._id} className='flex gap-6 items-center justify-between mb-6'>
+            {unReadNotifications.map(notification => <li key={notification._id} className='flex gap-6 items-center justify-between mb-6 cursor-pointer'>
                 <div><img src={NotifyIcon} className='min-w-11' alt="" /></div>
                 <div>
                   <p className="noti_title font-semibold text-sm mb-2">{notification.title}</p>
                   <p className="noti_text text-[#BFC0C1] text-xs">{notification.message}</p>
                 </div>
                 <div className="min-w-[55px]">
-                  <p className='text-[#BFC0C1]'>1m ago</p>
+                  <p className='text-[#BFC0C1]'>{dayjs(notification.createdAt).fromNow()}</p>
                 </div>
               </li>)}
 
