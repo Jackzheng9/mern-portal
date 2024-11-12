@@ -41,46 +41,6 @@ const Layout = () => {
   }
 
   
-  
-  
-  
-  
-
-
-  
-
-
-  
-
-
-
-/*
-  const allItems = [{id:1, title:"Item 1"}, {id:2, title:"Item 2"},{id:3, title:"Item 3"}, {id:4, title:"Item 4"}]
-  const readItems = [{id:1, text:"Item 1"}, {id:3, text:"Item 3"}]
-
-  const notInReadItems = allItems.filter(item => 
-    !readItems.some(readItem => readItem.id === item.id)
-  );
-// console.log("notInReadItems", notInReadItems)
-
-*/
-
-
-
-
-
-  
-  
- 
- 
-
-  
-  
-
-
-
-
-
   return (
     <>
 
@@ -110,6 +70,8 @@ const Layout = () => {
                   {showAccOptions && (
                     <ul className="absolute top-[100%] w-full l-0">
                       <li onClick={logoutHandler} className='cursor-pointer'>Logout</li>
+                      <li className='cursor-pointer'><Link to="/profile">Profile</Link></li>
+                      <li className='cursor-pointer'><Link to="/settings">Settings</Link></li>
                     </ul>
                   )}
                   

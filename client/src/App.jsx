@@ -24,6 +24,8 @@ import Resources from './components/admin/Resources';
 import ResourceDetails from './components/admin/ResourceDetails';
 import UserResourceDetails from './components/UserResourceDetails';
 import UsrRsrcLectFileDetails from './components/UsrRsrcLectFileDetails';
+import Settings from './components/Settings';
+import Profile from './components/Profile';
 
 function App() {
     
@@ -39,7 +41,9 @@ function App() {
             <Route path="/solutions/:slug" element={<UserSolutionDetails />} />         
             <Route path="/resources" element={<UserResources />} />       
             <Route path="/resources/:slug" element={<UserResourceDetails />} />      
-            <Route path="/resources/file/" element={<UsrRsrcLectFileDetails />} />      
+            <Route path="/resources/file/" element={<UsrRsrcLectFileDetails />} />   
+            <Route path="/settings" element={<Settings />} />  
+            <Route path="/profile" element={<Profile />} />  
 
             
             {/* <Route path="*" element={<NoPage />} /> */}
