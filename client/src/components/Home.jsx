@@ -38,7 +38,8 @@ const Home = () => {
 
   return (
     <>
-      <div className="linkedIn flex gap-11 px-24 py-[22px] bg-[#282828] items-center">
+
+      {/* <div className="linkedIn flex gap-11 px-24 py-[22px] bg-[#282828] items-center">
         <img src={LinkedInImage} alt="" />
         <div className="">
           <h1 className='text-white text-4xl font-semibold mb-4' >Join our LinkedIn community</h1>
@@ -46,7 +47,7 @@ const Home = () => {
           <Link className="font-semibold bg-primary-blue px-6 py-3 rounded-[100px] mt-4 inline-block" to="#" >Join Community</Link>
 
         </div>
-      </div>
+      </div> */}
 
       <div className="tag flex gap-4 items-center mt-11 mb-9">
         <img src={BlueDot} alt="" />

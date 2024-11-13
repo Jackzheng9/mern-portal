@@ -17,7 +17,12 @@ import Notifications from './Notifications';
 
 const Layout = () => {
   const user = useSelector(state => state.auth.userInfo)
-  const userEmail = user.email;
+  console.log("User", user)
+  let userEmail;
+  if(user){
+    userEmail = user.email;
+  }
+  
 
   const [showAccOptions, setShowAccOptions] = useState(false)
   const [showNotiPanel, setShowNotiPanel] = useState(false)

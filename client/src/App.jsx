@@ -26,6 +26,7 @@ import UserResourceDetails from './components/UserResourceDetails';
 import UsrRsrcLectFileDetails from './components/UsrRsrcLectFileDetails';
 import Settings from './components/Settings';
 import Profile from './components/Profile';
+import HomeContent from './components/admin/HomeContent';
 
 function App() {
     
@@ -58,6 +59,7 @@ function App() {
             <Route path="/admin/user/:id" element={<AdminUserDetails />} />
             <Route path="/admin/resources" element={<Resources />} />
             <Route path="/admin/resources/:slug" element={<ResourceDetails />} />
+            <Route path="/admin/home-content" element={<HomeContent />} />
           </Route>
 
 

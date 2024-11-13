@@ -16,7 +16,7 @@ const SoultionList = ({showUpload}) => {
  
 
   useEffect(() => {
-    console.log("Use Effect working!")
+    // console.log("Use Effect working!")
   },[])
 
 

@@ -63,7 +63,7 @@ const AdminLayout = () => {
           <div className="admin_left_bar min-w-[264px] pr-6">
             <ul className="admin_lists flex flex-col gap-2">
               <li><NavLink className={`flex gap-3 font-semibold text-base py-3 px-4 rounded-md `} to="/admin/dashboard"><img src={DashIcon} alt="" />Dashboard</NavLink></li>
-              <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md' to="/admin/homecontent"><img src={HomeIcon} alt="" />Home Content</NavLink></li>
+              <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md' to="/admin/home-content"><img src={HomeIcon} alt="" />Home Content</NavLink></li>
               <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md' to="/admin/solutions/"><img src={SolIcon} alt="" />Manage Solutions</NavLink></li>
               <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md' to="/admin/resources"><img src={CalIcon} alt="" />Monthly Content</NavLink></li>
               <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md' to="/admin/terms"><img src={TermsIcon} alt="" />Terms & Conditions</NavLink></li>
