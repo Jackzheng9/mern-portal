@@ -10,6 +10,8 @@ import solutionRouter from "./routes/solutionRoutes.js";
 import signatureRouter from "./routes/genSignature.js";
 import resourceRouter from "./routes/resourceRoutes.js";
 import notificationRouter from "./routes/notificationRoutes.js";
+import deepDiveRouter from "./routes/deepDive.js";
+
 
 
 const app = express();
@@ -44,6 +46,7 @@ app.use('/api/solutions', solutionRouter);
 app.use('/api/resources', resourceRouter);
 app.use('/api/gensignature', signatureRouter);
 app.use('/api/notifications', notificationRouter);
+app.use('/api/deepdive', deepDiveRouter);
 
 
 

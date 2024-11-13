@@ -36,13 +36,6 @@ const Resources = () => {
 
   const dispatch = useDispatch();
   
-
-  
-
-
-
-
-
   const cloud_name = import.meta.env.VITE_CLOUD_NAME;
   const upload_preset = import.meta.env.VITE_UPLOAD_PRESET;
 

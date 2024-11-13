@@ -1,5 +1,5 @@
 import Solution from "../models/SolutionModel.js";
-import { MongooseError } from "mongoose"; // Ensure you import MongooseError if needed
+import { MongooseError } from "mongoose";
 
 
 
