@@ -34,7 +34,7 @@ const CarouselComponent = ({items,deleteHandler}) => {
   const ButtonGroup = ({  next, previous, goToSlide, ...rest }) => {
     const { carouselState: { currentSlide,totalItems,slidesToShow  } } = rest;
     const { carouselState } = rest; // Extract the entire carouselState
-    console.log('carouselState', carouselState)
+    // console.log('carouselState', carouselState)
 
     let totalSlides = totalItems - 2 ;
     // if(slidesToShow == 2){

@@ -175,3 +175,12 @@ input:checked + .slider:before {
     img.white{display: none;}
   }
 }
+
+.radio_input{
+  display: none;
+
+  & + label{font-weight: 600; padding:8px 80px; border-bottom:1px solid transparent; cursor: pointer;}
+
+  &:checked + label{ border-bottom:1px solid #0C54FF;}
+}
+

@@ -21,6 +21,7 @@ const CreateMonthlyDeepDive = ({closeHandler,type}) => {
   const [image,setImage] = useState('');
   const [imageName,setImageName] = useState('');
   const [link,setLink] = useState('');
+  const [postType, setPostType] = useState('');
 
 
   const [ createDeepDive , {isLoading, isError}] = useCreateDeepDiveMutation();
@@ -41,7 +42,7 @@ const CreateMonthlyDeepDive = ({closeHandler,type}) => {
  
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log("Form submit")
+    // console.log("Form submit")
     const slug = slugify(title,{
       lower: true,
       strict: true,
@@ -54,11 +55,12 @@ const CreateMonthlyDeepDive = ({closeHandler,type}) => {
       active:checkBoxChecked,
       slug,
       link,
-      type
-
+      type,
+      postType
     }
 
-    // console.log("data", data)
+    console.log("data", data)
+    
     try {
       const apiRes = await createDeepDive(data).unwrap();
       console.log("Api Res", apiRes)
@@ -71,6 +73,8 @@ const CreateMonthlyDeepDive = ({closeHandler,type}) => {
         toast.error(`Please use a different title for the post. "${title}" is alreay used in another post.`)
       }
     }
+
+    
     
   }
 
@@ -88,6 +92,14 @@ const CreateMonthlyDeepDive = ({closeHandler,type}) => {
         
 
         <form onSubmit={submitHandler}>
+          {type == 'monthai' && (
+
+            <div className="mb-8">
+              <input className='radio_input' type="radio" id="video" name="posttype" value="video" checked={postType === 'video'} onChange={() => setPostType('video')}/><label htmlFor="video">Video</label>
+              <input className='radio_input' type="radio" id="blog" name="posttype" value="blog" checked={postType === 'blog'} onChange={() => setPostType('blog')}/><label htmlFor="blog">Blog</label>
+            </div>
+          )}
+          
 
           <div className="inputGroup flex flex-col gap-1.5 bg-[#1B1B1F] rounded-2xl px-12 py-6 mb-7">
             <label htmlFor="solImg" className='cursor-pointer'>

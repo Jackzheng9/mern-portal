@@ -7,6 +7,7 @@ const deepDiveSchema = new mongoose.Schema({
     slug: { type: String, unique:true },
     active: { type: Boolean },
     type:{type: String},
+    postType:{type: String},
     link: {
         type: String, 
         validate: {

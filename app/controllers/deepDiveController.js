@@ -10,14 +10,14 @@ const getAll = async (req,res) => {
 }
 
 const createDeepDive = async (req,res) => {
-  const { title, description, image,active,slug,link,type } = req.body;
+  const { title, description, image,active,slug,link,type,postType } = req.body;
  
   try {
     if(!title){
       throw new Error("Deep Dive title must not be empty!")
     }
 
-    const newDeepDive = await DeepDive.create({ title, description, image,active,slug,link,type  });
+    const newDeepDive = await DeepDive.create({ title, description, image,active,slug,link,type,postType  });
     res.status(201).json({ message: "New Deep Dive created!", deepdive: newDeepDive });
   } catch (error) {
     if (error instanceof MongooseError) {
@@ -29,7 +29,8 @@ const createDeepDive = async (req,res) => {
 }
 
 const editDeepDive = async (req,res) => {
-  const { title, description, link, image, active,id } = req.body;
+  const { title, description, link, image, active,id, postType } = req.body;
+  console.log("body", req.body)
  
   try {
     const deepDive = await DeepDive.findById(id);
@@ -38,10 +39,11 @@ const editDeepDive = async (req,res) => {
     deepDive.description = description || deepDive.description;
     deepDive.link = link || deepDive.link;
     deepDive.image = image || deepDive.image;
-    deepDive.active = active || deepDive.active;
+    deepDive.active = active == true ? true : false ;
+    deepDive.postType = postType || deepDive.postType;
 
     const updatedDeepDive = await deepDive.save();
-    res.status(201).json({ message: "Edit done!", deepdive: updatedDeepDive });
+    res.status(201).json({ message: "Edit done successfully!", deepdive: updatedDeepDive });
   } catch (error) {
     if (error instanceof MongooseError) {
       res.status(500).json({ message: error.message });

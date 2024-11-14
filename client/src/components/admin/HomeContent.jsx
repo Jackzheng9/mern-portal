@@ -33,7 +33,7 @@ const HomeContent = () => {
   const [imageName,setImageName] = useState('');
   const [link,setLink] = useState('');
   const [showImageUpload, setShowImageUpload] = useState(false)
-  const [checkBoxChecked, setCheckBoxChecked] = useState(true)
+  const [checkBoxChecked, setCheckBoxChecked] = useState()
 
 
   const uploadSelectHandler = (selector) =>{
@@ -45,6 +45,9 @@ const HomeContent = () => {
     }else if(selector == 'aisaas'){
       setCreateItemType('aisaas')
       setShowCreateDeepDive(true)
+    }else if(selector=='monthai'){
+      setCreateItemType('monthai')
+      setShowCreateDeepDive(true)     
     }
   }
 
@@ -96,6 +99,7 @@ const HomeContent = () => {
     setDescription(item.description)
     setImage(item.image)
     setLink(item.link)
+    setCheckBoxChecked(item.active)
 
 
     setShowEdit(true)
@@ -153,6 +157,7 @@ const HomeContent = () => {
 
   const deepDives = data.deepdives.filter(item => item.type == 'deepdive');
   const aisaas = data.deepdives.filter(item => item.type == 'aisaas');
+  const monthai = data.deepdives.filter(item => item.type == 'monthai');
   // console.log("deepDives", deepDives)
 
   return (
@@ -186,6 +191,13 @@ const HomeContent = () => {
         <p className="text-lg font-semibold mt-8">AI Saas Tool</p>
         <MonthlyDeepDive items={aisaas}  deleteHandler={deleteContentHandler} />
         
+
+        <p className="text-lg font-semibold mt-8">This Month in AI - What Did You Miss? </p>
+        <MonthlyDeepDive items={monthai}  deleteHandler={deleteContentHandler} />
+
+
+
+
         {showCreateDeepDive && <CreateMonthlyDeepDive type={createItemType} closeHandler={deepDivePanelCloseHandler} /> }
         
         {showDelete && (
