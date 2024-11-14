@@ -29,15 +29,19 @@ const createDeepDive = async (req,res) => {
 }
 
 const editDeepDive = async (req,res) => {
-  const { title, description, image,active,slug } = req.body;
+  const { title, description, link, image, active,id } = req.body;
  
   try {
-    if(!title){
-      throw new Error("Deep Dive title must not be empty!")
-    }
+    const deepDive = await DeepDive.findById(id);
 
-    const newDeepDive = await DeepDive.create({ title, description, image,active,slug  });
-    res.status(201).json({ message: "New Deep Dive created!", deepdive: newDeepDive });
+    deepDive.title = title || deepDive.title;
+    deepDive.description = description || deepDive.description;
+    deepDive.link = link || deepDive.link;
+    deepDive.image = image || deepDive.image;
+    deepDive.active = active || deepDive.active;
+
+    const updatedDeepDive = await deepDive.save();
+    res.status(201).json({ message: "Edit done!", deepdive: updatedDeepDive });
   } catch (error) {
     if (error instanceof MongooseError) {
       res.status(500).json({ message: error.message });

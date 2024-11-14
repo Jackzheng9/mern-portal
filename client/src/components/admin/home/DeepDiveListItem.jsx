@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import VerDots from "../../../assets/ver-dots.svg";
 
 import OutsideClickHandler from "react-outside-click-handler";
-
+import { useEditItem } from '../../../context/editItemContext';
 
 
 
@@ -30,9 +30,10 @@ const DeepDiveListItem = ({item, deleteHandler}) => {
     deleteHandler('monthly', id)
   }
 
+  const editItemHandler = useEditItem();
 
   const handleEdit = () => {
-    
+    editItemHandler("deep dive", item);
   };
 
 
