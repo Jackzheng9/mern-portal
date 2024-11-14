@@ -2,6 +2,10 @@ import React from 'react'
 import Carousel from 'react-multi-carousel';
 import '../../assets/lib/caroselstyles.css';
 import DeepDiveListItem from './home/DeepDiveListItem';
+import ArroRightCircle from '../../assets/ArroRightCircle.svg'
+import ArroRightCircleDimmed from '../../assets/ArroRightCircleDimmed.svg'
+import ArrowLeftCircleDimmed from '../../assets/ArrowLeftCircleDimmed.svg'
+import ArrowLeftCircle from '../../assets/ArrowLeftCircle.svg'
 
 
 
@@ -29,14 +33,27 @@ const CarouselComponent = ({items,deleteHandler}) => {
 
   const ButtonGroup = ({  next, previous, goToSlide, ...rest }) => {
     const { carouselState: { currentSlide,totalItems,slidesToShow  } } = rest;
-    // const { carouselState } = rest; // Extract the entire carouselState
-    // console.log('carouselState', carouselState)
-    const toalSlides = Math.ceil(totalItems/slidesToShow) + 1
+    const { carouselState } = rest; // Extract the entire carouselState
+    console.log('carouselState', carouselState)
+
+    let totalSlides = totalItems - 2 ;
+    // if(slidesToShow == 2){
+    //   totalSlides = totalItems - 1
+    // }else{
+    //   totalSlides = totalItems 
+    // }
+    
     return (
-      <div className="carousel-button-group">
-        {/* <div>Current slide is {currentSlide} - total {toalSlides} - {slidesToShow}</div> */}
-        <button className={currentSlide == 0 ? "inactive" : "active"} onClick={() => previous()}>Previous slide</button>
-        <button className={currentSlide == toalSlides ? "inactive" : "active"} onClick={() => next()}>Next slide</button>
+      <div className="carousel-button-group flex gap-6 justify-center">
+        {/* <div>Current slide is {currentSlide} - total {totalSlides} - {slidesToShow}</div> */}
+        <button className={currentSlide == 0 ? "inactive" : "active"} onClick={() => previous()}>
+          <img className="dimmed" src={ArrowLeftCircleDimmed} alt="" />
+          <img className="white" src={ArrowLeftCircle} alt="" />
+        </button>
+        <button className={currentSlide == totalSlides ? "inactive" : "active"} onClick={() => next()}>
+          <img className="white" src={ArroRightCircle} alt="" />
+          <img className="dimmed" src={ArroRightCircleDimmed} alt="" />
+        </button>
       </div>
     );
   };

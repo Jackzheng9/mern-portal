@@ -41,7 +41,7 @@ const DeepDiveListItem = ({item, deleteHandler}) => {
     <>
       <div className="item_wrap p-6 flex gap-3">
         <div className="basis-0 grow-[2] shrink-0">
-          <img className='min-w-[188px]' src={item.image} alt="" />
+          <img className='min-w-[188px] max-h-[136px]' src={item.image} alt="" />
         </div>
         <div className="basis-0 grow-[3]">
 

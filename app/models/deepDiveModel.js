@@ -6,6 +6,7 @@ const deepDiveSchema = new mongoose.Schema({
     image: { type: String },
     slug: { type: String, unique:true },
     active: { type: Boolean },
+    type:{type: String},
     link: {
         type: String, 
         validate: {

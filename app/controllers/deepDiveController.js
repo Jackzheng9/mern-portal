@@ -10,14 +10,14 @@ const getAll = async (req,res) => {
 }
 
 const createDeepDive = async (req,res) => {
-  const { title, description, image,active,slug,link } = req.body;
+  const { title, description, image,active,slug,link,type } = req.body;
  
   try {
     if(!title){
       throw new Error("Deep Dive title must not be empty!")
     }
 
-    const newDeepDive = await DeepDive.create({ title, description, image,active,slug,link  });
+    const newDeepDive = await DeepDive.create({ title, description, image,active,slug,link,type  });
     res.status(201).json({ message: "New Deep Dive created!", deepdive: newDeepDive });
   } catch (error) {
     if (error instanceof MongooseError) {

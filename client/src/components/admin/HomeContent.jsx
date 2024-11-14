@@ -13,7 +13,7 @@ import { EditItemProvider } from '../../context/editItemContext'
 import Pencil from '../../assets/PencilBlue.svg'
 import UploadIcon from '../../assets/UploadIcon.svg'
 import uploadImage from '../../utils/imageUpload'
-
+import { useGetDeepDivesQuery } from '../../slices/deepDiveApiSlice'
 
 const HomeContent = () => {
 
@@ -24,6 +24,7 @@ const HomeContent = () => {
   const [monthlyId, setMonthlyId] = useState(false)
   const [deepDiveItem, setDeepDiveItem] = useState({})
   const [showEdit, setShowEdit] = useState(false);
+  const [createItemType, setCreateItemType] = useState('');
   
 
   const[title, setTitle] = useState('')
@@ -39,6 +40,10 @@ const HomeContent = () => {
     // console.log("selector",selector)
     setShowSelector(false)
     if(selector == 'deepdive'){
+      setCreateItemType('deepdive')
+      setShowCreateDeepDive(true)
+    }else if(selector == 'aisaas'){
+      setCreateItemType('aisaas')
       setShowCreateDeepDive(true)
     }
   }
@@ -133,6 +138,22 @@ const HomeContent = () => {
     }
   }
 
+  const {data, isLoading:queryLoading, isError:queryIsError, error:queryError} = useGetDeepDivesQuery();
+
+
+  if(isLoading || queryLoading){
+    return <Loader />
+  }
+  if(isError || queryIsError ){
+    console.log("Error occured", error )
+  }
+
+
+  // console.log("Data", data)
+
+  const deepDives = data.deepdives.filter(item => item.type == 'deepdive');
+  const aisaas = data.deepdives.filter(item => item.type == 'aisaas');
+  // console.log("deepDives", deepDives)
 
   return (
     <EditItemProvider editItemHandler={editItemHandler}>
@@ -158,9 +179,14 @@ const HomeContent = () => {
             
           </div>   
         </div>
-
-        <MonthlyDeepDive deleteHandler={deleteContentHandler} />
-        {showCreateDeepDive && <CreateMonthlyDeepDive closeHandler={deepDivePanelCloseHandler} /> }
+        
+        <p className="text-lg font-semibold">Monthly Deep Dive</p>
+        <MonthlyDeepDive items={deepDives}  deleteHandler={deleteContentHandler} />
+        
+        <p className="text-lg font-semibold mt-8">AI Saas Tool</p>
+        <MonthlyDeepDive items={aisaas}  deleteHandler={deleteContentHandler} />
+        
+        {showCreateDeepDive && <CreateMonthlyDeepDive type={createItemType} closeHandler={deepDivePanelCloseHandler} /> }
         
         {showDelete && (
 

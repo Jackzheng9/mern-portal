@@ -12,7 +12,8 @@ import { toast } from 'react-toastify'
 
 
 
-const CreateMonthlyDeepDive = ({closeHandler}) => {
+const CreateMonthlyDeepDive = ({closeHandler,type}) => {
+  console.log("type",type)
 
   const [checkBoxChecked,setCheckBoxChecked] = useState(true)
   const [title,setTitle] = useState('');
@@ -52,7 +53,8 @@ const CreateMonthlyDeepDive = ({closeHandler}) => {
       image,
       active:checkBoxChecked,
       slug,
-      link
+      link,
+      type
 
     }
 
