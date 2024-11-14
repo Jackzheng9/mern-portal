@@ -39,9 +39,22 @@ export const deepDiveApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ['DeepDive'],
     }),
 
+    deleteDeepDive:builder.mutation({
+      
+      query:(data) => ({
+        url:`${DEEPDIVE_URL}/delete`,
+        method: "POST" ,
+        body:data,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }),
+      invalidatesTags: ['DeepDive'],
+    }),
+
 
   })
 })
 
 
-export const {useCreateDeepDiveMutation, useEditDeepDiveMutation, useGetDeepDivesQuery} = deepDiveApiSlice;
+export const {useCreateDeepDiveMutation, useEditDeepDiveMutation, useGetDeepDivesQuery, useDeleteDeepDiveMutation} = deepDiveApiSlice;

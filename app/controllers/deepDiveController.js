@@ -48,5 +48,30 @@ const editDeepDive = async (req,res) => {
 
 }
 
+const deleteDeepDive = async (req, res) => {
+  console.log("Deep dive delete route!")
+  const { id } = req.body;
+  console.log("Body", req.body)
 
-export {getAll, createDeepDive, editDeepDive}
+  try {
+    if (!id) {
+      throw new Error("Deep Dive ID must not be empty!");
+    }
+
+    const deletedDeepDive = await DeepDive.findByIdAndDelete(id);
+    if (!deletedDeepDive) {
+      return res.status(404).json({ message: "Deep Dive not found!" });
+    }
+
+    res.status(200).json({ message: "Deep Dive deleted successfully!", deepdive: deletedDeepDive });
+  } catch (error) {
+    if (error instanceof MongooseError) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: error.message, error: error });
+    }
+  }
+}
+
+
+export {getAll, createDeepDive, editDeepDive, deleteDeepDive}

@@ -5,7 +5,7 @@ import DeepDiveListItem from './home/DeepDiveListItem';
 
 
 
-const CarouselComponent = ({items}) => {
+const CarouselComponent = ({items,deleteHandler}) => {
   // console.log("Items", items)
   const responsive = {
     superLargeDesktop: {
@@ -85,7 +85,7 @@ const CarouselComponent = ({items}) => {
     // customDot={<CustomDot />}
     // renderDotsOutside={true}
   >
-    {items.map(item => <DeepDiveListItem key={item._id} item={item} />)}
+    {items.map(item => <DeepDiveListItem deleteHandler={deleteHandler} key={item._id} item={item} />)}
   </Carousel>
   )
 }

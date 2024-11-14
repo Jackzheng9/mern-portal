@@ -2,10 +2,10 @@ import React from 'react'
 import DeepDiveListItem from './DeepDiveListItem'
 import CarouselComponent from '../Carousel'
 
-export const DeepDivesList = ({deepdives}) => {
+export const DeepDivesList = ({deepdives, deleteHandler}) => {
   return (
     <>
-      <CarouselComponent items={deepdives} />
+      <CarouselComponent deleteHandler={deleteHandler} items={deepdives} />
     </>
     
   )

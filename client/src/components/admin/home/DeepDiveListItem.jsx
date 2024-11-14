@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import VerDots from "../../../assets/ver-dots.svg";
+
 import OutsideClickHandler from "react-outside-click-handler";
 
 
 
 
-const DeepDiveListItem = ({item}) => {
 
-  console.log("Deep Dive Item", item)
+const DeepDiveListItem = ({item, deleteHandler}) => {
+
+  // console.log("Deep Dive Item", item)
   const [showOptions, setShowOptions] = useState(false)
 
   const optionsToggleHandler = () => {
@@ -16,21 +18,24 @@ const DeepDiveListItem = ({item}) => {
   }
 
   const outSideClickHandler = (e) => {
-    console.log("e",e)
+    // console.log("e",e)
     if (e.target.classList.contains("dive_options")) {
     } else {
       setShowOptions(false);
     }
   };
 
-  const deleteHandler = (id) => {
-    console.log("Delete item: ", id)
+  const deleteClickHandler = (id) => {
+    // console.log("Delete item: ", id)
+    deleteHandler('monthly', id)
   }
 
 
+  const handleEdit = () => {
+    
+  };
 
 
- 
   return (
     <>
       <div className="item_wrap p-6 flex gap-3">
@@ -58,12 +63,12 @@ const DeepDiveListItem = ({item}) => {
               {showOptions && (
 
                 <div className="min-w-[180px] dive_options absolute p-4 rounded-md right-7 top-2 z-10 flex flex-col gap-4 bg-black">
-                <Link to={`/admin/resource/`}>
-                  <div className="option_modal flex gap-2 cursor-pointe text-[#B0B0B0] hover:text-white">
+                <Link to={``}>
+                  <div onClick={handleEdit} className="option_modal flex gap-2 cursor-pointe text-[#B0B0B0] hover:text-white">
                   Edit Content
                   </div>
                 </Link>
-                <div  className="option_modal flex gap-2 cursor-pointer text-[#B0B0B0] hover:text-white" >
+                <div onClick={() => deleteClickHandler(item._id)}  className="option_modal flex gap-2 cursor-pointer text-[#B0B0B0] hover:text-white" >
                 Delete Content
                 </div>
 
@@ -71,9 +76,6 @@ const DeepDiveListItem = ({item}) => {
                 </div>
               )}
             </OutsideClickHandler>
-
-
-
 
             </div>
 
@@ -90,6 +92,12 @@ const DeepDiveListItem = ({item}) => {
 
 
       </div>
+      {/* End item_wrap */}
+
+      
+      
+
+
     </>
   )
 }

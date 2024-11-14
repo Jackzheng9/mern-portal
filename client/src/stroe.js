@@ -6,6 +6,7 @@ import solutionListSliceReducer from './slices/SolutionListSlice'
 import resourceListSliceReducer from './slices/ResourceListslice'
 import notificationReducer from './slices/NotificationSlice'
 
+
 const store = configureStore({
   reducer:{
     auth:authReducer,

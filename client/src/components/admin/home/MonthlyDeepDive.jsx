@@ -6,7 +6,7 @@ import Loader from '../../Loader'
 import { DeepDivesList } from './DeepDivesList'
 
 
-const MonthlyDeepDive = () => {
+const MonthlyDeepDive = ({deleteHandler}) => {
 
   const {data, isLoading, isError, error} = useGetDeepDivesQuery();
 
@@ -34,7 +34,7 @@ const MonthlyDeepDive = () => {
             </div>
           </div>
         </section>
-      ) : <DeepDivesList deepdives={data.deepdives} />}
+      ) : <DeepDivesList deepdives={data.deepdives} deleteHandler={deleteHandler} />}
       
     </>
     
