@@ -4,7 +4,7 @@ const deepDiveSchema = new mongoose.Schema({
     title: { type: String, required: true },
     description: { type: String },
     image: { type: String },
-    slug: { type: String, unique:true },
+    slug: { type: String },
     active: { type: Boolean },
     type:{type: String},
     postType:{type: String},
