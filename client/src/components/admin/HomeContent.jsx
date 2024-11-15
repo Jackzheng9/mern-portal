@@ -38,6 +38,7 @@ const HomeContent = () => {
   const [deepDiveItem, setDeepDiveItem] = useState({})
   const [showEdit, setShowEdit] = useState(false);
   const [createItemType, setCreateItemType] = useState('');
+  const [editItemType, setEditItemType] = useState('');
   
 
   const [showSearch, setShowSearch] = useState(false)
@@ -63,12 +64,11 @@ const HomeContent = () => {
 
 
 
-
-
   const[title, setTitle] = useState('')
   const [description,setDescription] = useState('');
   const [image,setImage] = useState('');
   const [imageName,setImageName] = useState('');
+  const [postType,setPostType] = useState('');
   const [link,setLink] = useState('');
   const [showImageUpload, setShowImageUpload] = useState(false)
   const [checkBoxChecked, setCheckBoxChecked] = useState()
@@ -98,9 +98,10 @@ const HomeContent = () => {
   const deleteContentHandler = async (type, id) => {
     console.log("delete " + type + '-'+ id);
     setShowDelete(true)
-    if(type=='monthly'){
-      setMonthlyId(id)
-    }   
+    setMonthlyId(id)
+    // if(type=='monthly'){
+      
+    // }
   }
 
   const deleteItemHandler = async (id) => {
@@ -138,8 +139,8 @@ const HomeContent = () => {
     setImage(item.image)
     setLink(item.link)
     setCheckBoxChecked(item.active)
-
-
+    setPostType(item.postType)
+    setEditItemType(type)
     setShowEdit(true)
   }
   const imageChangeHandler = async (e) => {
@@ -432,6 +433,7 @@ const HomeContent = () => {
                     <p className="text-2xl font-semibold mb-1">Monthly Deep  Dive</p>
                     <p className="text-[#B0B0B0] mb-8">Edit the details For the monthly deep  dive</p>
                   </div>
+                  
                   <div className="">
                     <img onClick={() => {setShowEdit(false);setShowImageUpload(false)}} className='cursor-pointer' src={Close} alt="" />
                   </div>
