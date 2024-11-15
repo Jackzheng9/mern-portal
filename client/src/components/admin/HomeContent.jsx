@@ -1,19 +1,32 @@
 import React, { useState } from 'react'
-import CarouselComponent from './Carousel'
 import ArrowUp from '../../assets/arrow-up.svg'
 import ArrowDownWhite from '../../assets/ArrowDownWhite.svg'
 import MonthlyDeepDive from './home/MonthlyDeepDive'
 import CreateMonthlyDeepDive from './home/CreateMonthlyDeepDive'
 import RedX from "../../assets/RedX.svg";
 import Close from "../../assets/Close-dimmed.svg";
+import Search from '../../assets/search.svg'
+import CheckBox from '../../assets/Checkbox.svg'
+import CheckBoxSelected from '../../assets/Checkbox-blue-selected.svg'
 import { useDeleteDeepDiveMutation,useEditDeepDiveMutation } from '../../slices/deepDiveApiSlice'
 import Loader from '../Loader'
 import { toast } from 'react-toastify'
 import { EditItemProvider } from '../../context/editItemContext'
 import Pencil from '../../assets/PencilBlue.svg'
+import AllIcon from '../../assets/all_icon.svg'
 import UploadIcon from '../../assets/UploadIcon.svg'
 import uploadImage from '../../utils/imageUpload'
 import { useGetDeepDivesQuery } from '../../slices/deepDiveApiSlice'
+import MonthAiList from './home/MonthAiList'
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
+import { DateRangePicker } from 'react-date-range';
+import { useDispatch,useSelector } from 'react-redux'
+import { setStatus,setDate,setSearchTerm } from '../../slices/monthAiListSlice'
+import dayjs from 'dayjs'
+
+
+
 
 const HomeContent = () => {
 
@@ -26,6 +39,31 @@ const HomeContent = () => {
   const [showEdit, setShowEdit] = useState(false);
   const [createItemType, setCreateItemType] = useState('');
   
+
+  const [showSearch, setShowSearch] = useState(false)
+  const [searchText, setSearchText] = useState('')
+  const [showCal, setShowCal] = useState(false)
+  const [showStateSelector, setShowStateSelector] = useState(false)
+  const [selectedDate, setSelectedDate] = useState('Select Date');
+
+
+  const statusFilterTerm = useSelector(state => state.monthai.status)
+  const searchFilterTerm = useSelector(state => state.monthai.searchTerm)
+  const startDate = useSelector(state => state.monthai.dateRange.startDate)
+  const endDate = useSelector(state => state.monthai.dateRange.endDate)
+  const [dateState, setDateState] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: 'selection'
+    }
+  ]);
+
+
+
+
+
+
 
   const[title, setTitle] = useState('')
   const [description,setDescription] = useState('');
@@ -121,6 +159,8 @@ const HomeContent = () => {
     setCheckBoxChecked(!checkBoxChecked)
   }
 
+  const dispatch = useDispatch();
+
   const [ editDeepDive ,{isLoading : editLoading, isError:editIsError, error:editError} ] = useEditDeepDiveMutation()
 
   const editSubmitHandler = async (e) => {
@@ -142,6 +182,115 @@ const HomeContent = () => {
     }
   }
 
+
+  const dateChangeHandler = (item) => {
+    //console.log("date selection",item.selection )
+    setDateState([item.selection])
+    let startDate = `${item.selection.startDate}`;
+    let endDate = `${item.selection.endDate}`;
+    dispatch(setDate({startDate,endDate}))
+    let showStartDate = dayjs(item.selection.startDate).format('D MMM')
+    let showEndDate = dayjs(item.selection.endDate).format('D MMM')
+
+    if(startDate !== endDate){
+      setShowCal(false)
+      setSelectedDate(`${showStartDate} - ${showEndDate}`)
+    }else{
+      setSelectedDate(`${showStartDate}`)
+    }
+   
+  }
+
+  const showCalHandler = () => {
+    setShowCal(!showCal)
+  }
+
+  const contentClickHandler = (e) => {
+    const dateContainer = document.querySelector('.date');
+    if (dateContainer && dateContainer.contains(e.target)){
+    } else{
+      setShowCal(false)
+    }
+
+    const searchContainer = document.querySelector('.search')
+    if (searchContainer && searchContainer.contains(e.target)){
+
+    } else{
+      setShowSearch(false)
+    }
+
+    const statusContainer = document.querySelector('.status_selector_trigger')
+    if (statusContainer && statusContainer.contains(e.target)){
+    } else{
+      setShowStateSelector(false)
+    }
+
+
+
+
+  }
+
+  const searchFieldShowHandler  = () => {
+    setShowSearch(true)
+  }
+
+  const searchInputHandler = (e) => {
+    const searchTerm = e.target.value;
+    setSearchText(searchTerm)
+    dispatch(setSearchTerm(searchTerm))
+  }
+
+  const showStatusSelectorHandler = () => {
+    setShowStateSelector(true)
+  }
+
+  const statusSelectHandler = (e) => {
+    console.log("Status", e.target.closest('li').getAttribute('data-value'))
+    dispatch(setStatus(e.target.closest('li').getAttribute('data-value')))
+    setShowStateSelector(false)
+  }
+
+  const statusFilterHandler = (item) => {
+    if(statusFilterTerm == "All"){
+      return true;
+    }else if(statusFilterTerm == "Active"){
+      return item.active;
+    }else{
+      return !item.active;
+    }
+  }
+
+
+  const dateFilterHandler = (user) => {
+    if(startDate){
+      const createDate = dayjs( user.createdAt)
+      const createDateFormatted = dayjs( user.createdAt).format('DD/MM/YYYY')
+      let startDateFormatted = dayjs( startDate).format('DD/MM/YYYY')
+      let endDateFormatted = dayjs( endDate).format('DD/MM/YYYY')
+
+      if(startDateFormatted == endDateFormatted){
+        return startDateFormatted == createDateFormatted;
+      }
+
+      const oneDayBefore = dayjs(startDate).subtract(1, 'day');
+      const oneDayAfter = dayjs(endDate).add(1, 'day');  
+      if( dayjs(createDate).isAfter(dayjs(oneDayBefore),'d') && dayjs(createDate).isBefore(dayjs(oneDayAfter),'d') ){
+        return true
+      }
+      return false
+    }else{
+      return true
+    }
+
+  }
+
+  const searchFilterHandler = (item) => {
+    return item?.title?.toLowerCase()?.includes(searchFilterTerm);
+  }
+
+
+
+
   const {data, isLoading:queryLoading, isError:queryIsError, error:queryError} = useGetDeepDivesQuery();
 
 
@@ -157,12 +306,15 @@ const HomeContent = () => {
 
   const deepDives = data.deepdives.filter(item => item.type == 'deepdive');
   const aisaas = data.deepdives.filter(item => item.type == 'aisaas');
-  const monthai = data.deepdives.filter(item => item.type == 'monthai');
-  // console.log("deepDives", deepDives)
+  let monthai = data.deepdives.filter(item => item.type == 'monthai');
+  // console.log("monthai", monthai)
+  // monthai = monthai.filter(statusFilterHandler).filter(searchFilterHandler).filter(dateFilterHandler)
+  monthai = monthai.filter(searchFilterHandler).filter(dateFilterHandler).filter(statusFilterHandler);
+  // console.log("monthai filtered", monthai)
 
   return (
     <EditItemProvider editItemHandler={editItemHandler}>
-      <div className='home_content_wrap relative bg-[#5D5D5D33]/20'>
+      <div onClick={contentClickHandler} className='home_content_wrap relative bg-[#5D5D5D33]/20'>
         
         <div className='flex justify-between items-center'>
           <p className='font-medium text-2xl'>Home Content</p>
@@ -191,9 +343,55 @@ const HomeContent = () => {
         <p className="text-lg font-semibold mt-8">AI Saas Tool</p>
         <MonthlyDeepDive items={aisaas}  deleteHandler={deleteContentHandler} />
         
+        <div  className="flex justify-between items-center">
+          <p className="text-lg font-semibold mt-8">This Month in AI - What Did You Miss? </p>
+          
+          <div  className="flex items-center gap-4">
+            <div className="search flex gap-2">
+              {showSearch && <input type="text" className='bg-black border text-white' value={searchText} onChange={searchInputHandler} />}       
+              <img onClick={searchFieldShowHandler} src={Search} alt="" />
+            </div>
+            
+            <div className="date">
+              <p onClick={showCalHandler} className="">{selectedDate}</p>
+              {showCal && (
+                <DateRangePicker
+                  onChange={dateChangeHandler}
+                  showSelectionPreview={true}
+                  moveRangeOnFirstSelection={false}
+                  months={1}
+                  ranges={dateState}
+                  direction="horizontal"
+                  DefinedRange={false}
+                  inputRanges={[]}
+                />
 
-        <p className="text-lg font-semibold mt-8">This Month in AI - What Did You Miss? </p>
-        <MonthlyDeepDive items={monthai}  deleteHandler={deleteContentHandler} />
+              )}
+            </div>
+            
+            <div className="status_selector flex gap-1 items-center">
+              <p className="status_selector_trigger flex flex-row gap-1 items-center" onClick={showStatusSelectorHandler} >All <img src={AllIcon} alt="" /></p> 
+              
+              {showStateSelector && (
+                <div className="statusSelect w-[200px] bg-[#565b56] px-4 py-5 rounded">
+                  <ul>
+                    <li onClick={statusSelectHandler} data-value="All" className='flex gap-2'>{statusFilterTerm !=="All" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="All" && <img src={CheckBoxSelected} alt="" /> }  All</li>
+                    <li onClick={statusSelectHandler} data-value="Active" className='flex gap-2'>{statusFilterTerm !=="Active" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="Active" && <img src={CheckBoxSelected} alt="" /> } Active</li>
+                    <li  onClick={statusSelectHandler} data-value="Inactive" className='flex gap-2'>{statusFilterTerm !=="Inactive" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="Inactive" && <img src={CheckBoxSelected} alt="" /> } Inactive</li>
+                  </ul>
+                </div>
+              )}
+            </div>
+
+
+
+          </div>
+
+
+        </div>
+        
+        <MonthAiList items={monthai}  deleteHandler={deleteContentHandler} />
+
 
 
 

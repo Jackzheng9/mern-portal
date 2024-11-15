@@ -61,7 +61,7 @@ const AdminLayout = () => {
 
         <div className="admin_content flex gap-4">
           
-          <div className="admin_left_bar min-w-[264px] pr-6 basis-0 grow-[1]">
+          <div className="admin_left_bar w-full max-w-[264px] pr-6 basis-0 grow-[1]">
             <ul className="admin_lists flex flex-col gap-2">
               <li><NavLink className={`flex gap-3 font-semibold text-base py-3 px-4 rounded-md `} to="/admin/dashboard"><img src={DashIcon} alt="" />Dashboard</NavLink></li>
               <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md' to="/admin/home-content"><img src={HomeIcon} alt="" />Home Content</NavLink></li>

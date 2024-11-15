@@ -5,6 +5,7 @@ import usersListSliceReducer from "./slices/usersListSlice";
 import solutionListSliceReducer from './slices/SolutionListSlice'
 import resourceListSliceReducer from './slices/ResourceListslice'
 import notificationReducer from './slices/NotificationSlice'
+import monthAiReducer from './slices/monthAiListSlice'
 
 
 const store = configureStore({
@@ -15,6 +16,7 @@ const store = configureStore({
     solutionsFilter:solutionListSliceReducer,
     resourceFilter:resourceListSliceReducer,
     notification:notificationReducer,
+    monthai:monthAiReducer,
   },
   middleware : (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
   devTools:true,
