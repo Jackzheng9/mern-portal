@@ -68,6 +68,10 @@ const userSchema = mongoose.Schema({
   completedFiles:{
     type:[{}],
   },
+  companyDetails: {
+    type: Object,
+    default: {}
+  },
 
   notifications: [userNotificationSchema],
 

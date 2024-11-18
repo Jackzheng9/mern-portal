@@ -146,8 +146,9 @@ const editUser = async (req,res) => {
   console.log("Edit user hitted!")
   const {user:jwtuser} = req
   //console.log("auth user", jwtuser)
-  const {industry,employee,goal,workflow,manualWorks,mainIssue,improveArea,achieveArea,password,notification} = req.body
-  console.log("User edit req data",industry,employee,goal,workflow,manualWorks,mainIssue,improveArea,achieveArea,notification);
+  const {industry,employee,goal,workflow,manualWorks,mainIssue,improveArea,achieveArea,password,notification, companyDetails} = req.body
+  // console.log("User edit req data",industry,employee,goal,workflow,manualWorks,mainIssue,improveArea,achieveArea,notification, companyDetails);
+  console.log("Company details data", companyDetails);
   
   try {
     const user = await User.findOne({email:jwtuser.email})
@@ -182,6 +183,8 @@ const editUser = async (req,res) => {
         
       }
 
+      user.companyDetails = companyDetails || user.companyDetails;
+
       //user.password = req.body.password;
       const updatedUser = await user.save();
   
@@ -201,6 +204,7 @@ const editUser = async (req,res) => {
         improveArea: updatedUser.improveArea,
         achieveArea: updatedUser.achieveArea,
         notifications: updatedUser.notifications,
+        companyDetails: updatedUser.companyDetails,
         success:true
       })
     }else{

@@ -45,6 +45,13 @@ const Layout = () => {
     setShowNotiPanel(!showNotiPanel)
   }
 
+  useEffect(() => {
+    if(!user){
+      navigate('/login')
+    }
+
+  },[])
+
   
   return (
     <>
@@ -73,7 +80,7 @@ const Layout = () => {
                 <li className='relative'>
                   <div onClick={accountOptionsHandler} className="initials bg-dark-blue text-lg font-medium h-12 w-12 rounded-[100px] flex items-center justify-center cursor-pointer">MG</div>
                   {showAccOptions && (
-                    <ul className="absolute top-[100%] w-full l-0">
+                    <ul className="absolute top-[100%] min-w-[180px] bg-black p-4 w-full l-0">
                       <li onClick={logoutHandler} className='cursor-pointer'>Logout</li>
                       <li className='cursor-pointer'><Link to="/profile">Profile</Link></li>
                       <li className='cursor-pointer'><Link to="/settings">Settings</Link></li>
