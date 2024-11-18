@@ -9,6 +9,9 @@ const Terms = () => {
   // const [showCreate, setShowCreate] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   // const [termsContent, setTermsContent] = useState('');
+  const editShowHandler = () => {
+    setShowEdit(true)
+  }
 
   const {data, isLoading, isError} = useGetTermsQuery();
 
@@ -21,19 +24,22 @@ const Terms = () => {
 
   // console.log("Data", data)
 
+
+
   return (
     <>
       <div className="flex justify-between items-center">
         <h1 className="font-medium text-2xl">Terms & Conditions</h1>
-        <button className='flex items-center h-11 px-10 bg-primary-blue rounded-[100px] gap-2 font-semibold'>
+        <button onClick={editShowHandler} className='flex items-center h-11 px-10 bg-primary-blue rounded-[100px] gap-2 font-semibold'>
           <img src={Pencil} alt="" />
           Edit
         </button>
       </div>
 
-      <TermsDetails content={data.terms[0].content} />
+      {!showEdit && <TermsDetails content={data.terms[0].content} />}
 
-      <TermsEdit content={data.terms[0].content} />
+      {showEdit && <TermsEdit setShowEdit={setShowEdit} content={data.terms[0].content} /> }
+      
     </>
   )
 }

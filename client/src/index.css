@@ -184,3 +184,21 @@ input:checked + .slider:before {
   &:checked + label{ border-bottom:1px solid #0C54FF;}
 }
 
+body .rsw-toolbar{
+  background: transparent;
+}
+body .rsw-btn{
+  color:#fff
+}
+body .rsw-btn:hover{
+  background: transparent;
+}
+
+body .rsw-separator{display: none;}
+body .rsw-dd{background: transparent; color:#ddd;}
+body .rsw-editor{width: 100%;}
+
+.terms_detail {
+  font-size:14px; color: #D1D1D1;
+  h1,h2,h3,h4,h5,h6{font-weight: 600; font-size: 16px; color:white}
+}

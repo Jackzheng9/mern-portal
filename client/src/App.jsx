@@ -28,6 +28,7 @@ import Settings from './components/Settings';
 import Profile from './components/Profile';
 import HomeContent from './components/admin/HomeContent';
 import Terms from './components/admin/terms/Terms';
+import Support from './components/admin/support/Support';
 
 function App() {
     
@@ -62,6 +63,7 @@ function App() {
             <Route path="/admin/resources/:slug" element={<ResourceDetails />} />
             <Route path="/admin/home-content" element={<HomeContent />} />
             <Route path="/admin/terms" element={<Terms />} />
+            <Route path="/admin/support" element={<Support />} />
           </Route>
 
 
