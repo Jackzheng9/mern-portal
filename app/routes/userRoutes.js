@@ -11,6 +11,7 @@ userRouter.get('/',(req,res) => {
 userRouter.post('/register', registerUser)
 userRouter.post('/login', userLogin)
 userRouter.post('/setpassword', userSetPassword)
+// userRouter.post('/resetpassword', resetPassword)
 userRouter.post('/edituser',protect, editUser)
 userRouter.post('/admin/useredit',protect,userEditAdmin)
 userRouter.get('/admin/users',protect,getAllUsers)

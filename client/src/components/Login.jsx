@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../slices/authSlice';
+import { useEditUserMutation } from '../slices/userApiSlice';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -14,6 +15,8 @@ const Login = () => {
   const [login,{isLoading, isError, error}] = useLoginMutation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
+  const [editUser] = useEditUserMutation()
 
   const formHandler = async (e) => {
     e.preventDefault();
@@ -34,6 +37,42 @@ const Login = () => {
       if(apiData.role == 'admin' || apiData.role == 'superAdmin'){
         navigate('/admin/dashboard')
       }else{
+        const userAgent = navigator.userAgent;
+        let browserName = 'Unknown';
+        let browserVersion = 'Unknown';
+    
+        if (userAgent.includes('Chrome') && !userAgent.includes('Edg')) {
+          browserName = 'Google Chrome';
+          browserVersion = userAgent.split('Chrome/')[1].split(' ')[0];
+        } else if (userAgent.includes('Firefox')) {
+          browserName = 'Mozilla Firefox';
+          browserVersion = userAgent.split('Firefox/')[1];
+        } else if (userAgent.includes('Safari') && !userAgent.includes('Chrome')) {
+          browserName = 'Safari';
+          browserVersion = userAgent.split('Version/')[1].split(' ')[0];
+        } else if (userAgent.includes('Edg')) {
+          browserName = 'Microsoft Edge';
+          browserVersion = userAgent.split('Edg/')[1];
+        } else if (userAgent.includes('Opera') || userAgent.includes('OPR')) {
+          browserName = 'Opera';
+          browserVersion = userAgent.split('OPR/')[1];
+        }
+    
+        const data = {
+          browserInfo:{
+            name: browserName,
+            version: browserVersion,
+            platform: navigator.platform,
+            userAgent: userAgent,
+            time:new Date().toISOString()
+          }
+        }
+
+        try {
+          const apiRes = await editUser(data).unwrap();
+        } catch (error) {
+          console.error("Failed to edit user:", error);
+        }
         navigate('/')
       }
       

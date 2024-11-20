@@ -17,7 +17,7 @@ import Notifications from './Notifications';
 
 const Layout = () => {
   const user = useSelector(state => state.auth.userInfo)
-  console.log("User", user)
+  // console.log("User", user)
   let userEmail;
   if(user){
     userEmail = user.email;
@@ -45,14 +45,13 @@ const Layout = () => {
     setShowNotiPanel(!showNotiPanel)
   }
 
+
   useEffect(() => {
     if(!user){
       navigate('/login')
     }
-
   },[])
 
-  
   return (
     <>
 
@@ -71,7 +70,7 @@ const Layout = () => {
             <div className="right_menu_wrap">
               <ul className='flex gap-4 items-center'>
                 <li><NavLink to=""><div className="header_cta bg-primary-blue rounded-[100px] px-6 h-12 flex items-center">Let's Build</div></NavLink></li>
-                <li><NavLink to=""><img src={Settings} alt="" /></NavLink></li>
+                <li><NavLink to="/settings"><img src={Settings} alt="" /></NavLink></li>
                 <li>
                   {!showNotiPanel && <img onClick={toggleNotification} className="cursor-pointer" src={Notification} alt="" /> }
                   {showNotiPanel && <img onClick={toggleNotification} className=" cursor-pointer" src={NotificationWhite} alt="" /> }
@@ -83,7 +82,7 @@ const Layout = () => {
                     <ul className="absolute top-[100%] min-w-[180px] bg-black p-4 w-full l-0">
                       <li onClick={logoutHandler} className='cursor-pointer'>Logout</li>
                       <li className='cursor-pointer'><Link to="/profile">Profile</Link></li>
-                      <li className='cursor-pointer'><Link to="/settings">Settings</Link></li>
+                      {/* <li className='cursor-pointer'><Link to="/settings">Settings</Link></li> */}
                     </ul>
                   )}
                   

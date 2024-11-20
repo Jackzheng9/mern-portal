@@ -29,7 +29,6 @@ import Profile from './components/Profile';
 import HomeContent from './components/admin/HomeContent';
 import Terms from './components/admin/terms/Terms';
 import Support from './components/admin/support/Support';
-
 function App() {
     
   
@@ -46,7 +45,7 @@ function App() {
             <Route path="/resources/:slug" element={<UserResourceDetails />} />      
             <Route path="/resources/file/" element={<UsrRsrcLectFileDetails />} />   
             <Route path="/settings" element={<Settings />} />  
-            <Route path="/profile" element={<Profile />} />  
+            <Route path="/profile" element={<Profile />} />
 
             
             {/* <Route path="*" element={<NoPage />} /> */}

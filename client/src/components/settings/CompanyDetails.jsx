@@ -5,11 +5,12 @@ import Loader from '../Loader'
 import { toast } from 'react-toastify'
 
 
-const CompanyDetails = ({details}) => {
+const CompanyDetails = ({user}) => {
+  const details = user.companyDetails;
 
-  console.log("Details", details);
+  // console.log("Details", details);
 
-  const [companyName, setComapnyName] = useState(details  ? details?.companyName : '');
+  const [companyName, setComapnyName] = useState(user  ? user?.company : '');
   const [website, setWebsite] = useState(details ? details?.website : '');
   const [desc, setDesc] = useState(details ? details?.desc : '');
 
@@ -30,16 +31,22 @@ const CompanyDetails = ({details}) => {
     e.preventDefault();
     const data = {
       companyDetails : {
-        companyName,
         website,
         desc
-        }
+        },
+      company:companyName
     }
 
     console.log("data", data)
-
-    const apiRes = await editUser(data).unwrap();
-    console.log("apiRes", apiRes);
+    try {
+      const apiRes = await editUser(data).unwrap();
+      //console.log("apiRes", apiRes);
+      setShowEdit(false);
+      toast.success("Settings updated!");
+    } catch (error) {
+      toast.error("Something went wrong!")
+    }
+    
   }
 
   return (
@@ -51,15 +58,16 @@ const CompanyDetails = ({details}) => {
           <p className="text-[#667085]">Update your Company logo and company details here.</p>
         </div>
 
-        <div onClick={() => setShowEdit(!showEdit)} className="flex gap-2 bg-primary-blue rounded-[100px] items-center px-6 h-11 cursor-pointer ">
+        {!showEdit && <div onClick={() => setShowEdit(true)} className="flex gap-2 bg-primary-blue rounded-[100px] items-center px-6 h-11 cursor-pointer ">
           <img src={Pencil} alt="" /> Edit Details
-        </div>
+        </div> }
+        
       </div>
 
       {!showEdit && (
         <div className="info_content">
           <div className="mt-11">
-            <p className="settings_name font-medium text-sm mb-4">Username</p>
+            <p className="settings_name font-medium text-sm mb-4">Company Name</p>
             <p className="settings_value text-[#667085] text-sm pb-5 border-b border-b-[#282828]">{companyName}</p>   
           </div>
           <div className="mt-11">
@@ -82,7 +90,7 @@ const CompanyDetails = ({details}) => {
           <form onSubmit={editHandler}>
             <div className="info_content">
               <div className="mt-11">
-                <p className="settings_name font-medium text-sm mb-4">Username</p>
+                <p className="settings_name font-medium text-sm mb-4">Company Name</p>
                 <input className="settings_value bg-transparent rounded-lg border border-[#282828] h-11 flex items-center px-4 text-sm w-full" value={companyName} onChange={e => setComapnyName(e.target.value)} />   
               </div>
               <div className="mt-11">
@@ -95,7 +103,10 @@ const CompanyDetails = ({details}) => {
               </div>
             </div>
 
-            <button>Submit</button>
+            <div className="flex justify-end gap-4">
+              <div onClick={() => setShowEdit(false)} className="flex h-11 items-center px-6 border rounded-[100px] cursor-pointer bg-white text-black font-semibold text-sm">Cancel</div>
+              <button className='flex items-center h-11 rounded-[100px] bg-primary-blue px-6 font-semibold text-sm'>Save</button>
+            </div>
           </form>
         </div>
 

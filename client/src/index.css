@@ -206,3 +206,11 @@ body .rsw-editor{width: 100%;}
 .tab_titles .active{
   border-bottom:1px solid #0049FF;
 }
+
+.terms_content{
+  color:#667085;
+  h1,h2,h3,h4,h5,h6{
+    color:#fff;
+    font-weight:500;
+  }
+}

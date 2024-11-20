@@ -143,12 +143,12 @@ const userEditAdmin = async (req,res) => {
 
 
 const editUser = async (req,res) => {
+
   console.log("Edit user hitted!")
   const {user:jwtuser} = req
   //console.log("auth user", jwtuser)
-  const {industry,employee,goal,workflow,manualWorks,mainIssue,improveArea,achieveArea,password,notification, companyDetails} = req.body
-  // console.log("User edit req data",industry,employee,goal,workflow,manualWorks,mainIssue,improveArea,achieveArea,notification, companyDetails);
-  console.log("Company details data", companyDetails);
+  const {industry,employee,goal,workflow,manualWorks,mainIssue,improveArea,achieveArea,password,notification, companyDetails,company,browserInfo, newPassword,notiSettings} = req.body
+  console.log("notiSettings", notiSettings);
   
   try {
     const user = await User.findOne({email:jwtuser.email})
@@ -167,7 +167,18 @@ const editUser = async (req,res) => {
       user.mainIssue = mainIssue || user.mainIssue ;
       user.improveArea = improveArea || user.improveArea ;
       user.achieveArea = achieveArea || user.achieveArea ;
-      user.password = password || user.password ;
+      //user.password = password || user.password ;
+
+      if(password){
+        const isMatch = await user.matchPassword(password);
+        if (!isMatch) {
+          throw new Error("Old password is incorrect!");
+        }
+        user.password = newPassword;
+      }
+
+    
+      user.company = company || user.company ;
       if(notification){
         const oldNotifications = user.notifications;
 
@@ -184,8 +195,70 @@ const editUser = async (req,res) => {
       }
 
       user.companyDetails = companyDetails || user.companyDetails;
+      user.notiSettings = notiSettings || user.notiSettings;
+      if(browserInfo){
+        //user.browserInfo = [browserInfo, ...user.browserInfo.slice[0,1] ];
+        user.browserInfo = [browserInfo, user.browserInfo[0] ? user.browserInfo[0] : '' ] 
+        // user.browserInfo = [browserInfo]
+      }
+      
 
       //user.password = req.body.password;
+      const updatedUser = await user.save();
+  
+      /*
+      res.status(200).json({
+        _id: updatedUser._id,
+        firstName: updatedUser.firstName,
+        lastName: updatedUser.lastName,
+        email: updatedUser.email,
+        status: updatedUser.status,
+        role: updatedUser.role,
+        industry: updatedUser.industry,
+        employee: updatedUser.employee,
+        goal: updatedUser.goal,
+        workflow: updatedUser.workflow,
+        manualWorks: updatedUser.manualWorks,
+        mainIssue: updatedUser.mainIssue,
+        improveArea: updatedUser.improveArea,
+        achieveArea: updatedUser.achieveArea,
+        notifications: updatedUser.notifications,
+        companyDetails: updatedUser.companyDetails,
+        browserInfo: updatedUser.browserInfo,
+        success:true
+      }*/ 
+      res.status(200).json({
+        user:updatedUser
+      })
+
+
+    }else{
+      throw new Error("Something went wrong!")
+    }
+  } catch (error) {
+    res.status(401).json({message:error.message})
+  }
+  
+}
+
+/*
+const resetPassword = async (req,res) => {
+
+  console.log("User Reset Password hitted!")
+  const {user:jwtuser} = req
+  //console.log("auth user", jwtuser)
+  const {oldPass, newPass} = req.body
+  // console.log("Company details data", companyDetails);
+
+  
+  try {
+    const user = await User.findOne({email:jwtuser.email})
+    if(user){
+      if(user.status == 'pending'){
+        throw new Error("Your account is not approved yet! Contact an Admin.")
+      }
+
+      
       const updatedUser = await user.save();
   
       res.status(200).json({
@@ -205,6 +278,7 @@ const editUser = async (req,res) => {
         achieveArea: updatedUser.achieveArea,
         notifications: updatedUser.notifications,
         companyDetails: updatedUser.companyDetails,
+        browserInfo: updatedUser.browserInfo,
         success:true
       })
     }else{
@@ -215,7 +289,7 @@ const editUser = async (req,res) => {
   }
   
 }
-
+*/
 
 
 const addFileToUser = async (req,res) => {

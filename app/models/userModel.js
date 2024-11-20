@@ -72,7 +72,13 @@ const userSchema = mongoose.Schema({
     type: Object,
     default: {}
   },
-
+  browserInfo: [{
+    type: Object,
+  }],
+  notiSettings :{
+    type: Object,
+    default: {}
+  },
   notifications: [userNotificationSchema],
 
 },{timestamps: true})
