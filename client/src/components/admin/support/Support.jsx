@@ -7,6 +7,8 @@ import { useCreateSupportMutation, useGetSupportQuery } from '../../../slices/su
 import Loader from '../../../components/Loader'
 import {toast} from 'react-toastify'
 import SupportList from './SupportList';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSearchTerm } from '../../../slices/faqSlice';
 
 
 
@@ -16,6 +18,9 @@ const Support = () => {
   const [html, setHtml] = useState('');
   const [showAddNew,setShowAddNew] = useState(false)
   const [checkBoxChecked,setCheckBoxChecked] = useState(true)
+
+  const dispatch = useDispatch();
+  const searchTerm = useSelector(state => state.faq.searchTerm)
 
   function onChange(e) {
     setHtml(e.target.value);
@@ -57,7 +62,17 @@ const Support = () => {
     }
   }
 
+  console.log("data", data)
+  const setSearchTextHandler = (e) => {
+    dispatch(setSearchTerm(e.target.value))
+  }
 
+  const searchFilterHandler = (user) => {
+    return user?.question?.toLowerCase()?.includes(searchTerm.toLowerCase());
+  }
+
+  const faqs = data.supports.filter(searchFilterHandler)
+  console.log("faqs",faqs)
 
 
   return (
@@ -67,7 +82,7 @@ const Support = () => {
         <form action="">
           <div className="search_input relative">
             <img className='absolute left-4 top-3' src={SearchIcon} alt="" />
-            <input className='text-[#B0B0B0] bg-transparent pl-11 pr-2 h-11 rounded-lg border border-[#3D3D3D] w-80' type="text" placeholder='Search' />
+            <input onChange={setSearchTextHandler} className='text-[#B0B0B0] bg-transparent pl-11 pr-2 h-11 rounded-lg border border-[#3D3D3D] w-80' type="text" placeholder='Search' />
           </div>
         </form>
 
@@ -82,7 +97,7 @@ const Support = () => {
         </div>
       </div>
 
-      <SupportList faqs={data.supports} />
+      <SupportList faqs={faqs} />
 
       {showAddNew && (
 

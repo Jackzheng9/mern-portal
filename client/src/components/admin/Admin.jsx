@@ -73,7 +73,7 @@ const Admin = () => {
 
   if (isLoading) return <div>Loading</div>
   
-  console.log("data",data)
+  // console.log("data",data)
 
 
 

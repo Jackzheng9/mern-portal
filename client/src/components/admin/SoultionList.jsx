@@ -1,17 +1,15 @@
 import FolderIcon from '../../assets/FolderIcon.svg'
 import BluePlus from '../../assets/BluePlus.svg'
 import { useState,useEffect } from 'react'
-import { useGetAllSolutionQuery } from '../../slices/solutionApiSlice'
+// import { useGetAllSolutionQuery } from '../../slices/solutionApiSlice'
 
 import SolutionListItem from './SolutionListItem'
 
 
-const SoultionList = ({showUpload}) => {
+const SoultionList = ({showUpload,solutions}) => {
   
   const [showNothing, setShowNothing] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const {data, isLoading, isError} = useGetAllSolutionQuery();
-  console.log("data",data);
+  
 
  
 
@@ -22,8 +20,8 @@ const SoultionList = ({showUpload}) => {
 
   return (
     <>
-      {isLoading && <>Loading....</>}
-      { data && data.solutions.length == 0 && <>
+      {/* {isLoading && <>Loading....</>} */}
+      { solutions && solutions.length == 0 && <>
           <div className="nothing_found flex flex-col mx-auto items-center">
             <img src={FolderIcon} className='mx-auto block w-20 mb-4'  alt="" />
             <p className="text-[#F6F6F6] text-lg font-semibold mx-auto mb-2">No Content found</p>
@@ -35,7 +33,7 @@ const SoultionList = ({showUpload}) => {
         </div>      
       </>}
 
-      {data && data.solutions.length !== 0 && <>
+      {solutions && solutions.length !== 0 && <>
         <div className="flex text-gray-300 mt-5">
           
           <div className="grow-[2] basis-0">Solution</div>
@@ -46,7 +44,7 @@ const SoultionList = ({showUpload}) => {
 
         </div>
 
-        {data.solutions.map(solution => <SolutionListItem key={solution._id} solution={solution} />)}
+        {solutions.map(solution => <SolutionListItem key={solution._id} solution={solution} />)}
 
 
       </> }

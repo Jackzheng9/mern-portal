@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   searchTerm:"",
-  currentFile:{}
+  currentFile:{},
+  status:'All'
 }
 
 const resourceListSlice = createSlice({
@@ -15,9 +16,12 @@ const resourceListSlice = createSlice({
     },
     setCurrentFile : (state,action) =>{
       state.currentFile = action.payload
+    },
+    setStatus : (state, action) => {
+      state.status = action.payload
     }
   }
 })
 
-export const {setSearchTerm,setCurrentFile } = resourceListSlice.actions;
+export const {setSearchTerm,setCurrentFile,setStatus } = resourceListSlice.actions;
 export default resourceListSlice.reducer;

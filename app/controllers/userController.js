@@ -60,6 +60,25 @@ const userLogin = async (req,res) => {
         company:user.company,
         status:user.status,
         completedFiles:user.completedFiles,
+        industry:user.industry,
+        employee:user.employee,
+        goal:user.goal,
+        workflow:user.workflow,
+        manualWorks:user.manualWorks,
+        mainIssue:user.mainIssue,
+        achieveArea:user.achieveArea,
+        notification:user.notification,
+        companyDetails:user.companyDetails,
+        company:user.company,
+        improveArea:user.improveArea,
+        browserInfo:user.browserInfo,
+        notiSettings:user.notiSettings,
+        phone:user.phone,
+        city:user.city,
+        state:user.state,
+        country:user.country,
+        timezone:user.timezone,
+        image:user.image,
       })
     }else{
       throw new Error('Invalid email or password')
@@ -184,6 +203,7 @@ const editUser = async (req,res) => {
 
     
       user.company = company || user.company ;
+      
       if(notification){
         const oldNotifications = user.notifications;
 

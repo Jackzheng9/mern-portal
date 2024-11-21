@@ -15,8 +15,9 @@ import ResourceList from './ResourceList'
 import Loader from '../Loader'
 import UploadResource from './UploadResource'
 import { useDispatch, useSelector } from 'react-redux'
-import { setSearchTerm } from '../../slices/ResourceListslice'
-
+import { setSearchTerm, setStatus } from '../../slices/ResourceListslice'
+import CheckBox from '../../assets/Checkbox.svg'
+import CheckBoxSelected from '../../assets/Checkbox-blue-selected.svg'
 
 
 const Resources = () => {
@@ -33,12 +34,14 @@ const Resources = () => {
   const [lectures, setLectures] = useState([{title:"", desc:"", files:[], image:"", imgName:""}])
   const [tempFiles, setTempFiles] = useState([])
   const [showLoader, setShowLoader] = useState(false)
+  const [showStateSelector, setShowStateSelector] = useState(false)
 
   const dispatch = useDispatch();
   
   const cloud_name = import.meta.env.VITE_CLOUD_NAME;
   const upload_preset = import.meta.env.VITE_UPLOAD_PRESET;
 
+  const statusFilterTerm = useSelector(state => state.resourceFilter.status)
 
   const submitImage = (e) => {
     console.log("Image uploaded")
@@ -241,6 +244,12 @@ const Resources = () => {
     dispatch(setSearchTerm(searchText))
   }
 
+  const statusSelectHandler = (e) => {
+    console.log("Status", e.target.closest('li').getAttribute('data-value'))
+    dispatch(setStatus(e.target.closest('li').getAttribute('data-value')))
+    setShowStateSelector(false)
+  }
+
   return (
     <div className='px-6 relative'>
       <div className="flex items-center justify-between">
@@ -261,9 +270,23 @@ const Resources = () => {
           </div>
         </form>
 
-        <div className="flex gap-1 items-center">
-          <p className="text-gray-300 font-medium">All</p> <img src="" alt="" />
-          <img src={Bars} className='w-5' alt="" />
+        <div className="relative">
+          <p onClick={() => setShowStateSelector(!showStateSelector) }  className="text-gray-300 font-medium flex gap-1 items-center cursor-pointer">All
+          <img src={Bars} className='w-5' alt="" /> </p>
+
+          {showStateSelector && (
+            <div className="statusSelect w-[200px] bg-[#565b56] px-4 py-5 rounded">
+              <ul>
+                <li onClick={statusSelectHandler} data-value="All" className='flex gap-2'>{statusFilterTerm !=="All" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="All" && <img src={CheckBoxSelected} alt="" /> }  All</li>
+                <li onClick={statusSelectHandler} data-value="Published" className='flex gap-2'>{statusFilterTerm !=="Published" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="Published" && <img src={CheckBoxSelected} alt="" /> } Published</li>
+                <li  onClick={statusSelectHandler} data-value="Unpublished" className='flex gap-2'>{statusFilterTerm !=="Unpublished" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="Unpublished" && <img src={CheckBoxSelected} alt="" /> } Unpublished</li>
+                
+              </ul>
+            </div>
+          )}
+
+
+
         </div>
 
       </div>

@@ -12,6 +12,17 @@ import { useAddSolutionMutation } from '../../slices/solutionApiSlice'
 import slugify from 'slugify'
 import {toast} from 'react-toastify'
 import SoultionList from './SoultionList'
+import { useSelector, useDispatch } from 'react-redux'
+import CheckBox from '../../assets/Checkbox.svg'
+import CheckBoxSelected from '../../assets/Checkbox-blue-selected.svg'
+import { setStatus, setSearchTerm } from '../../slices/SolutionListSlice'
+import { useGetAllSolutionQuery } from '../../slices/solutionApiSlice'
+import Loader from '../Loader'
+
+
+
+
+
 
 const Solutions = () => {
 
@@ -26,7 +37,12 @@ const Solutions = () => {
   const [workflows, setWorkflows] = useState([{title:"", desc:"", image:"", imgName:""}])
   const [tools, setTools] = useState([{title:"", desc:""}])
   const [features, setFeatures] = useState([{title:"", desc:"", image:"", imgName:""}])
+  const [showStateSelector, setShowStateSelector] = useState(false)
+  const statusFilterTerm = useSelector(state => state.solutionsFilter.status)
+  const searchFilterTerm = useSelector(state => state.solutionsFilter.searchTerm)
 
+
+  const dispatch = useDispatch();
 
   const submitImage = (e) => {
     console.log("Image uploaded")
@@ -189,6 +205,41 @@ const Solutions = () => {
     setShowUpload(true)
   }
 
+  const statusSelectHandler = (e) => {
+    console.log("Status", e.target.closest('li').getAttribute('data-value'))
+    dispatch(setStatus(e.target.closest('li').getAttribute('data-value')))
+    setShowStateSelector(false)
+  }
+
+  const searchInputHandler = (e) => {
+    const searchTerm = e.target.value;
+    dispatch(setSearchTerm(searchTerm))
+  }
+
+  const statusFilterHandler = (user) => {
+    if(statusFilterTerm == "All"){
+      return true;
+    }else{
+      return user.status ===  statusFilterTerm;
+    }    
+  }
+
+  const searchFilterHandler = (user) => {
+    return user?.title?.toLowerCase()?.includes(searchFilterTerm.toLowerCase());
+  }
+
+  const {data, isLoading:getLoading, isError:getError} = useGetAllSolutionQuery();
+  if(getLoading){
+    return <Loader />;
+  }
+  if(getError){
+    return "Something went wrong!";
+  }
+
+  // console.log("Sol data",data)
+  const solutions = data.solutions;
+  const filteredSolutions = solutions.filter(statusFilterHandler).filter(searchFilterHandler)
+
   return (
     <div className='px-6 relative'>
       <div className="flex items-center justify-between">
@@ -199,22 +250,35 @@ const Solutions = () => {
           </div>
       </div>
 
-      <div className="flex justify-between mt-8">
+      <div className="flex justify-between mt-8 relative">
         <form action="">
           <div className="relative">
             <img className='absolute left-[14px] top-[12px] ' src={SearchIcon} alt="" />
-            <input className='searchBordered h-11 bg-transparent rounded-lg pl-11' placeholder="Search" type="text" />
+            <input onChange={searchInputHandler} className='searchBordered h-11 bg-transparent rounded-lg pl-11' placeholder="Search" type="text" />
           </div>
         </form>
 
-        <div className="flex gap-1 items-center">
-          <p className="text-gray-300 font-medium">All</p> <img src="" alt="" />
-          <img src={Bars} className='w-5' alt="" />
+        <div className="">
+          <p onClick={() => setShowStateSelector(!showStateSelector) } className="text-gray-300 font-medium flex gap-1 items-center">All
+          <img src={Bars} className='w-5' alt="" /></p>
+          {showStateSelector && (
+            <div className="statusSelect w-[200px] bg-[#565b56] px-4 py-5 rounded">
+              <ul>
+                <li onClick={statusSelectHandler} data-value="All" className='flex gap-2'>{statusFilterTerm !=="All" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="All" && <img src={CheckBoxSelected} alt="" /> }  All</li>
+                <li onClick={statusSelectHandler} data-value="Published" className='flex gap-2'>{statusFilterTerm !=="Published" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="Published" && <img src={CheckBoxSelected} alt="" /> } Published</li>
+                <li  onClick={statusSelectHandler} data-value="Unpublished" className='flex gap-2'>{statusFilterTerm !=="Unpublished" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="Unpublished" && <img src={CheckBoxSelected} alt="" /> } Unpublished</li>
+                
+              </ul>
+            </div>
+          )}
+
+
+
         </div>
 
       </div>
 
-      <SoultionList showUpload={showUploadContent} />
+      <SoultionList solutions={filteredSolutions} showUpload={showUploadContent} />
 
       {showUpload && (
         

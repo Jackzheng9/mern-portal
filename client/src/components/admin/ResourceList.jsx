@@ -13,18 +13,25 @@ const ResourceList = ({showUpload}) => {
   const [showNothing, setShowNothing] = useState(false)
   const [loading, setLoading] = useState(true)
   const {data, isLoading, isError} = useGetResourceQuery();
-  console.log("data",data);
-  const searchTerm = useSelector(state => state.resourceFilter.searchTerm)
- console.log("searchTerm", searchTerm)
+  // console.log("data",data);
+  const searchTerm = useSelector(state => state.resourceFilter.searchTerm);
+  const statusFilterTerm = useSelector(state => state.resourceFilter.status)
+  // console.log("searchTerm", searchTerm)
 
   useEffect(() => {
-    console.log("Use Effect working!")
+    // console.log("Use Effect working!")
   },[])
 
   const searchFilterHandler = (resource) => {
     return resource?.title?.toLowerCase()?.includes(searchTerm.toLowerCase());
   }
-
+  const statusFilterHandler = (user) => {
+    if(statusFilterTerm == "All"){
+      return true;
+    }else{
+      return user.status ===  statusFilterTerm;
+    }    
+  }
 
   return (
     <>
@@ -52,7 +59,7 @@ const ResourceList = ({showUpload}) => {
 
         </div>
 
-        {data.resources.filter(searchFilterHandler).map(resource => <ResourceListItem key={resource._id} resource={resource} />)}
+        {data.resources.filter(searchFilterHandler).filter(statusFilterHandler).map(resource => <ResourceListItem key={resource._id} resource={resource} />)}
 
 
       </> }
