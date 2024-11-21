@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import { useEditUserMutation } from '../../slices/userApiSlice'
 import Loader from '../Loader'
-import { copyWithStructuralSharing } from '@reduxjs/toolkit/query'
 import { toast } from 'react-toastify'
-
-
+import UploadIcon from '../../assets/UploadIcon.svg'
+import uploadImage from '../../utils/imageUpload'
 
 
 const ProfileContent = ({user, showEdit, setShowEdit}) => {
   console.log("user", user)
 
+  const [image, setImage] = useState("")
+  const [imageName, setImageName] = useState("")
   const [firstName, setFirstName] = useState(user.firstName ? user.firstName : "")
   const [lastName, setLastName] = useState(user.lastName ? user.lastName : '')
   const [email, setEmail] = useState(user.email  ? user.email : '') 
@@ -18,6 +19,23 @@ const ProfileContent = ({user, showEdit, setShowEdit}) => {
   const [state, setState] = useState(user.state ? user.state : '') 
   const [country, setCountry] = useState(user.country ? user.country : '') 
   const [timezone, setTimezone] = useState(user.timezone ? user.timezone : '')
+  const [showLoader, setShowLoader] = useState(false)
+
+
+  const imageHandler = async (e) => {
+    // console.log("Process image");
+    setShowLoader(true)
+    const file = e.target.files[0];
+    // console.log("file", file)
+    const uploaded = await uploadImage(file);
+    console.log("Uploaded", uploaded)
+    setImage(uploaded.url);
+    setImageName(file.name);
+    setShowLoader(false)
+  }
+
+
+
 
   const [editUser,{isLoading, isError}] = useEditUserMutation();
   if(isLoading){
@@ -44,7 +62,8 @@ const ProfileContent = ({user, showEdit, setShowEdit}) => {
       city,
       state,
       country,
-      timezone
+      timezone,
+      image
 
     }
 
@@ -63,6 +82,8 @@ const ProfileContent = ({user, showEdit, setShowEdit}) => {
 
   return (
     <div>
+
+      {showLoader && <Loader />}
 
       {!showEdit && (
         <div className="profile_content">
@@ -138,6 +159,19 @@ const ProfileContent = ({user, showEdit, setShowEdit}) => {
         <div className='profile_info'>
 
           <form onSubmit={formSubmitHandler}>
+
+            <div className="inputGroup flex flex-col gap-1.5 bg-[#1B1B1F] rounded-2xl px-12 py-6 mb-7">
+              <label htmlFor="solImg" className='cursor-pointer'>
+                <img className='w-12 mx-auto block' src={UploadIcon} alt="" />
+                <p className="max-w-64 mx-auto text-primary-blue text-center">Click to upload Thumbnail <span className='text-gray-600'>or drag and drop SVG, PNG, JPG </span> </p>
+              </label>
+              <input id="solImg" className='hidden' type="file" onChange={imageHandler} />
+              <div className="flex items-center gap-2">
+                <img src={image} alt="" className='w-10' />
+                <p className="">{imageName}</p>
+              </div>
+              
+            </div>
           
             <div className='info_row flex mb-4'>
               

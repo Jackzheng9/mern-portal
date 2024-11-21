@@ -50,6 +50,9 @@ const userSchema = mongoose.Schema({
   timezone:{
     type:String
   },
+  image:{
+    type:String
+  },
   company:{
     type:String,
   },

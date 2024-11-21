@@ -147,7 +147,7 @@ const editUser = async (req,res) => {
   console.log("Edit user hitted!")
   const {user:jwtuser} = req
   //console.log("auth user", jwtuser)
-  const {industry,employee,goal,workflow,manualWorks,mainIssue,improveArea,achieveArea,password,notification, companyDetails,company,browserInfo, newPassword,notiSettings,phone, city,state,country, timezone} = req.body
+  const {industry,employee,goal,workflow,manualWorks,mainIssue,improveArea,achieveArea,password,notification, companyDetails,company,browserInfo, newPassword,notiSettings,phone, city,state,country, timezone,image} = req.body
   // console.log("notiSettings", notiSettings);
   
   try {
@@ -172,6 +172,7 @@ const editUser = async (req,res) => {
       user.state = state || user.state ;
       user.country = country || user.country ;
       user.timezone = timezone || user.timezone ;
+      user.image = image || user.image ;
 
       if(password){
         const isMatch = await user.matchPassword(password);

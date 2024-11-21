@@ -34,7 +34,7 @@ const Profile = () => {
       <div className="profile_header flex justify-between items-center mb-8">
         
         <div className="flex gap-6 items-center">
-          <img src={UserProfile} className='' alt="" />
+          <img src={user.image ? user.image : UserProfile} className='radius-[100%] w-[154px] h-[154px]' alt="" />
           <div className="">
             <p className="text-[#F8F8F8] font-semibold text-2xl mb-4">{user.firstName} {user.lastName}</p>
             <p className="text-lg font-medium text-[#F8F8F8] mb-2">DAT U member</p>
