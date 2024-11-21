@@ -147,8 +147,8 @@ const editUser = async (req,res) => {
   console.log("Edit user hitted!")
   const {user:jwtuser} = req
   //console.log("auth user", jwtuser)
-  const {industry,employee,goal,workflow,manualWorks,mainIssue,improveArea,achieveArea,password,notification, companyDetails,company,browserInfo, newPassword,notiSettings} = req.body
-  console.log("notiSettings", notiSettings);
+  const {industry,employee,goal,workflow,manualWorks,mainIssue,improveArea,achieveArea,password,notification, companyDetails,company,browserInfo, newPassword,notiSettings,phone, city,state,country, timezone} = req.body
+  // console.log("notiSettings", notiSettings);
   
   try {
     const user = await User.findOne({email:jwtuser.email})
@@ -167,7 +167,11 @@ const editUser = async (req,res) => {
       user.mainIssue = mainIssue || user.mainIssue ;
       user.improveArea = improveArea || user.improveArea ;
       user.achieveArea = achieveArea || user.achieveArea ;
-      //user.password = password || user.password ;
+      user.phone = phone || user.phone ;
+      user.city = city || user.city ;
+      user.state = state || user.state ;
+      user.country = country || user.country ;
+      user.timezone = timezone || user.timezone ;
 
       if(password){
         const isMatch = await user.matchPassword(password);

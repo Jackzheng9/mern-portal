@@ -62,7 +62,8 @@ export const userApiSlice = apiSlice.injectEndpoints({
         url:`${USERS_URL}/edituser`,
         method: "POST",
         body:data
-      })
+      }),
+      invalidatesTags: ['User'],
     }),
     addFiletoUser:builder.mutation({
       query:(data) => ({
