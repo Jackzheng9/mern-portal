@@ -3,13 +3,14 @@ import VerDots from "../../assets/ver-dots.svg";
 import Eye from "../../assets/eye.svg";
 import Check from "../../assets/check.svg";
 import X from "../../assets/x.svg";
+import CloseCircledBlack from "../../assets/CloseCircledBlack.svg";
 import CheckGreenCricle from "../../assets/check_green_circle.svg";
-import CloseButtoX from "../../assets/Close_Button_X.svg";
+import CloseButtoX from "../../assets/CloseWhite.svg";
 import CancelIcon from "../../assets/CancelBtn.svg";
 import OutsideClickHandler from "react-outside-click-handler";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import { useEditSolutionMutation } from "../../slices/solutionApiSlice";
+import { useEditSolutionMutation, useDeleteSolutionMutation } from "../../slices/solutionApiSlice";
 
 const SolutionListOptions = ({solution}) => {
   
@@ -29,7 +30,7 @@ const SolutionListOptions = ({solution}) => {
     }
   };
   
-  const [editSolution,{isLoading, isError}] = useEditSolutionMutation();
+  const [deleteSolution,{isLoading, isError}] = useDeleteSolutionMutation();
 
   const showModalHandler = () => {
     setShowPublish(true)
@@ -46,29 +47,25 @@ const SolutionListOptions = ({solution}) => {
     setShowDraft(false)
   }
 
-  const solutionEditHandler = async (status) => {
+
+
+  const solutionDeleteHandler = async () => {
     const data = {
-      status,
-      id:solution._id
+      id: solution._id
     }
 
     try {
-      const editedSolutionRes = await editSolution(data).unwrap();
-      console.log("edited", editedSolutionRes)
-      setShowDraft(false);
-      setShowPublish(false);
-      toast.success("Operation successful!")
+      const apiRes = await deleteSolution(data).unwrap()
+      toast.success("Solution deleted successfully!")
     } catch (error) {
       console.log("Error", error)
-      toast.error("Something went wrong, please try again!")
+      toast.error("Something went wrong!")
     }
-
     
-
   }
 
   return (
-    <div className="grow basis-0 relative w-full">
+    <div className="grow basis-0 w-full max-w-[97px]">
       <OutsideClickHandler onOutsideClick={outSideClickHandler}>
         <span
           onClick={optionClickHandler}
@@ -79,27 +76,25 @@ const SolutionListOptions = ({solution}) => {
       </OutsideClickHandler>
 
       {showOptions && (
-        <div className="min-w-[180px] user_options absolute p-4 rounded-md left-8 top-2 z-10 flex flex-col gap-4">
+        <div className="min-w-[180px] user_options absolute p-4 rounded-md right-20 top-2 z-10 flex flex-col gap-4">
           <Link to={`/admin/solutions/${solution.slug}`}>
-            <div className="option_modal flex gap-2 cursor-pointer">
-              <img src={Eye} alt="" /> View Details
+            <div className="option_modal flex gap-2 cursor-pointer py-2.5">
+              View Solution
             </div>
           </Link>
-          <div onClick={showModalHandler} className="option_modal flex gap-2 cursor-pointer" >
-            <img src={Check} alt="" /> Publish Solution
+          <div onClick={showModalHandler} className="option_modal flex gap-2 cursor-pointer py-2.5" >
+             Delete Solution
           </div>
 
-          <div onClick={showDraftModalHandler} className="option_modal flex gap-2 cursor-pointer" >
-            <img src={X} alt="" /> Draft Solution
-          </div>
+          
         </div>
       )}
 
       {showPublish && (
         <div className="accept_modal">
           <div className="accept_modal_content bg-[#333330] w-[400px] mx-auto p-6 rounded-md">
-            <div className="modal_header flex justify-between">
-              <img src={CheckGreenCricle} alt="" />
+            <div className="modal_header flex justify-between mb-4">
+              <img src={CloseCircledBlack} alt="" />
               <img
                 className="cursor-pointer"
                 onClick={modalCloseHandler}
@@ -107,10 +102,8 @@ const SolutionListOptions = ({solution}) => {
                 alt=""
               />
             </div>
-            <p className="text-lg font-semibold mb-1">Accept request</p>
-            <p className="text-[#B0B0B0] text-sm">
-              Are you sure you want to to make this solution published?
-            </p>
+            <p className="text-lg font-semibold mb-1">Delete Content</p>
+            <p className="text-[#B0B0B0] text-sm">Are you sure you want to delete the uploaded? This action cannot be undone. </p>
             <div className="flex gap-4 mt-8">
               <div
                 onClick={modalCloseHandler}
@@ -119,47 +112,16 @@ const SolutionListOptions = ({solution}) => {
                 Cancel
               </div>
               <div
-                onClick={() => solutionEditHandler("Published")}
-                className="modal_button rounded-[100px] border border-primary-blue bg-primary-blue w-[352px] h-[44px] flex justify-center items-center w-full cursor-pointer"
+                onClick={solutionDeleteHandler}
+                className="modal_button rounded-[100px] border border-primary-blue bg-[#F04438] w-[352px] h-[44px] flex justify-center items-center cursor-pointer"
               >
-                Publish
+                Delete
               </div>
             </div>
           </div>
         </div>
       )}
-      {showDraft && (
-        <div className="accept_modal">
-          <div className="accept_modal_content bg-[#333330] w-[400px] mx-auto p-6 rounded-md">
-            <div className="modal_header flex justify-between">
-              <img src={CancelIcon} alt="" />
-              <img
-                className="cursor-pointer"
-                onClick={modalCloseHandlerDraft}
-                src={CloseButtoX}
-                alt=""
-              />
-            </div>
-            <p className="text-lg font-semibold mb-1">Reject request</p>
-            <p className="text-[#B0B0B0] text-sm">
-              Are you sure you want to make this soltion Draft? 
-            </p>
-            <div className="flex gap-4 mt-8">
-              <div
-                onClick={modalCloseHandlerDraft}
-                className="modal_button rounded-[100px] border border-white w-[352px]h-[44px]  flex justify-center items-center w-full cursor-pointer"
-              >
-                Cancel
-              </div>
-              <div onClick={() => solutionEditHandler("Draft")}
-                className="modal_button rounded-[100px] border border-[#F04438] bg-[#F04438] w-[352px] h-[44px] flex justify-center items-center w-full cursor-pointer"
-              >
-                Draft
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      
     </div>
   )
 }

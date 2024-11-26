@@ -8,7 +8,7 @@ export const notificationApiSlice = apiSlice.injectEndpoints({
     
     createNotification: builder.mutation({
       query : (data) =>({
-        url:`${USERS_URL}/new`,
+        url:`${NOTIFICATION_URL}/new`,
         method: "POST",
         body:data
       }),

@@ -6,6 +6,7 @@ import CloseIcon from '../../../assets/Close-dimmed.svg'
 import uploadImage from '../../../utils/imageUpload'
 import slugify from 'slugify'
 import { useCreateDeepDiveMutation } from '../../../slices/deepDiveApiSlice'
+import { useCreateNotificationMutation } from '../../../slices/notificationApiSlice'
 import { toast } from 'react-toastify'
 
 
@@ -25,6 +26,7 @@ const CreateMonthlyDeepDive = ({closeHandler,type}) => {
 
 
   const [ createDeepDive , {isLoading, isError}] = useCreateDeepDiveMutation();
+  const [ createNotification ] = useCreateNotificationMutation();
 
   const checkClick = (e) =>{
     setCheckBoxChecked(!checkBoxChecked)
@@ -60,15 +62,23 @@ const CreateMonthlyDeepDive = ({closeHandler,type}) => {
     }
 
     console.log("data", data)
+
+    const notificationData = {
+      title: `Home content published` ,
+      message:`New content published - ${title} `,
+      type: 'homecontent'
+    }
     
     try {
       const apiRes = await createDeepDive(data).unwrap();
+      const notiRes = await createNotification(notificationData).unwrap();
       console.log("Api Res", apiRes)
+      console.log("Noti Res", notiRes)
       toast.success(`"${title}" has been created successfully!`)
       closeHandler();
 
     } catch (error) {
-      console.log(error)
+      console.log("error",error)
       if(error.data.error.code == 11000){
         toast.error(`Please use a different title for the post. "${title}" is alreay used in another post.`)
       }
@@ -81,17 +91,34 @@ const CreateMonthlyDeepDive = ({closeHandler,type}) => {
 
   return (
     <div className='create_monthly w-full absolute flex justify-center top-[0px] backdrop-blur-[2px]'>
-      <div className="create_monthly_inner w-full max-w-[720px] bg-black p-11">
+      <div className="create_monthly_inner w-full max-w-[720px] bg-[#111116] p-11">
         <div className="flex justify-between items-start ">
           <div className=''>
-            <h1 className="font-semibold text-2xl mb-1">Monthly Deep  Dive</h1>
-            <p className="text-[#B0B0B0] mb-8">Upload the details For the monthly deep  dive</p>
+            {type == 'deepdive' && (
+              <>
+                <h1 className="font-semibold text-2xl mb-1">Monthly Deep  Dive</h1>
+                <p className="text-[#B0B0B0]">Upload the details For the monthly deep  dive</p>
+              </>
+            )}
+            {type == 'aisaas' && (
+              <>
+                <h1 className="font-semibold text-2xl mb-1">AI Saas Tool</h1>
+                <p className="text-[#B0B0B0]">Upload the details For the monthly tool</p>
+              </>
+            )}
+            {type == 'monthai' && (
+              <>
+                <h1 className="font-semibold text-2xl mb-1">This Month in AI - What Did You Miss? </h1>
+                <p className="text-[#B0B0B0]">Upload the work history csv file downloaded from the Aegis</p>
+              </>
+            )}
+            
           </div>
           <img onClick={closeHandler} className='cursor-pointer' src={CloseIcon} alt="" />
         </div>
         
 
-        <form onSubmit={submitHandler}>
+        <form className='mt-10' onSubmit={submitHandler}>
           {type == 'monthai' && (
 
             <div className="mb-8">
@@ -104,7 +131,7 @@ const CreateMonthlyDeepDive = ({closeHandler,type}) => {
           <div className="inputGroup flex flex-col gap-1.5 bg-[#1B1B1F] rounded-2xl px-12 py-6 mb-7">
             <label htmlFor="solImg" className='cursor-pointer'>
               <img className='w-12 mx-auto block' src={UploadIcon} alt="" />
-              <p className="max-w-64 mx-auto text-primary-blue text-center">Click to upload Thumbnail <span className='text-gray-600'>or drag and drop SVG, PNG, JPG </span> </p>
+              <p className="max-w-64 mx-auto text-primary-blue text-center">Click to upload <span className='text-[#B0B0B0]'>or drag and drop SVG, PNG, JPG </span> </p>
             </label>
             <input id="solImg" className='hidden' type="file" onChange={imageHandler} />
             <div className="flex items-center gap-2">

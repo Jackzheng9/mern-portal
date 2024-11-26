@@ -39,7 +39,7 @@ const DeepDiveListItem = ({item, deleteHandler}) => {
 
   return (
     <>
-      <div className="item_wrap p-6 flex gap-3">
+      <div className="item_wrap p-6 flex gap-3 mx-2.5 bg-[#1B1B1F] rounded-md">
         <div className="basis-0 grow-[2] shrink-0">
           <img className='min-w-[188px] max-h-[136px]' src={item.image} alt="" />
         </div>
@@ -63,15 +63,14 @@ const DeepDiveListItem = ({item, deleteHandler}) => {
               <img onClick={optionsToggleHandler} className='min-h-3.5 cursor-pointer' src={VerDots} alt="" />
               {showOptions && (
 
-                <div className="min-w-[180px] dive_options absolute p-4 rounded-md right-7 top-2 z-10 flex flex-col gap-4 bg-black">
-                <Link to={``}>
-                  <div onClick={handleEdit} className="option_modal flex gap-2 cursor-pointe text-[#B0B0B0] hover:text-white">
-                  Edit Content
+                <div className="min-w-[180px] dive_options absolute p-4 rounded-md right-7 top-2 z-10 flex flex-col bg-black">
+                  
+                  <div onClick={handleEdit} className="option_modal flex gap-2 cursor-pointer text-[#B0B0B0] hover:text-white border-b border-[#222227] py-2 px-4">
+                    Edit Content
                   </div>
-                </Link>
-                <div onClick={() => deleteClickHandler(item._id)}  className="option_modal flex gap-2 cursor-pointer text-[#B0B0B0] hover:text-white" >
-                Delete Content
-                </div>
+                  <div onClick={() => deleteClickHandler(item._id)}  className="option_modal flex gap-2 cursor-pointer text-[#B0B0B0] hover:text-white py-2 px-4" >
+                  Delete Content
+                  </div>
 
 
                 </div>

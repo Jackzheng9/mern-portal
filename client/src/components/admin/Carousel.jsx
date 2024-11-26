@@ -47,12 +47,12 @@ const CarouselComponent = ({items,deleteHandler}) => {
       <div className="carousel-button-group flex gap-6 justify-center">
         {/* <div>Current slide is {currentSlide} - total {totalSlides} - {slidesToShow}</div> */}
         <button className={currentSlide == 0 ? "inactive" : "active"} onClick={() => previous()}>
-          <img className="dimmed" src={ArrowLeftCircleDimmed} alt="" />
-          <img className="white" src={ArrowLeftCircle} alt="" />
+          <img className="dimmed w-8 h-8" src={ArrowLeftCircleDimmed} alt="" />
+          <img className="white w-8 h-8" src={ArrowLeftCircle} alt="" />
         </button>
         <button className={currentSlide == totalSlides ? "inactive" : "active"} onClick={() => next()}>
-          <img className="white" src={ArroRightCircle} alt="" />
-          <img className="dimmed" src={ArroRightCircleDimmed} alt="" />
+          <img className="white w-8 h-8" src={ArroRightCircle} alt="" />
+          <img className="dimmed w-8 h-8" src={ArroRightCircleDimmed} alt="" />
         </button>
       </div>
     );

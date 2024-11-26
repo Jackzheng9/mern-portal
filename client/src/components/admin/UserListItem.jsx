@@ -21,9 +21,9 @@ const UserListItem = ({ user }) => {
   
 
   return (
-    <li className="flex justify-between relative">
-      <span className="w-full flex">{user.company}</span>
-      <span className="w-full flex">{formatDate(user.createdAt)}</span>
+    <li className="flex justify-between items-center relative border-b border-[#222227]">
+      <span className="w-full flex text-[#F6F6F6]">{user.company}</span>
+      <span className="w-full flex text-[#B0B0B0]">{formatDate(user.createdAt)}</span>
       <span className="w-full flex"> <span className={`status_text border rounded-2xl text-xs font-medium h-[22px] flex items-center px-[6px] py-[8px] ${userStatus == 'Accepted' ? 'border-[#027A48] text-[#027A48]' : ""} ${userStatus == 'Rejected' ? 'border-[#F04438] text-[#F04438]' : ""} ${userStatus == 'Pending' ? 'border-[#F79009] text-[#F79009]' : ""}`}>{userStatus}</span> </span>
       <UserListOptions user={user} changeUserStatus={changeUserStatus} />
     </li>

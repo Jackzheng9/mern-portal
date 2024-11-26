@@ -241,16 +241,16 @@ const Solutions = () => {
   const filteredSolutions = solutions.filter(statusFilterHandler).filter(searchFilterHandler)
 
   return (
-    <div className='px-6 relative'>
+    <div className='p-6 relative'>
       <div className="flex items-center justify-between">
-          <p className="">Manage Solutions</p>
+          <p className="font-medium text-2xl">Manage Solutions</p>
           <div onClick={() => setShowUpload(true) } className="bg-primary-blue rounded-[100px] flex items-center pl-9 pr-11 h-11 gap-2 cursor-pointer">
             <img src={ArrowUp} alt="" />
             <p className="">Upload Content</p>
           </div>
       </div>
 
-      <div className="flex justify-between mt-8 relative">
+      <div className="flex justify-between mt-8 relative items-center">
         <form action="">
           <div className="relative">
             <img className='absolute left-[14px] top-[12px] ' src={SearchIcon} alt="" />
@@ -259,14 +259,14 @@ const Solutions = () => {
         </form>
 
         <div className="">
-          <p onClick={() => setShowStateSelector(!showStateSelector) } className="text-gray-300 font-medium flex gap-1 items-center">All
+          <p onClick={() => setShowStateSelector(!showStateSelector) } className="text-gray-300 font-medium flex gap-1 items-center bg-[#1B1B1F] border border-[#222227] px-3.5 py-2 rounded-lg cursor-pointer">All
           <img src={Bars} className='w-5' alt="" /></p>
           {showStateSelector && (
-            <div className="statusSelect w-[200px] bg-[#565b56] px-4 py-5 rounded">
+            <div className="statusSelect w-[200px] bg-[#1B1B1F] px-4 py-5 rounded border border-[#222227]">
               <ul>
-                <li onClick={statusSelectHandler} data-value="All" className='flex gap-2'>{statusFilterTerm !=="All" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="All" && <img src={CheckBoxSelected} alt="" /> }  All</li>
-                <li onClick={statusSelectHandler} data-value="Published" className='flex gap-2'>{statusFilterTerm !=="Published" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="Published" && <img src={CheckBoxSelected} alt="" /> } Published</li>
-                <li  onClick={statusSelectHandler} data-value="Unpublished" className='flex gap-2'>{statusFilterTerm !=="Unpublished" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="Unpublished" && <img src={CheckBoxSelected} alt="" /> } Unpublished</li>
+                <li onClick={statusSelectHandler} data-value="All" className='flex gap-2 py-3'>{statusFilterTerm !=="All" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="All" && <img src={CheckBoxSelected} alt="" /> }  All</li>
+                <li onClick={statusSelectHandler} data-value="Published" className='flex gap-2 py-3'>{statusFilterTerm !=="Published" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="Published" && <img src={CheckBoxSelected} alt="" /> } Published</li>
+                <li  onClick={statusSelectHandler} data-value="Unpublished" className='flex gap-2 py-3'>{statusFilterTerm !=="Unpublished" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="Unpublished" && <img src={CheckBoxSelected} alt="" /> } Unpublished</li>
                 
               </ul>
             </div>

@@ -47,13 +47,17 @@ export const resourceApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ['Resources'],
     }),
 
-
-
-
-
+    deleteResource: builder.mutation({
+      query : (data) =>({
+        url:`${RESOURCES_URL}/delete`,
+        method: "POST",
+        body:data
+      }),
+      invalidatesTags: ['Resources'],
+    }),
 
   })
 })
 
 
-export const {useGetSignatureMutation, useCreateResourceMutation, useGetResourceQuery, useGetResourceBySlugQuery, useEditResourceMutation} = resourceApiSlice;
+export const {useGetSignatureMutation, useCreateResourceMutation, useGetResourceQuery, useGetResourceBySlugQuery, useEditResourceMutation, useDeleteResourceMutation} = resourceApiSlice;

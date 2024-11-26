@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Outlet, NavLink } from "react-router-dom";
 import BlueLogo from '../../assets/LogoBlue.svg'
+import Logo from '../../assets/logo.svg'
 import Settings from '../../assets/settings.svg'
 import Notification from '../../assets/notification.svg'
 import User from '../../assets/user.png'
@@ -147,8 +148,8 @@ const AdminLayout = () => {
       {showLoader && <Loader />}
       <div className="admin_container mx-auto px-[40px] max-w-[1480px] relative">
         
-        <div className="header flex justify-between items-center py-5 ">
-          <img src={BlueLogo} alt="" />
+        <div className="header flex justify-between items-center py-5 border-b border-[#222227] mb-6">
+          <img src={Logo} alt="" />
           <div className='flex justify-end gap-4 items-center'>
             <div className="cursor-pointer relative">
               <img onClick={userOptionsHandler} className='w-10 h-10 rounded-[100%]' src={image} alt="" />
@@ -262,14 +263,14 @@ const AdminLayout = () => {
 
         <div className="admin_content flex gap-4">
           
-          <div className="admin_left_bar w-full max-w-[264px] pr-6 basis-0 grow-[1]">
+          <div className="admin_left_bar w-full max-w-[264px] p-6 basis-0 grow-[1] border-r border-[#222227]">
             <ul className="admin_lists flex flex-col gap-2">
-              <li><NavLink className={`flex gap-3 font-semibold text-base py-3 px-4 rounded-md `} to="/admin/dashboard"><img src={DashIcon} alt="" />Dashboard</NavLink></li>
-              <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md' to="/admin/home-content"><img src={HomeIcon} alt="" />Home Content</NavLink></li>
-              <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md' to="/admin/solutions/"><img src={SolIcon} alt="" />Manage Solutions</NavLink></li>
-              <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md' to="/admin/resources"><img src={CalIcon} alt="" />Monthly Content</NavLink></li>
-              <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md' to="/admin/terms"><img src={TermsIcon} alt="" />Terms & Conditions</NavLink></li>
-              <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md' to="/admin/support"><img src={InfoIcon} alt="" />Support</NavLink></li>
+              <li><NavLink className={`flex gap-3 text-base py-3 px-4 rounded-md  text-[#B0B0B0] font-medium`} to="/admin/dashboard"><img src={DashIcon} alt="" />Dashboard</NavLink></li>
+              <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md text-[#B0B0B0] font-medium' to="/admin/home-content"><img src={HomeIcon} alt="" />Home Content</NavLink></li>
+              <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md text-[#B0B0B0] font-medium' to="/admin/solutions/"><img src={SolIcon} alt="" />Manage Solutions</NavLink></li>
+              <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md text-[#B0B0B0] font-medium' to="/admin/resources"><img src={CalIcon} alt="" />Monthly Content</NavLink></li>
+              <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md text-[#B0B0B0] font-medium' to="/admin/terms"><img src={TermsIcon} alt="" />Terms & Conditions</NavLink></li>
+              <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md text-[#B0B0B0] font-medium' to="/admin/support"><img src={InfoIcon} alt="" />Support</NavLink></li>
               {/* <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md' to="/admin/demo"><img src={KeyIcon} alt="" />Demo Request</NavLink></li> */}
             </ul>
           </div>

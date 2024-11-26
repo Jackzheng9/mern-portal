@@ -71,4 +71,17 @@ const editSolution = async (req,res) => {
   
 }
 
-export { createSolution, getAdminAllSolution, getSolutionBySlug, editSolution, getAllSolution };
+const deleteSolution = async (req,res) => {
+  const {id} = req.body;
+  try {
+    const deletedSolution = await Solution.findByIdAndDelete(id);
+    if (!deletedSolution) {
+      return res.status(404).json({ message: "Solution not found" });
+    }
+    res.status(200).json({ message: "Solution deleted successfully", solution: deletedSolution });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+}
+
+export { createSolution, getAdminAllSolution, getSolutionBySlug, editSolution, getAllSolution,deleteSolution };

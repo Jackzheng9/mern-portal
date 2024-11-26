@@ -9,19 +9,23 @@ import NotificationWhite from '../assets/notificationWhite.svg'
 
 import { logOut } from '../slices/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { useQueryUserByEmailQuery } from '../slices/userApiSlice';
 
 
 
 import Notifications from './Notifications';
+import Loader from './Loader';
 
 
 const Layout = () => {
   const user = useSelector(state => state.auth.userInfo)
-  // console.log("User", user)
+  // console.log("User from redux", user)
   let userEmail;
   if(user){
     userEmail = user.email;
   }
+
+  
   
 
   const [showAccOptions, setShowAccOptions] = useState(false)
@@ -52,6 +56,22 @@ const Layout = () => {
     }
   },[])
 
+  const {data, isLoading, isError } = useQueryUserByEmailQuery({email:userEmail})
+  if(isLoading){
+    return <Loader />
+  }
+  if(isError){
+    return 'Something went wrong!'
+  }
+
+  // console.log("data", data)
+  const returnedUser = data.user[0];
+  // console.log("returnedUser", returnedUser)
+
+  const userInitial = `${returnedUser.firstName.slice(0,1)}${returnedUser.lastName.slice(0,1)}`;
+  // console.log("userInitial", userInitial)
+
+
   return (
     <>
 
@@ -77,7 +97,10 @@ const Layout = () => {
                   { showNotiPanel && <Notifications />}
                 </li>
                 <li className='relative'>
-                  <div onClick={accountOptionsHandler} className="initials bg-dark-blue text-lg font-medium h-12 w-12 rounded-[100px] flex items-center justify-center cursor-pointer">MG</div>
+                  <div onClick={accountOptionsHandler} className="initials bg-dark-blue text-lg font-medium h-12 w-12 rounded-[100px] flex items-center justify-center cursor-pointer">
+                    {user.image ? <img src={user.image} /> : userInitial }
+                  </div>
+
                   {showAccOptions && (
                     <ul className="absolute top-[100%] min-w-[180px] bg-black p-4 w-full l-0">
                       <li onClick={logoutHandler} className='cursor-pointer'>Logout</li>

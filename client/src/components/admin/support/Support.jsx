@@ -89,9 +89,9 @@ const Support = () => {
         <button onClick={() => setShowAddNew(true)} className='flex items-center gap-2 h-11 rounded-[100px] px-6 bg-primary-blue'><img src={Plus} alt="" /> Add new</button>
       </div>
 
-      <div className="faqs_header flex justify-between text-[#707070] mt-8">
+      <div className="faqs_header flex justify-between text-[#707070] mt-8 gap-11">
         <div className="content"><p className="">Content</p> </div>
-        <div className="actions flex gap-4">
+        <div className="actions flex gap-12">
           <p className="">Actions</p>
           <p className="">Actions</p>
         </div>

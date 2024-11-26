@@ -166,8 +166,9 @@ const editUser = async (req,res) => {
   console.log("Edit user hitted!")
   const {user:jwtuser} = req
   //console.log("auth user", jwtuser)
-  const {industry,employee,goal,workflow,manualWorks,mainIssue,improveArea,achieveArea,password,notification, companyDetails,company,browserInfo, newPassword,notiSettings,phone, city,state,country, timezone,image} = req.body
-  // console.log("notiSettings", notiSettings);
+  const {industry,employee,goal,workflow,manualWorks,mainIssue,improveArea,achieveArea,password,notification, companyDetails,company,browserInfo, newPassword,notiSettings,phone, city,state,country, timezone,image, personalNotifications, userEvents} = req.body
+  console.log("Body", req.body);
+  console.log("personalNotifications", personalNotifications);
   
   try {
     const user = await User.findOne({email:jwtuser.email})
@@ -217,41 +218,25 @@ const editUser = async (req,res) => {
           });
         }
         
+      }      
+      if(personalNotifications){
+        console.log("Adding personal Notifications")
+        const oldNotifications = user.personalNotifications;
+        // user.personalNotifications = [ ...(oldNotifications || []), personalNotifications ];
+        user.personalNotifications.push(personalNotifications);
+      }    
+      if(userEvents){
+        const oldEvents = user.userEvents;
+        user.userEvents = [...oldEvents, userEvents]
       }
 
       user.companyDetails = companyDetails || user.companyDetails;
       user.notiSettings = notiSettings || user.notiSettings;
       if(browserInfo){
-        //user.browserInfo = [browserInfo, ...user.browserInfo.slice[0,1] ];
-        user.browserInfo = [browserInfo, user.browserInfo[0] ? user.browserInfo[0] : '' ] 
-        // user.browserInfo = [browserInfo]
+        user.browserInfo = [browserInfo, user.browserInfo[0] ? user.browserInfo[0] : '' ];
       }
       
-
-      //user.password = req.body.password;
       const updatedUser = await user.save();
-  
-      /*
-      res.status(200).json({
-        _id: updatedUser._id,
-        firstName: updatedUser.firstName,
-        lastName: updatedUser.lastName,
-        email: updatedUser.email,
-        status: updatedUser.status,
-        role: updatedUser.role,
-        industry: updatedUser.industry,
-        employee: updatedUser.employee,
-        goal: updatedUser.goal,
-        workflow: updatedUser.workflow,
-        manualWorks: updatedUser.manualWorks,
-        mainIssue: updatedUser.mainIssue,
-        improveArea: updatedUser.improveArea,
-        achieveArea: updatedUser.achieveArea,
-        notifications: updatedUser.notifications,
-        companyDetails: updatedUser.companyDetails,
-        browserInfo: updatedUser.browserInfo,
-        success:true
-      }*/ 
       res.status(200).json({
         user:updatedUser
       })
@@ -322,7 +307,7 @@ const addFileToUser = async (req,res) => {
   const {user:jwtuser} = req
   //console.log("auth user", jwtuser)
   const {file} = req.body
-  console.log("Requested File",File);
+  // console.log("Requested File",File);
   
   try {
     const user = await User.findOne({email:jwtuser.email})
@@ -420,10 +405,13 @@ const getUserById = async (req,res) => {
 }
 const queryUserByEmail = async (req,res) => {
   const {user} = req
-  console.log("get usr by Id")
+  console.log("get usr by email")
   try {
     
     const email = req.params.email;
+    if(!email || email =='' ){
+      throw new Error("User email not found!")
+    }
     const user = await User.find({email})
     res.status(200).json({message:"Success!", user})
     

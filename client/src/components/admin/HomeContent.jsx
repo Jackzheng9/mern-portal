@@ -315,9 +315,9 @@ const HomeContent = () => {
 
   return (
     <EditItemProvider editItemHandler={editItemHandler}>
-      <div onClick={contentClickHandler} className='home_content_wrap relative bg-[#5D5D5D33]/20'>
+      <div onClick={contentClickHandler} className='home_content_wrap relative p-6'>
         
-        <div className='flex justify-between items-center'>
+        <div className='flex justify-between items-center mb-6'>
           <p className='font-medium text-2xl'>Home Content</p>
           <div className="relative">
             <div onClick={() => setShowSelector( !showSelector) }  className="bg-primary-blue rounded-[100px] flex items-center pl-9 pr-11 h-11 gap-2 cursor-pointer">
@@ -327,10 +327,10 @@ const HomeContent = () => {
             </div>
             {showLoader && <Loader />}
             {showSelector && (
-              <ul className="upload_select absolute top-[100%] left-0 bg-[#111116] border border-[#222227] rounded outline-none py-8 px-6 z-10">
-                <li onClick={() => uploadSelectHandler('deepdive')} className='cursor-pointer text-[#B0B0B0] hover:text-white font-medium' >Monthly Deep Dive</li>
-                <li onClick={() => uploadSelectHandler('aisaas')} className='cursor-pointer text-[#B0B0B0] hover:text-white font-medium' >AI Saas tool</li>
-                <li onClick={() => uploadSelectHandler('monthai')} className='cursor-pointer text-[#B0B0B0] hover:text-white font-medium' >This month in AI</li>
+              <ul className="upload_select absolute top-[100%] left-0 bg-[#111116] border border-[#222227] rounded outline-none py-6 px-2 z-10">
+                <li onClick={() => uploadSelectHandler('deepdive')} className='cursor-pointer text-[#B0B0B0] hover:text-white font-medium broder-b border-[#222227] px-4 py-2' >Monthly Deep Dive</li>
+                <li onClick={() => uploadSelectHandler('aisaas')} className='cursor-pointer text-[#B0B0B0] hover:text-white font-medium broder-b border-[#222227] px-4 py-2' >AI Saas tool</li>
+                <li onClick={() => uploadSelectHandler('monthai')} className='cursor-pointer text-[#B0B0B0] hover:text-white font-medium px-4 py-2' >This month in AI</li>
               </ul>
 
             )}
@@ -344,8 +344,8 @@ const HomeContent = () => {
         <p className="text-lg font-semibold mt-8">AI Saas Tool</p>
         <MonthlyDeepDive items={aisaas}  deleteHandler={deleteContentHandler} />
         
-        <div  className="flex justify-between items-center">
-          <p className="text-lg font-semibold mt-8">This Month in AI - What Did You Miss? </p>
+        <div  className="flex justify-between items-center mt-8 ">
+          <p className="text-lg font-semibold">This Month in AI - What Did You Miss? </p>
           
           <div  className="flex items-center gap-4">
             <div className="search flex gap-2">
@@ -353,7 +353,7 @@ const HomeContent = () => {
               <img onClick={searchFieldShowHandler} src={Search} alt="" />
             </div>
             
-            <div className="date">
+            <div className="date bg-[#1B1B1F] px-6 py-3 rounded-lg cursor-pointer text-[#707070]">
               <p onClick={showCalHandler} className="">{selectedDate}</p>
               {showCal && (
                 <DateRangePicker
@@ -371,10 +371,10 @@ const HomeContent = () => {
             </div>
             
             <div className="status_selector flex gap-1 items-center">
-              <p className="status_selector_trigger flex flex-row gap-1 items-center" onClick={showStatusSelectorHandler} >All <img src={AllIcon} alt="" /></p> 
+              <p className="status_selector_trigger flex flex-row gap-1 items-center bg-[#1B1B1F] px-6 py-3 rounded-lg cursor-pointer text-[#707070]" onClick={() => setShowStateSelector(!showStateSelector)} >All <img src={AllIcon} alt="" /></p> 
               
               {showStateSelector && (
-                <div className="statusSelect w-[200px] bg-[#565b56] px-4 py-5 rounded">
+                <div className="statusSelect w-[200px] bg-[#1B1B1F] px-4 py-5 rounded">
                   <ul>
                     <li onClick={statusSelectHandler} data-value="All" className='flex gap-2'>{statusFilterTerm !=="All" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="All" && <img src={CheckBoxSelected} alt="" /> }  All</li>
                     <li onClick={statusSelectHandler} data-value="Active" className='flex gap-2'>{statusFilterTerm !=="Active" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="Active" && <img src={CheckBoxSelected} alt="" /> } Active</li>

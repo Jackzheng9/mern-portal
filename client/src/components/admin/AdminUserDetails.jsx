@@ -108,35 +108,49 @@ const AdminUserDetails =  () => {
 
         </div>
       </div>
+
       <div className="flex justify-between gap-4 mt-6">
         <div className="flex flex-col gap-2 w-full">
           <p className="text-gray-300">First Name <br/></p>
-          <p className="text-gray-300">{user.firstName}</p>
+          <p className="">{user.firstName}</p>
         </div>
 
         <div className="flex flex-col gap-2 w-full">
-          <p className="text-gray-300">Last Name <br/></p>
-          <p className="text-gray-300">{user.lastName}</p>
+          <p className="text-[#B0B0B0]">Last Name <br/></p>
+          <p className="">{user.lastName}</p>
         </div>
 
         <div className="flex flex-col gap-2 w-full">
           <p className="text-gray-300">Company Name <br/></p>
-          <p className="text-gray-300">{user.company}</p>
+          <p className="">{user.company}</p>
         </div>
+
+
+
+
+      </div>      
+      <div className="flex justify-between gap-4 mt-5">
+
         <div className="flex flex-col gap-2 w-full">
           <p className="text-gray-300">Email <br/></p>
-          <p className="text-gray-300">{user.email}</p>
+          <p className="">{user.email}</p>
         </div>
+
+        <div className="flex flex-col gap-2 w-full">
+          <p className="text-gray-300">Website <br/></p>
+          <p className="">{user?.companyDetails?.website}</p>
+        </div>
+
         <div className="flex flex-col gap-2 w-full">
           <p className="text-gray-300">Phone Number <br/></p>
-          <p className="text-gray-300">{user.phone}</p>
+          <p className="">{user.phone}</p>
         </div>
 
 
 
       </div>
 
-      <div className="h-[1px] w-full bg-gray-300 mt-5 mb-6"></div>
+      <div className="h-[1px] w-full bg-[#222227] mt-5 mb-6"></div>
 
       <p className="text-xl text-white my-6">Onboarding Data</p>
 

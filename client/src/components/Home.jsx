@@ -19,6 +19,8 @@ import { toast } from 'react-toastify';
 import { useGetDeepDivesQuery } from '../slices/deepDiveApiSlice';
 import Loader from './Loader';
 import HomeMonthlyAi from './HomeMonthlyAi';
+import { useGetAllSolutionQuery } from '../slices/solutionApiSlice';
+import HomeSolution from './HomeSolution';
 
 const Home = () => {
   const [searchParams] = useSearchParams();
@@ -47,11 +49,20 @@ const Home = () => {
   },[])
 
   const {data, isLoading }= useGetDeepDivesQuery();
-  if(isLoading){
+  const {data:solData, isLoading:solLoading, isError, error }= useGetAllSolutionQuery();
+  
+  if(isLoading || solLoading){
     return <Loader />
   }
 
+  if(isError){
+    console.log("Error", error)
+    return 'Something went wrong!'
+  }
+
+  
   // console.log("data", data)
+  // console.log("sol data", solData)
   let activeDeepDives = data.deepdives.filter(deepdive => deepdive.active);
   // console.log("activeDeepDives",activeDeepDives)
 
@@ -66,6 +77,7 @@ const Home = () => {
   let monthAiBlogs = monthAiTypes.filter(post => post.postType == 'blog')
   // console.log("monthAiVideos", monthAiVideos)
 
+  const solutions = solData.solutions;
 
   return (
     <>
@@ -166,37 +178,15 @@ const Home = () => {
 
 
 
-      <div className="main_content">
+      <div className="main_content mt-16 mb-16">
         <div className="flex items-center justify-between mb-6">
           <h1 className='text-5xl font-semibold'>Solutions For You</h1>
-          <Link className='flex gap-1 items-center' to="#">Explore All <img src={ArrowRightUp} alt="" /></Link>
+          <Link className='flex gap-1 items-center' to="/solutions/">Explore All <img src={ArrowRightUp} alt="" /></Link>
         </div>
 
         <div className="solutions_area_wrap flex gap-6 justify-between">
 
-          <Link to="" className="solution bg-[#1C1C1C] w-1/3">
-            <img className='w-full h-[233px]' src={SolImg} alt="" />
-            <div className="sol_content px-6 pb-6 mt-6">
-              <h2 className="text-lg font-medium mb-4">Solution name</h2>
-              <p className="">We’re excited to have you here. Explore the Dashboard to stay updated with announcements, special events, and virtual meeting sign-ups. Head</p>
-            </div>
-          </Link>
-
-          <Link to="" className="solution bg-[#1C1C1C] w-1/3">
-            <img className='w-full h-[233px]' src={SolImg} alt="" />
-            <div className="sol_content px-6 pb-6 mt-6">
-              <h2 className="text-lg font-medium mb-4">Solution name</h2>
-              <p className="">We’re excited to have you here. Explore the Dashboard to stay updated with announcements, special events, and virtual meeting sign-ups. Head</p>
-            </div>
-          </Link>
-          
-          <Link to="" className="solution bg-[#1C1C1C] w-1/3">
-            <img className='w-full h-[233px]' src={SolImg} alt="" />
-            <div className="sol_content px-6 pb-6 mt-6">
-              <h2 className="text-lg font-medium mb-4">Solution name</h2>
-              <p className="">We’re excited to have you here. Explore the Dashboard to stay updated with announcements, special events, and virtual meeting sign-ups. Head</p>
-            </div>
-          </Link>
+          {solutions.map(solution => <HomeSolution key={solution._id} solution={solution} />)}
 
         </div>
 

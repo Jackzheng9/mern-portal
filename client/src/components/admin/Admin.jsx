@@ -216,8 +216,8 @@ const Admin = () => {
       </div>
 
       <div className="users_list mt-20">
-        <div className="user_list_header flex justify-between">
-          <p className="">Access Request</p>
+        <div className="user_list_header flex justify-between items-center">
+          <p className="font-bold text-2xl">Access Request</p>
           <div className="flex items-center gap-4">
             <div className="search flex gap-2">
               {showSearch && <input type="text" className='bg-black border text-white' value={searchText} onChange={searchInputHandler} />}       
@@ -225,7 +225,7 @@ const Admin = () => {
             </div>
             
             <div className="date">
-              <p onClick={showCalHandler} className="">{selectedDate}</p>
+              <p onClick={showCalHandler} className="bg-[#1B1B1F] py-2.5 px-3.5 text-[#707070] cursor-pointer rounded-lg">{selectedDate}</p>
               {showCal && (
                 <DateRangePicker
                   // onChange={item => setState([item.selection])}
@@ -244,9 +244,9 @@ const Admin = () => {
             </div>
             
             <div className="status_selector flex gap-1 items-center">
-              <p className="status_selector_trigger flex flex-row gap-1 items-center" onClick={showStatusSelectorHandler} >All <img src={AllIcon} alt="" /></p> 
+              <p className="status_selector_trigger flex flex-row gap-1 items-center bg-[#1B1B1F] py-2.5 px-3.5 rounded-lg cursor-pointer" onClick={() => setShowStateSelector(!showStateSelector)} >All <img src={AllIcon} alt="" /></p> 
               {showStateSelector && (
-                <div className="statusSelect w-[200px] bg-[#565b56] px-4 py-5 rounded">
+                <div className="statusSelect w-[200px] bg-[#1B1B1F] px-4 py-5 rounded">
                   <ul>
                     <li onClick={statusSelectHandler} data-value="All" className='flex gap-2'>{statusFilterTerm !=="All" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="All" && <img src={CheckBoxSelected} alt="" /> }  All</li>
                     <li onClick={statusSelectHandler} data-value="Accepted" className='flex gap-2'>{statusFilterTerm !=="Accepted" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="Accepted" && <img src={CheckBoxSelected} alt="" /> } Accepted</li>
@@ -260,11 +260,11 @@ const Admin = () => {
           </div>
         </div>
 
-        <div className="user_list_col_name flex justify-between text-[#B0B0B0] mb-3">
+        <div className="user_list_col_name flex justify-between text-[#B0B0B0] mb-3 mt-4">
           <p className="w-full">Company Name</p>
           <p className="w-full">Request Date</p>
           <p className="w-full">Status</p>
-          <p className="w-full">Actons</p>
+          <p className="w-full max-w-[97px] flex justify-center">Actions</p>
         </div>
 
       </div>

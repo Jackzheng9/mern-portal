@@ -28,7 +28,7 @@ const Terms = () => {
 
   return (
     <>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center mb-8">
         <h1 className="font-medium text-2xl">Terms & Conditions</h1>
         <button onClick={editShowHandler} className='flex items-center h-11 px-10 bg-primary-blue rounded-[100px] gap-2 font-semibold'>
           <img src={Pencil} alt="" />

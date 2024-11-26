@@ -34,13 +34,13 @@ const SoultionList = ({showUpload,solutions}) => {
       </>}
 
       {solutions && solutions.length !== 0 && <>
-        <div className="flex text-gray-300 mt-5">
+        <div className="flex text-gray-300 mt-5 py-3 justify-between border-b border-[#222227]">
           
           <div className="grow-[2] basis-0">Solution</div>
           <div className="grow basis-0">Visibility</div>
           <div className="grow basis-0">Request Date</div>
           <div className="grow basis-0">Category</div>
-          <div className="grow basis-0">Actions</div>
+          <div className="grow basis-0 max-w-[97px]">Actions</div>
 
         </div>
 

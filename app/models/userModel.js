@@ -8,6 +8,18 @@ const userNotificationSchema = new mongoose.Schema({
   // receivedAt: { type: Date, default: Date.now },
 });
 
+const personalNotificationSchema = new mongoose.Schema({
+  message: { type: String, required: true },
+  // date: { type: Date, default: Date.now },
+  notificationType:{ type: String },
+  resourceId : {type:String}
+});
+
+const userEventsSchema = new mongoose.Schema({
+  eventName: { type: String, required: true },
+  eventType: { type: String, },
+  eventMessage: { type: String, },
+});
 
 
 const userSchema = mongoose.Schema({
@@ -94,7 +106,12 @@ const userSchema = mongoose.Schema({
     type: Object,
     default: {}
   },
+  websute :{
+    type: String,
+  },
   notifications: [userNotificationSchema],
+  personalNotifications:[personalNotificationSchema], 
+  userEvents:[userEventsSchema],
 
 },{timestamps: true})
 

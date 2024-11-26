@@ -23,10 +23,6 @@ const UserSolutionDetails = () => {
   }
 
   const solution = data.solution;
-  // console.log("solution", solution)
-
-
-  // const romans = ["I","II","III","IV","V","VI","VII","VIII","IX","X"]
 
   return (
     <div className='solution_content'>

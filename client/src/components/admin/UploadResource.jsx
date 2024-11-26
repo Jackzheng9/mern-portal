@@ -9,6 +9,7 @@ import UploadIcon from '../../assets/UploadIcon.svg'
 import PlusWhite from '../../assets/PlusWhite.svg'
 
 import { useCreateResourceMutation } from '../../slices/resourcesApiSlice'
+import { useCreateNotificationMutation } from '../../slices/notificationApiSlice'
 import slugify from 'slugify'
 import {toast} from 'react-toastify'
 // import ResourceList from './ResourceList'
@@ -210,6 +211,7 @@ const UploadResource = ({hideUploadContent,setShowUpload}) => {
   }
 
   const [createResource, {isLoading, isError}] = useCreateResourceMutation()
+  const [createNotification] = useCreateNotificationMutation()
 
   const monthChangeHandler = (e) => {
     // console.log("month changed:", e.target.value)
@@ -249,11 +251,19 @@ const UploadResource = ({hideUploadContent,setShowUpload}) => {
 
     }
 
+    const notificationData = {
+      title:`New resource- ${resourceTitle} released`,
+      message:`New resource- "${resourceTitle}" released`,
+      type:"monthlycontent"
+    }
+
     console.log("resoruceData", resoruceData)
 
     try {
       const resData = await createResource(resoruceData).unwrap();
+      const notiData = await createNotification(notificationData).unwrap()
       console.log("resData",resData)
+      console.log("notiData",notiData)
       toast.success(`Solution ${resourceTitle} has been created successfully!`)
       // setShowUpload(false)
     } catch (error) {
@@ -261,6 +271,7 @@ const UploadResource = ({hideUploadContent,setShowUpload}) => {
       if(error?.data?.error?.code == 11000){
         toast.error("There is alreay a solution with same title. Please try changing Solution Title.")
       }else{
+        console.log("error", error)
         toast.error(error.data.message)
       }
     } finally{

@@ -40,8 +40,8 @@ export const MonthAiListItem = ({item, deleteHandler}) => {
 
   return (
     <>
-      <div className="flex  mt-2 mb-2 relative">
-        <div className='grow-[2] flex gap-2 items-center w-[409px]'>
+      <div className="flex  mt-2 mb-2 relative p-1.5">
+        <div className='grow-[2] flex gap-2 items-center w-full max-w-[409px]'>
           <div className=""><img className='max-w-[76px]' src={item.image} alt="" /></div>
           <div className="t">
             <p className="font-medium mb-2">{item.title}</p>
@@ -65,13 +65,12 @@ export const MonthAiListItem = ({item, deleteHandler}) => {
               <img onClick={optionsToggleHandler} className='min-h-3.5 cursor-pointer' src={VerDots} alt="" />
               {showOptions && (
 
-                <div className="min-w-[180px] dive_options absolute p-4 rounded-md right-32 top-2 z-10 flex flex-col gap-4 bg-black">
-                  <Link to={``}>
-                    <div onClick={handleEdit} className="option_modal flex gap-2 cursor-pointe text-[#B0B0B0] hover:text-white">
+                <div className="min-w-[180px] dive_options absolute p-4 rounded-md right-32 top-2 z-10 flex flex-col bg-black ">
+                  
+                  <div onClick={handleEdit} className="option_modal flex gap-2 cursor-pointer text-[#B0B0B0] hover:text-white border-b border-[#222227] py-2 px-4">
                     Edit Content
                     </div>
-                  </Link>
-                  <div onClick={() => deleteClickHandler(item._id)}  className="option_modal flex gap-2 cursor-pointer text-[#B0B0B0] hover:text-white" >
+                  <div onClick={() => deleteClickHandler(item._id)}  className="option_modal flex gap-2 cursor-pointer text-[#B0B0B0] hover:text-white py-2 px-4" >
                   Delete Content
                   </div>
 

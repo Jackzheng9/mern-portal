@@ -97,7 +97,7 @@ export const SupportListItem = ({faq}) => {
   return (
     <div className=''>
 
-      <div className="faqs_header flex justify-between text-[#B0B0B0] mt-8">
+      <div className="faqs_header flex justify-between text-[#B0B0B0] mt-8 gap-11">
         
         <div className="content w-full pr-4">
           
@@ -115,7 +115,7 @@ export const SupportListItem = ({faq}) => {
 
         </div>
 
-        <div className="actions flex gap-4 relative">
+        <div className="actions flex gap-12 relative min-w-[158px]">
               {faq.active && (<div className="button">
                 <p className='text-[#027A48] border border-[#027A48] rounded-[100px] h-6 flex items-center px-4'>Active</p>
               </div>) }

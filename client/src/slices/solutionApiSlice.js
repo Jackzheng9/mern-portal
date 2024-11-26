@@ -47,9 +47,18 @@ export const solutionApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ['Solutions'],
     }),
 
+    deleteSolution: builder.mutation({
+      query : (data) =>({
+        url:`${SOLUTION_URL}/delete`,
+        method: "POST",
+        body:data
+      }),
+      invalidatesTags: ['Solutions'],
+    }),
+
 
   })
 })
 
 
-export const {useAddSolutionMutation, useGetAllSolutionQuery, useGetSolutionBySlugQuery, useEditSolutionMutation, useGetSolutionsQuery} = solutionApiSlice;
+export const {useAddSolutionMutation, useGetAllSolutionQuery, useGetSolutionBySlugQuery, useEditSolutionMutation, useGetSolutionsQuery, useDeleteSolutionMutation} = solutionApiSlice;

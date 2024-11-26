@@ -87,60 +87,30 @@ const getResourceBySlug = async (req,res) => {
   res.status(200).json({resource:resource[0]})
 }
 
-
-
-/*
-
-
-const createSolution = async (req, res) => {
-  const { title, description, shortDesc, image, benefits, workflows,tools,features,category,status, slug } = req.body;
-  // console.log("Body Data", title, description, image, benefits, workflows, tools, features, category,status, slug);
- 
+const deleteResource = async (req,res) => {
+  const {id} = req.body;
+  // console.log("Delete item with - ", id)
   try {
-    if(!title){
-      throw new Error("Sollution title must not be empty!")
+    if (!id) {
+      throw new Error("Resource ID is required!");
     }
 
-    const newSolution = await Solution.create({ title, description,shortDesc, image, benefits, workflows, tools, features,category,status, slug });
-    res.status(201).json({ message: "New solution created!", solution: newSolution });
+    const deletedResource = await Resource.findByIdAndDelete(id);
+
+    if (!deletedResource) {
+      return res.status(404).json({ message: "Resource not found!" });
+    }
+
+    res.status(200).json({ message: "Resource deleted successfully!", resource: deletedResource });
   } catch (error) {
     if (error instanceof MongooseError) {
       res.status(500).json({ message: error.message });
     } else {
-      res.status(500).json({ message: error.message, error:error });
+      res.status(500).json({ message: error.message, error });
     }
-  } 
-
-
-
+  }  
 }
 
 
-const editSolution = async (req,res) => {
-  const {id, title, description,shortDesc, image, benefits, workflows,tools,features,category,status} = req.body;
-  try {
-    const solution = await Solution.findById(id);
-    
-    solution.title = title || solution.title
-    solution.status = status || solution.status
-    solution.description = description || solution.description
-    solution.shortDesc = shortDesc || solution.shortDesc
-    solution.image = image || solution.image
-    solution.benefits = benefits || solution.benefits
-    solution.workflows = workflows || solution.workflows
-    solution.tools = tools || solution.tools
-    solution.features = features || solution.features
-    solution.category = category || solution.category
 
-
-    const updatedSolution = await solution.save();
-    res.status(200).json({solution:updatedSolution})
-    
-  } catch (error) {
-    res.status(500).json({error})
-  }
-
-  
-}
-*/
-export { getAdminAllResources, createResource, getResourceBySlug, editResource };
+export { getAdminAllResources, createResource, getResourceBySlug, editResource, deleteResource };

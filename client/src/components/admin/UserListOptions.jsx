@@ -73,7 +73,7 @@ const UserListOptions = ({ user, changeUserStatus }) => {
   };
 
   return (
-    <div className=" relative w-full">
+    <div className=" w-full max-w-[97px] flex justify-center">
       <OutsideClickHandler onOutsideClick={outSideClickHandler}>
         <span
           onClick={contentClickHandler}
@@ -84,7 +84,7 @@ const UserListOptions = ({ user, changeUserStatus }) => {
       </OutsideClickHandler>
 
       {showOptions && (
-        <div className="user_options absolute p-4 rounded-md left-8 top-2 z-10 flex flex-col gap-4">
+        <div className="user_options absolute p-4 rounded-md right-16 top-2 z-10 flex flex-col gap-4">
           <Link to={`/admin/user/${user._id}`}>
             <div className="option_modal flex gap-2 cursor-pointer">
               <img src={Eye} alt="" /> View Details

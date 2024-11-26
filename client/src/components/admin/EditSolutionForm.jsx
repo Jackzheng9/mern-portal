@@ -4,7 +4,7 @@ import PlusWhite from '../../assets/PlusWhite.svg'
 import ArrowUpBlue from '../../assets/ArrowUpBlue.svg'
 import { useEditSolutionMutation } from '../../slices/solutionApiSlice'
 import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 const EditSolutionForm = ({solution}) => {
   // console.log("solution from edit form page",solution)
@@ -385,7 +385,7 @@ const EditSolutionForm = ({solution}) => {
               </form>
               <div className="flex justify-between">
                 <div className="">
-                  <div onClick={() => setShowUpload(false)} className="border h-11 flex items-center px-5 rounded-[100px] cursor-pointer">Cancel</div>
+                  <Link to={`/admin/solutions/${solution.slug}`}  className="border h-11 flex items-center px-5 rounded-[100px] cursor-pointer">Cancel</Link>
                 </div>
                 <div className="flex gap-4">
                   <div onClick={() => publishHandler("Unpublished")} className="border h-11 flex items-center px-5 rounded-[100px] cursor-pointer">Save as Draft</div>

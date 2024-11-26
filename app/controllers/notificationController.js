@@ -1,4 +1,5 @@
 import Notification from "../models/notificationModel.js";
+import { MongooseError } from "mongoose";
 
 const getAll = async (req,res) => {
   const notifications = await Notification.find();

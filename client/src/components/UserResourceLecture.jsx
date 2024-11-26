@@ -3,7 +3,7 @@ import UserResourceLectureFile from './UserResourceLectureFile'
 import ArrowDown from '../assets/ArrowDown.svg'
 import { shallowEqual } from 'react-redux'
 
-const UserResourceLecture = ({lecture,year, resource}) => {
+const UserResourceLecture = ({lecture,year, resource, lessonCompleteHandler}) => {
   // console.log("Lecture", lecture)
   const [showFiles, setShowFiles] = useState(false)
   return (
@@ -27,7 +27,7 @@ const UserResourceLecture = ({lecture,year, resource}) => {
       {showFiles && (
         <div className="files_part mt-10">
           <ul className="files">
-            {lecture.files.map(file => <UserResourceLectureFile key={file._id} file={file} year={year} resource ={resource} />)}
+            {lecture.files.map(file => <UserResourceLectureFile lessonCompleteHandler={lessonCompleteHandler} key={file._id} file={file} year={year} resource ={resource} />)}
           </ul>
         </div>
 

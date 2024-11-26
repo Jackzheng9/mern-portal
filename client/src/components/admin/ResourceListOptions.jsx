@@ -4,12 +4,14 @@ import Eye from "../../assets/eye.svg";
 import Check from "../../assets/check.svg";
 import X from "../../assets/x.svg";
 import CheckGreenCricle from "../../assets/check_green_circle.svg";
-import CloseButtoX from "../../assets/Close_Button_X.svg";
+import CloseButtoX from "../../assets/CloseWhite.svg";
 import CancelIcon from "../../assets/CancelBtn.svg";
+import DeleteIconWhite from "../../assets/DeleteIconWhite.svg";
+import RedCloseCircledIcon from "../../assets/RedCloseCircledIcon.svg";
 import OutsideClickHandler from "react-outside-click-handler";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import { useEditSolutionMutation } from "../../slices/solutionApiSlice";
+import { useDeleteResourceMutation } from "../../slices/resourcesApiSlice";
 
 const ResourceListOptions = ({resource}) => {
   
@@ -29,7 +31,7 @@ const ResourceListOptions = ({resource}) => {
     }
   };
   
-  const [editSolution,{isLoading, isError}] = useEditSolutionMutation();
+  const [deleteResource,{isLoading, isError}] = useDeleteResourceMutation();
 
   const showModalHandler = () => {
     setShowPublish(true)
@@ -38,31 +40,23 @@ const ResourceListOptions = ({resource}) => {
     setShowPublish(false)
   }
 
-  const showDraftModalHandler = () => {
-    setShowDraft(true)
-  }
 
-  const modalCloseHandlerDraft = () => {
-    setShowDraft(false)
-  }
-
-  const resourceEditHandler = async (status) => {
+  const resourceDeleteHandler = async () => {
     const data = {
-      status,
       id:resource._id
     }
+    // console.log("data", data)
 
+    
     try {
-      const editedSolutionRes = await editSolution(data).unwrap();
-      console.log("edited", editedSolutionRes)
-      setShowDraft(false);
+      const deletedResource = await deleteResource(data).unwrap();
       setShowPublish(false);
-      toast.success("Operation successful!")
+      toast.success("Resource deleted successfully!")
     } catch (error) {
       console.log("Error", error)
       toast.error("Something went wrong, please try again!")
     }
-
+    
     
 
   }
@@ -79,18 +73,14 @@ const ResourceListOptions = ({resource}) => {
       </OutsideClickHandler>
 
       {showOptions && (
-        <div className="min-w-[180px] user_options absolute p-4 rounded-md left-8 top-2 z-10 flex flex-col gap-4">
+        <div className="min-w-[180px]  absolute p-4 rounded-md left-8 top-2 z-10 flex flex-col gap-4 bg-[#1B1B1F]">
           <Link to={`/admin/resources/${resource.slug}`}>
             <div className="option_modal flex gap-2 cursor-pointer">
-              <img src={Eye} alt="" /> View Details
+              <img src={Eye} alt="" /> View Content
             </div>
           </Link>
           <div onClick={showModalHandler} className="option_modal flex gap-2 cursor-pointer" >
-            <img src={Check} alt="" /> Publish Solution
-          </div>
-
-          <div onClick={showDraftModalHandler} className="option_modal flex gap-2 cursor-pointer" >
-            <img src={X} alt="" /> Draft Solution
+            <img src={DeleteIconWhite} alt="" /> Delete Content
           </div>
         </div>
       )}
@@ -99,7 +89,7 @@ const ResourceListOptions = ({resource}) => {
         <div className="accept_modal">
           <div className="accept_modal_content bg-[#333330] w-[400px] mx-auto p-6 rounded-md">
             <div className="modal_header flex justify-between">
-              <img src={CheckGreenCricle} alt="" />
+              <img src={RedCloseCircledIcon} alt="" />
               <img
                 className="cursor-pointer"
                 onClick={modalCloseHandler}
@@ -107,10 +97,8 @@ const ResourceListOptions = ({resource}) => {
                 alt=""
               />
             </div>
-            <p className="text-lg font-semibold mb-1">Publish Resource?</p>
-            <p className="text-[#B0B0B0] text-sm">
-              Are you sure you want to to make this resource published?
-            </p>
+            <p className="text-lg font-semibold mb-1">Delete Content</p>
+            <p className="text-[#B0B0B0] text-sm">Are you sure you want to delete the uploaded? This action cannot be undone.</p>
             <div className="flex gap-4 mt-8">
               <div
                 onClick={modalCloseHandler}
@@ -118,48 +106,14 @@ const ResourceListOptions = ({resource}) => {
               >
                 Cancel
               </div>
-              <div
-                onClick={() => resourceEditHandler("Published")}
-                className="modal_button rounded-[100px] border border-primary-blue bg-primary-blue w-[352px] h-[44px] flex justify-center items-center w-full cursor-pointer"
-              >
-                Publish
+              <div onClick={resourceDeleteHandler}
+                className="modal_button rounded-[100px] bg-[#F04438]  h-[44px] flex justify-center items-center w-full cursor-pointer"> Delete
               </div>
             </div>
           </div>
         </div>
       )}
-      {showDraft && (
-        <div className="accept_modal">
-          <div className="accept_modal_content bg-[#333330] w-[400px] mx-auto p-6 rounded-md">
-            <div className="modal_header flex justify-between">
-              <img src={CancelIcon} alt="" />
-              <img
-                className="cursor-pointer"
-                onClick={modalCloseHandlerDraft}
-                src={CloseButtoX}
-                alt=""
-              />
-            </div>
-            <p className="text-lg font-semibold mb-1">Unpublish Resource?</p>
-            <p className="text-[#B0B0B0] text-sm">
-              Are you sure you want to make this resource Draft? 
-            </p>
-            <div className="flex gap-4 mt-8">
-              <div
-                onClick={modalCloseHandlerDraft}
-                className="modal_button rounded-[100px] border border-white w-[352px]h-[44px]  flex justify-center items-center w-full cursor-pointer"
-              >
-                Cancel
-              </div>
-              <div onClick={() => resourceEditHandler("Draft")}
-                className="modal_button rounded-[100px] border border-[#F04438] bg-[#F04438] w-[352px] h-[44px] flex justify-center items-center w-full cursor-pointer"
-              >
-                Draft
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      
     </div>
   )
 }
