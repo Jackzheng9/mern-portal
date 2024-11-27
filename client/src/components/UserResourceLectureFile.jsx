@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom'
 import { setCurrentFile } from '../slices/ResourceListslice'
 import { useNavigate } from 'react-router-dom'
 import Loader from './Loader'
+import { setCompletedfiles } from '../slices/userInfoSlice'
 
 
 
@@ -41,6 +42,9 @@ const UserResourceLectureFile = ({file, year, resource, lessonCompleteHandler}) 
 
   const isFileMatched = curYearFiles?.some(curFile => curFile.fileId === fileId);
   // console.log("isFileMatched", isFileMatched);
+  const userInfo = useSelector(state => state.userInfo.userInfo)
+  console.log("userInfo", userInfo)
+
 
   const dispatch = useDispatch()
   const fileCompleteHandler = async () => {
@@ -51,14 +55,17 @@ const UserResourceLectureFile = ({file, year, resource, lessonCompleteHandler}) 
       // console.log("Remove res", res)
       // const newFiles = res.completedFiles;
       lessonCompleteHandler('remove', fileId)
+      dispatch(setCompletedfiles({type:'remove', fileId}))
+      // console.log("User Info from redux",userInfo)
     }else{
       const res = await addFiletoUser({file:{year, fileId}}).unwrap();
       // console.log("Api res", res)
       // const newFiles = res.completedFiles;
       lessonCompleteHandler('add',fileId)
+      dispatch(setCompletedfiles({type:'add', fileId}))
+      // console.log("User Info from redux",userInfo)
 
     }
-
     
   }
 

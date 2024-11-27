@@ -34,9 +34,9 @@ const usersInfotSlice = createSlice({
       console.log("Payload", action.payload)
     },
     setCompletedfiles : (state,action) => {
-      console.log("Completed file action", action.payload)
-      console.log(" file id", action.payload.fileId)
-      state.userInfo.completedFiles.map(file => console.log(file.fileId))
+      // console.log("Completed file action", action.payload)
+      // console.log(" file id", action.payload.fileId)
+      // state.userInfo.completedFiles.map(file => console.log(file.fileId))
       
       
       if(action.payload.type=='add'){
@@ -57,6 +57,9 @@ const usersInfotSlice = createSlice({
     },
     setPersonalNotifications:(state,action) => {
       console.log("Personal notification payload",action.payload)
+      state.userInfo.personalNotifications = state.userInfo.personalNotifications || [];
+      // Add the new notification
+      state.userInfo.personalNotifications.push(action.payload);
     }
   }
 })
