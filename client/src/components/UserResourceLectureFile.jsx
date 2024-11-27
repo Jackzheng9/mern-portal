@@ -50,12 +50,12 @@ const UserResourceLectureFile = ({file, year, resource, lessonCompleteHandler}) 
       const res = await removeFileFromUser({fileId}).unwrap()
       // console.log("Remove res", res)
       // const newFiles = res.completedFiles;
-      lessonCompleteHandler()
+      lessonCompleteHandler('remove', fileId)
     }else{
       const res = await addFiletoUser({file:{year, fileId}}).unwrap();
       // console.log("Api res", res)
       // const newFiles = res.completedFiles;
-      lessonCompleteHandler()
+      lessonCompleteHandler('add',fileId)
 
     }
 

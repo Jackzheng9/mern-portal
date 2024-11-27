@@ -24,7 +24,7 @@ import HomeSolution from './HomeSolution';
 
 const Home = () => {
   const [searchParams] = useSearchParams();
-  // console.log(searchParams.get("setpass"))
+  // console.log("Params",searchParams.get("setpass"))
 
   const navigate = useNavigate();
   const user = useSelector(state => state.auth);
@@ -35,11 +35,12 @@ const Home = () => {
     
     if(searchParams.get("setpass")){
       navigate('/setpassword')
+      return;
     }
 
     if(!searchParams.get("setpass") && !user.userInfo){
       toast.info("Please login to see the page!")
-      navigate('/login')
+      //navigate('/login')
       return;
     }
     if(user && ( user.userInfo.role == 'superAdmin' || user.userInfo.role == 'admin') ){

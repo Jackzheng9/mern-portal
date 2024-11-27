@@ -1,14 +1,12 @@
 import React,{useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
 import { useGetResourceBySlugQuery } from '../slices/resourcesApiSlice';
-import { useQueryUserByEmailQuery } from '../slices/userApiSlice';
-import { useCreateNotificationMutation } from '../slices/notificationApiSlice';
 import { useEditUserMutation } from '../slices/userApiSlice';
 import Loader from './Loader';
 import UserResourceLecture from './UserResourceLecture';
-import { useSelector } from 'react-redux';
-
-
+import { useSelector, useDispatch } from 'react-redux';
+import { setCompletedfiles } from '../slices/userInfoSlice';
+import { setPersonalNotifications } from '../slices/userInfoSlice';
 
 
 const UserResourceDetails = () => {
@@ -18,65 +16,81 @@ const UserResourceDetails = () => {
   const {slug} = useParams();
   const {data, isLoading, isError} = useGetResourceBySlugQuery(slug);
 
-  const user = useSelector(state => state.auth.userInfo)
-  const {data:userData, isLoading:userLoading} = useQueryUserByEmailQuery({email:user.email});
+  
+
   const [editUser, {isLoading:editLoading, isError:editError, error}] = useEditUserMutation();
-  console.log("userData", userData);
 
-
-  useEffect(() => {
-    console.log("Use effect running!")
-  },[])
-
-  if(isLoading || userLoading ){
+  const dispatch = useDispatch();
+  const userInfo = useSelector(state => state.userInfo.userInfo)
+  // console.log("userinfo from redux", userInfo)
+  
+  if(isLoading ){
     return <Loader />
   }
-
- 
+  
 
   const resource =  data.resource;
-  // console.log("Resource Details Page", resource)
+  console.log("Resource Details Page", resource)
 
-  const lessonCompleteHandler = () => {
-    console.log("Lesson completed!")
-    const userRes = userData.user[0];
-    console.log("userRes", userRes)
+  
 
-    const completedFiles = userRes.completedFiles;
+
+
+
+
+
+const lessonCompleteHandler = (type,fileId) => {
+
+  console.log("Lesson check clicked!", type, fileId)
+  dispatch(setCompletedfiles({type,fileId}))
+// test
+  
+  const completedFiles = userInfo.completedFiles;
+  console.log("completed file from redux:", completedFiles)
+
+  const allCompletedIds = completedFiles.map(file => file.fileId)
   
   
-    const allCompletedIds = completedFiles.map(file => file.fileId)
+  const allFileIds = resource.lectures.flatMap(lecture => lecture.files.map(file => file._id));
+  const allFilesCompleted = allFileIds.every(fileId => allCompletedIds.includes(fileId));
+  //console.log("All files completed? ", allFilesCompleted )
+
+// test
+
+
+
+
+  console.log("allFilesCompleted from inside trigger", allFilesCompleted)
   
-    const allFileIds = resource.lectures.flatMap(lecture => lecture.files.map(file => file._id));
-  
-  
-    const allFilesCompleted = allFileIds.every(fileId => allCompletedIds.includes(fileId));
-    console.log("All files completed? ", allFilesCompleted )
+  if(allFilesCompleted){
+    console.log("Trigger new notification for this user")
     
-    if (allFilesCompleted) {
-      const data = {
-        personalNotifications :{
-          message: `All lessons of`,
-          notificationType: 'lessoncompleted',
-          resourceId : 'abc123'
-        }    
-      };
-  
-      const notiCreateFunc = async () => {
-        const editUserRes = await editUser(data).unwrap();
-        console.log("editUserRes:", editUserRes);
-        console.log("All lessons completed of this resource!")
-      };
-  
-      //notiCreateFunc();
+    const data ={personalNotifications: {
+      message: "Congratulations on completing your course! You've taken a big step in transforming your company. Explore more resources or schedule a meeting with our tech experts to keep the momentum going!",
+      resourceId:resource._id,
+      notificationType:'coursecompleted'
+    }}
+
+    const addEvent  = async () => {
+      const apiRes = await editUser(data).unwrap();
+      console.log("apiRes", apiRes)
     }
 
+    const personalNotification = {
+        message: "Congratulations on completing your course! You've taken a big step in transforming your company. Explore more resources or schedule a meeting with our tech experts to keep the momentum going!",
+        resourceId:resource._id,
+        notificationType:'coursecompleted'
+      }
+    dispatch(setPersonalNotifications(personalNotification))
 
+    addEvent()
 
-
+    
   }
 
 
+
+}
 
 
 

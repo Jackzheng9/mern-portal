@@ -44,10 +44,21 @@ const registerUser = async (req,res) => {
 
 const userLogin = async (req,res) => {
   const {email, password} = req.body
+  console.log("login data",email, password)
+
+
+
   try {
     const user = await User.findOne({email});
     if(user && await user.matchPassword(password)){
       generateToken(res, user._id)
+      // res.status(200).json({user})
+      res.status(200).json({
+        ...user.toObject(), // Convert user to a plain object
+        password: undefined // Exclude the password field
+      })
+      
+      /*
       res.status(200).json({
         _id: user._id,
         firstName: user.firstName,
@@ -80,6 +91,10 @@ const userLogin = async (req,res) => {
         timezone:user.timezone,
         image:user.image,
       })
+
+      */
+
+
     }else{
       throw new Error('Invalid email or password')
     }

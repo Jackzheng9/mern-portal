@@ -7,12 +7,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../slices/authSlice';
 import { useEditUserMutation } from '../slices/userApiSlice';
+import { setInitialInfo } from '../slices/userInfoSlice';
+
+import Loader from './Loader';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const [login,{isLoading, isError, error}] = useLoginMutation()
+  
+  
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -24,16 +29,17 @@ const Login = () => {
       toast.error("Password should be at least 6 characters long");
       return;
     }
-    const data = {
+    const formData = {
       email,password
     }
 
+
     try {
-      const apiData = await login(data).unwrap();
-      // const apiData = await register(data);
-      console.log(apiData)
+      const apiData = await login(formData).unwrap();
       toast.success("Login successful!")
       dispatch(setCredentials(apiData))
+      dispatch(setInitialInfo(apiData))
+      
       if(apiData.role == 'admin' || apiData.role == 'superAdmin'){
         navigate('/admin/dashboard')
       }else{
@@ -67,19 +73,19 @@ const Login = () => {
             time:new Date().toISOString()
           }
         }
-
+        
         try {
           const apiRes = await editUser(data).unwrap();
         } catch (error) {
           console.error("Failed to edit user:", error);
         }
+          
         navigate('/')
       }
       
     } catch (error) {
       console.log(error)
-      console.log(error?.data?.msg)
-      toast.error(error?.data?.message)
+      toast.error("Something went wrong!")
     }
     
   }

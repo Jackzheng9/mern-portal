@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react'
-import { Outlet, Link, NavLink, useNavigate } from "react-router-dom";
+import { Outlet, Link, NavLink, useNavigate, useSearchParams } from "react-router-dom";
 import Logo from '../assets/logo.svg'
 import Settings from '../assets/settingsGray.svg'
 import Twitter from '../assets/twitter.svg'
@@ -24,6 +24,9 @@ const Layout = () => {
   if(user){
     userEmail = user.email;
   }
+
+  const [searchParams] = useSearchParams();
+  // console.log("Params",searchParams.get("setpass"))
 
   
   
@@ -51,6 +54,11 @@ const Layout = () => {
 
 
   useEffect(() => {
+    if(searchParams.get("setpass")){
+      navigate('/setpassword')
+      return;
+    }
+
     if(!user){
       navigate('/login')
     }
@@ -68,7 +76,8 @@ const Layout = () => {
   const returnedUser = data.user[0];
   // console.log("returnedUser", returnedUser)
 
-  const userInitial = `${returnedUser.firstName.slice(0,1)}${returnedUser.lastName.slice(0,1)}`;
+  let userInitial = `${returnedUser.firstName.slice(0,1)}${returnedUser.lastName.slice(0,1)}`;
+  userInitial = userInitial.toUpperCase()
   // console.log("userInitial", userInitial)
 
 

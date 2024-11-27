@@ -102,17 +102,25 @@ const OnBoarding = () => {
     try {
       const apiRes = await editUser(data).unwrap();
       console.log(apiRes)
-      console.log(apiRes.success)
-      if(apiRes.success){
-        setLoading(false)
-          setStep(9)
+      setLoading(false)
+      setStep(9)
+      const eventData = {
+        personalNotifications : {
+          notificationType:"onboardingdone",
+          message:'Ready to discuss your AI solutions? Schedule a meeting with our tech experts now!',
+        }
       }
+      const setEvent =  await editUser(eventData).unwrap();
+      console.log("setEvent",setEvent)
     } catch (error) {
       console.log(error.message)
     }
   }
 
   const loginRouteHandler = () => {
+    navigate('/login')
+  }
+  const dashBoardRouteHandler = () => {
     navigate('/login')
   }
 
@@ -548,7 +556,7 @@ const OnBoarding = () => {
                   <img src={Success} alt="" />
                   <p className="text-[30px] text-center mt-6 mb-3">You have successfully completed the onboarding process.</p>
                   <p className="text-center">You're now ready to explore all the features we offer. If you need any assistance, feel free to reach out to our support team.</p>
-                  <div className="my-8 next cursor-pointer bg-primary-blue border border-black text-white px-6 py-3 rounded-[100px] font-semibold hover:bg-primary-black hover:border-primary-blue ">Explore Dashboard</div>
+                  <div onClick={dashBoardRouteHandler} className="my-8 next cursor-pointer bg-primary-blue border border-black text-white px-6 py-3 rounded-[100px] font-semibold hover:bg-primary-black hover:border-primary-blue ">Explore Dashboard</div>
                   <div className="flex gap-2 cursro-pointer cursor-pointer" onClick={loginRouteHandler}><img src={ArrowLeft} alt="" /><span className="text-sm">Back to log in</span></div>
                 </div>
               )}

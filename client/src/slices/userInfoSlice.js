@@ -31,11 +31,35 @@ const usersInfotSlice = createSlice({
       state.userInfo = action.payload;
     },
     setPersonalEvents:(state,action) => {
-      state.dateRange = action.payload;
+      console.log("Payload", action.payload)
     },
+    setCompletedfiles : (state,action) => {
+      console.log("Completed file action", action.payload)
+      console.log(" file id", action.payload.fileId)
+      state.userInfo.completedFiles.map(file => console.log(file.fileId))
+      
+      
+      if(action.payload.type=='add'){
+        
+        state.userInfo = {
+          ...state.userInfo,
+          completedFiles: [...(state.userInfo.completedFiles || []), { year: '2024', fileId: action.payload.fileId} ] 
+        }
+          
+      }else {
+        state.userInfo = { 
+          ...state.userInfo,
+          completedFiles: (state.userInfo.completedFiles || []).filter(file => file.fileId != action.payload.fileId) 
+        } 
+      }
     
+
+    },
+    setPersonalNotifications:(state,action) => {
+      console.log("Personal notification payload",action.payload)
+    }
   }
 })
 
-export const {setStatus, setDate, setSearchTerm } = usersListSlice.actions;
-export default usersListSlice.reducer;
+export const {setInitialInfo, setPersonalEvents, setCompletedfiles,setPersonalNotifications} = usersInfotSlice.actions;
+export default usersInfotSlice.reducer;
