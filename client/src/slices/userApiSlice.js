@@ -11,6 +11,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body:data
       })
     }),
+
     login:builder.mutation({
       query:(data) => ({
         url:`${USERS_URL}/login`,
@@ -18,6 +19,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body:data
       })
     }),
+
     getUsers:builder.query({
       query:() => ({
         url:`${USERS_URL}/admin/users`,
@@ -28,6 +30,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ['User'],
     }),
+
     getUserById:builder.query({
       query:({id}) => ({
         url:`${USERS_URL}/admin/users/${id}`,
@@ -35,6 +38,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ['User'],
     }),
+
     getUserByEmail:builder.mutation({
       query:(data) => ({
         url:`${USERS_URL}/getUser`,
@@ -42,6 +46,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body:data
       })
     }),
+
     queryUserByEmail:builder.query({
       query:({email}) => ({
         url:`${USERS_URL}/getuser/${email}`,
@@ -49,6 +54,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ['User'],
     }),
+
     editUserAdmin:builder.mutation({
       query:(data) => ({
         url:`${USERS_URL}/admin/useredit`,
@@ -57,6 +63,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['User', 'Notifications'],
     }),
+
     editUser:builder.mutation({
       query:(data) => ({
         url:`${USERS_URL}/edituser`,
@@ -65,6 +72,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
+
     addFiletoUser:builder.mutation({
       query:(data) => ({
         url:`${USERS_URL}/addfile`,
@@ -73,6 +81,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
+    
     removeFileFromUser:builder.mutation({
       query:(data) => ({
         url:`${USERS_URL}/removefile`,
@@ -81,6 +90,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
+    
     setUserPass:builder.mutation({
       query:(data) => ({
         url:`${USERS_URL}/setpassword`,

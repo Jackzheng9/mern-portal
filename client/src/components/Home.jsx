@@ -21,6 +21,8 @@ import Loader from './Loader';
 import HomeMonthlyAi from './HomeMonthlyAi';
 import { useGetAllSolutionQuery } from '../slices/solutionApiSlice';
 import HomeSolution from './HomeSolution';
+import { useEditUserMutation } from '../slices/userApiSlice';
+import { setPersonalNotifications } from '../slices/userInfoSlice';
 
 const Home = () => {
   const [searchParams] = useSearchParams();
@@ -33,6 +35,8 @@ const Home = () => {
 
   useEffect(() => {
     
+
+    /*
     if(searchParams.get("setpass")){
       navigate('/setpassword')
       return;
@@ -46,6 +50,8 @@ const Home = () => {
     if(user && ( user.userInfo.role == 'superAdmin' || user.userInfo.role == 'admin') ){
       navigate('/admin/dashboard')
     }
+
+    */
 
   },[])
 
@@ -79,6 +85,22 @@ const Home = () => {
   // console.log("monthAiVideos", monthAiVideos)
 
   const solutions = solData.solutions;
+  const [editUser ] = useEditUserMutation()
+
+  const linkedInHandler = async () => {
+    console.log("Adding linkedin notification")
+    
+    const data = {
+      personalNotifications: {
+        message:"Linkedin Click",
+        notificationType:"linkedinDone"
+      }
+    }
+
+    const apiRes = await editUser(data).unwrap();
+
+
+  }
 
   return (
     <>
@@ -97,7 +119,7 @@ const Home = () => {
         <div className="hero_text max-w-[516px]">
           <h1 className="font-semibold text-4xl mb-4">Be Part of the Conversation</h1>
           <p className="mb-7">Stay ahead of the curve by joining our community, where you’ll find invaluable resources, expert-led webinars, and live events that keep you connected and informed.</p>
-          <button className='bg-primary-blue h-11 flex items-center px-6 rounded-[100px] font-semibold'>Join our Community</button>
+          <button onClick={linkedInHandler} className='bg-primary-blue h-11 flex items-center px-6 rounded-[100px] font-semibold'>Join our Community</button>
         </div> 
       </div>
 

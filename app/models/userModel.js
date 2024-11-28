@@ -6,14 +6,15 @@ const userNotificationSchema = new mongoose.Schema({
   notification: { type: mongoose.Schema.Types.ObjectId, ref: 'Notification', required: true },
   readStatus: { type: Boolean, default: true },
   // receivedAt: { type: Date, default: Date.now },
-});
+},{timestamps: true});
 
 const personalNotificationSchema = new mongoose.Schema({
   message: { type: String, required: true },
   // date: { type: Date, default: Date.now },
   notificationType:{ type: String },
-  resourceId : {type:String}
-});
+  resourceId : {type:String},
+  read : {type:Boolean, default: false },
+},{timestamps: true});
 
 const userEventsSchema = new mongoose.Schema({
   eventName: { type: String, required: true },

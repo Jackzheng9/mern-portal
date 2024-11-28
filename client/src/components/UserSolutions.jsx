@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { useGetSolutionsQuery } from '../slices/solutionApiSlice'
 import { setSearchTerm } from '../slices/SolutionListSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { useEditUserMutation } from '../slices/userApiSlice'
 
 const UserSolutions = () => {
   const [searcFormTerm, setSearchFormTerm] = useState('')
@@ -16,7 +17,8 @@ const UserSolutions = () => {
   const searchFilterTerm = useSelector(state => state.solutionsFilter.searchTerm)
   // console.log("term from slice",searchFilterTerm )
 
-  if(isLoading){
+  const [editUser,{isLoading:userLoading, isError:userError}] = useEditUserMutation();
+  if(isLoading || userLoading){
     return <p>Loading Data...</p>
   }
 
@@ -39,6 +41,16 @@ const UserSolutions = () => {
   let filteredSolutions = data.solutions.filter(searchFilterHandler);
   console.log("filtered items",filteredSolutions )
 
+  const scheduleMeetingHandler = async () => {
+      const data = {
+        personalNotifications : {
+          message:'Meeting clicked!',
+          notificationType:'schedulemeeting',
+        }
+      }
+      const apiRes = await editUser(data).unwrap();
+      console.log("apiRes", apiRes)
+  }
 
 
   return (
@@ -76,7 +88,7 @@ const UserSolutions = () => {
 
           <div className="">
             <Link to="" className="bg-primary-blue rounded-[100px] h-11 flex items-center px-6 cursor-pointer">
-              <p className="">Schedule Now</p>
+              <p onClick={scheduleMeetingHandler} className="">Schedule Now</p>
             </Link>
           </div>
         </div>
