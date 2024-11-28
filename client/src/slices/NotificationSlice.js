@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   allNotifications:[],
-  readNotifications:[]
+  unReadNotifications:[]
 }
 
 const notifiationSlice = createSlice({
@@ -14,12 +14,12 @@ const notifiationSlice = createSlice({
       console.log("payload",action.payload)
       state.allNotifications = action.payload
     },
-    setReadNotifications : (state,action) => {
-      state.readNotifications = [...state.readNotifications, ...action.payload]
+    setUnReadNotifications : (state,action) => {
+      state.unReadNotifications = [...action.payload]
     }
   }
 })
 
-export const {setAllNotifications,setReadNotifications } = notifiationSlice.actions;
+export const {setAllNotifications,setUnReadNotifications } = notifiationSlice.actions;
 // export const {setAllNotifications} = notifiationSlice.actions;
 export default notifiationSlice.reducer;

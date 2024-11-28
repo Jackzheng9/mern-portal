@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs'
 import Notification from "./notificationModel.js";
 
 const userNotificationSchema = new mongoose.Schema({
-  notification: { type: mongoose.Schema.Types.ObjectId, ref: 'Notification', required: true },
+  notifications: { type: mongoose.Schema.Types.ObjectId, ref: 'Notification', required: true },
   readStatus: { type: Boolean, default: true },
   // receivedAt: { type: Date, default: Date.now },
 },{timestamps: true});
@@ -110,7 +110,8 @@ const userSchema = mongoose.Schema({
   websute :{
     type: String,
   },
-  notifications: [userNotificationSchema],
+  // notifications: [userNotificationSchema],
+  notifications: [],
   personalNotifications:[personalNotificationSchema], 
   userEvents:[userEventsSchema],
 

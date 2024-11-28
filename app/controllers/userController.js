@@ -181,9 +181,10 @@ const editUser = async (req,res) => {
   console.log("Edit user hitted!")
   const {user:jwtuser} = req
   //console.log("auth user", jwtuser)
-  const {industry,employee,goal,workflow,manualWorks,mainIssue,improveArea,achieveArea,password,notification, companyDetails,company,browserInfo, newPassword,notiSettings,phone, city,state,country, timezone,image, personalNotifications, userEvents} = req.body
+  const {industry,employee,goal,workflow,manualWorks,mainIssue,improveArea,achieveArea,password,notifications, companyDetails,company,browserInfo, newPassword,notiSettings,phone, city,state,country, timezone,image, personalNotifications, userEvents} = req.body
   console.log("Body", req.body);
-  console.log("personalNotifications", personalNotifications);
+  // console.log("personalNotifications", personalNotifications);
+  console.log("notifications", notifications);
   
   try {
     const user = await User.findOne({email:jwtuser.email})
@@ -208,6 +209,8 @@ const editUser = async (req,res) => {
       user.country = country || user.country ;
       user.timezone = timezone || user.timezone ;
       user.image = image || user.image ;
+      // user.notifications = notifications || user.notifications ;
+      user.notifications = [...user.notifications, ... notifications ];
 
       if(password){
         const isMatch = await user.matchPassword(password);
@@ -220,7 +223,8 @@ const editUser = async (req,res) => {
     
       user.company = company || user.company ;
       
-      if(notification){
+      /*
+      if(notifications){
         const oldNotifications = user.notifications;
 
         const isIncluded = oldNotifications.some(noti => noti.notification.toString() === notification);
@@ -233,7 +237,9 @@ const editUser = async (req,res) => {
           });
         }
         
-      }      
+      }
+      
+      */
       if(personalNotifications){
         console.log("Adding personal Notifications")
         const oldNotifications = user.personalNotifications;

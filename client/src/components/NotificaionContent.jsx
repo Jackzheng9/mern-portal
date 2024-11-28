@@ -1,34 +1,59 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import NotifyIcon from '../assets/notify_icon.svg'
 import { useEditUserMutation } from '../slices/userApiSlice';
 import { useDispatch } from 'react-redux';
-import { setReadNotifications } from '../slices/NotificationSlice';
 import Loader from './Loader';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { setUnReadNotifications } from '../slices/NotificationSlice';
 
-
-const NotificaionContent = ({all,read}) => {
+const NotificaionContent = ({all, read, personal, handleUnreadIds}) => {
   console.log("All", all)
   console.log("Read", read)
+  console.log("Personal", personal)
   dayjs.extend(relativeTime);
   const dispatch = useDispatch();
   const [showLoader, setShowLoader] = useState(false)
 
-  const unReadNotifications = all.filter(notification => !read.some(readItem => readItem.notification === notification._id))
+  const combined = [...all, ...personal]
+  
+  const newRead = [
+    "674726dd3d3b0e43e3e9c273",
+    "674727073d3b0e43e3e9c296",
+    "674809cf53dd3f52d2031652",
+    "674809cf53dd3f52d2031654",
+    "674809cf53dd3f52d2031656",
+    "674809cf53dd3f52d2031658",
+    "67481de353dd3f52d203167e",
+    "67481de353dd3f52d2031684",
+    "67481de553dd3f52d203169c",
+    
+]
+
+// const notInNewRead = combined.filter(notification => !newRead.includes(notification._id));
+// console.log("Notifications not in newRead", notInNewRead);
+
+
+
+
+  const unReadNotifications = combined.filter(notification => !read.includes(notification._id))
   console.log("unReadNotifications", unReadNotifications)
+  const unReadIds = unReadNotifications.map(item => item._id);
+  // console.log("unReadIds",unReadIds)
+  
+  useEffect(() =>{
+    if(unReadIds.length > 0){
+      handleUnreadIds(unReadIds)
+    }
+
+  },[])
+
 
   const [showAllNoti, setShowAllNoti] = useState(true)
-  const [editUserMutation ] = useEditUserMutation();
 
-  const addNotiToUser = async (notification) => {
-    setShowLoader(true)
-    console.log("Adding - ", notification)
-    const addNoti = await editUserMutation({notification}).unwrap();
-    dispatch(setReadNotifications([{notification, readStatus:true}]))
-    console.log("API Res: ", addNoti);
-    setShowLoader(false)
-  }
+
+
+  const [editUserMutation ] = useEditUserMutation();
 
   return (
       <div className="notifications_panel absolute w-[452px] max-w-full top-[100%] right-0 py-8 px-6 bg-black">
@@ -47,10 +72,10 @@ const NotificaionContent = ({all,read}) => {
           <div className="notifications_list">
             <ul>
               
-              {all.map(notification => <li onClick={() => addNotiToUser(notification._id) } key={notification._id} className='flex gap-6 items-center justify-between mb-6 cursor-pointer'>
+              {combined.map(notification => <li  key={notification._id} className='flex gap-6 items-center justify-between mb-6 cursor-pointer'>
                 <div><img src={NotifyIcon} className='min-w-11' alt="" /></div>
-                <div>
-                  <p className="noti_title font-semibold text-sm mb-2">{notification.title}</p>
+                <div className="w-[230px]">
+                  <p className="noti_title text-[#BFC0C1] font-semibold text-sm mb-2">{notification.title}</p>
                   <p className="noti_text text-[#BFC0C1] text-xs">{notification.message}</p>
                 </div>
                 <div className="min-w-[55px]">
@@ -69,18 +94,16 @@ const NotificaionContent = ({all,read}) => {
           <div className="notifications_list">
             <ul>
               
-            {unReadNotifications.map(notification => <li key={notification._id} className='flex gap-6 items-center justify-between mb-6 cursor-pointer'>
+              {unReadNotifications.map(notification => <li key={notification._id} className='flex gap-6 items-center justify-between mb-6 cursor-pointer'>
                 <div><img src={NotifyIcon} className='min-w-11' alt="" /></div>
-                <div>
-                  <p className="noti_title font-semibold text-sm mb-2">{notification.title}</p>
+                <div className="w-[230px]" >
+                  <p className="noti_title text-[#BFC0C1] font-semibold text-sm mb-2">{notification.title}</p>
                   <p className="noti_text text-[#BFC0C1] text-xs">{notification.message}</p>
                 </div>
                 <div className="min-w-[55px]">
                   <p className='text-[#BFC0C1]'>{dayjs(notification.createdAt).fromNow()}</p>
                 </div>
               </li>)}
-
-
 
             </ul>
           </div>

@@ -32,11 +32,11 @@ const Home = () => {
   const user = useSelector(state => state.auth);
   // console.log("User:", user)
 
-
+/*
   useEffect(() => {
     
 
-    /*
+    
     if(searchParams.get("setpass")){
       navigate('/setpassword')
       return;
@@ -51,13 +51,17 @@ const Home = () => {
       navigate('/admin/dashboard')
     }
 
-    */
+    
 
   },[])
 
+
+  */
   const {data, isLoading }= useGetDeepDivesQuery();
   const {data:solData, isLoading:solLoading, isError, error }= useGetAllSolutionQuery();
-  
+  const [editUser ] = useEditUserMutation()
+
+
   if(isLoading || solLoading){
     return <Loader />
   }
@@ -85,7 +89,7 @@ const Home = () => {
   // console.log("monthAiVideos", monthAiVideos)
 
   const solutions = solData.solutions;
-  const [editUser ] = useEditUserMutation()
+ 
 
   const linkedInHandler = async () => {
     console.log("Adding linkedin notification")
@@ -98,8 +102,6 @@ const Home = () => {
     }
 
     const apiRes = await editUser(data).unwrap();
-
-
   }
 
   return (

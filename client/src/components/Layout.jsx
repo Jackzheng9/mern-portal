@@ -37,9 +37,11 @@ const Layout = () => {
   const [editUser, {isLoading, isError} ] = useEditUserMutation()
   const personalNotifications = useSelector(state => state.userInfo.userInfo.personalNotifications);
   const readNotifications = useSelector(state => state.userInfo.userInfo.notifications);
-  console.log("all personal Notifications", readNotifications)
+  // console.log("all personal Notifications", readNotifications)
+  // console.log("all read Notifications", readNotifications)
 
 
+  const [unreadIds,setUnreadIds] = useState(null)
 
 
 
@@ -210,7 +212,7 @@ const Layout = () => {
 
   },[])
 
-  console.log("isLoadingState",isLoadingState)
+  // console.log("isLoadingState",isLoadingState)
 
   if(isLoadingState){
     return <Loader />
@@ -230,13 +232,30 @@ const Layout = () => {
     navigate('/login')
   }
 
-  const toggleNotification = () => {
+  
+
+  const handleUnreadIds = (ids) => {
+    setUnreadIds(ids)
+  }
+  
+
+
+  const toggleNotification = async () => {
+    if(showNotiPanel){
+      console.log("unreadIds", unreadIds)
+      if(unreadIds){
+        const apiRes = await editUser({notifications:unreadIds}).unwrap()
+      }
+      
+    }
     setShowNotiPanel(!showNotiPanel)
+    
   }
 
 
   let userInitial = `${user.firstName.slice(0,1)}${user.lastName.slice(0,1)}`;
   userInitial = userInitial.toUpperCase()
+
 
   return (
     <>
@@ -260,7 +279,7 @@ const Layout = () => {
                 <li>
                   {!showNotiPanel && <img onClick={toggleNotification} className="cursor-pointer" src={Notification} alt="" /> }
                   {showNotiPanel && <img onClick={toggleNotification} className=" cursor-pointer" src={NotificationWhite} alt="" /> }
-                  { showNotiPanel && <Notifications />}
+                  { showNotiPanel && <Notifications all={allNotifications} personal = {personalNotifications} read={readNotifications} handleUnreadIds={handleUnreadIds} />}
                 </li>
                 <li className='relative'>
                   <div onClick={accountOptionsHandler} className="initials bg-dark-blue text-lg font-medium h-12 w-12 rounded-[100px] flex items-center justify-center cursor-pointer">
