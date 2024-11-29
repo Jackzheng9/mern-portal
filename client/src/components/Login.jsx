@@ -113,7 +113,7 @@ const Login = () => {
               <div className="form-group flex flex-col md:flex-row w-full mb-6">
                 <div className="flex flex-col gap-3 w-full">
                   <label htmlFor="email" className='text-white'>Email</label>
-                  <input type="email" id="email" className='bg-[#1C1C1C] text-input text-white px-4 py-2 rounded-md w-full text-[#8E8E8E]' placeholder='Email' required value={email} onChange={(e) => setEmail(e.target.value)}/>
+                  <input type="email" id="email" className='bg-[#1C1C1C] text-input  px-4 py-2 rounded-md w-full text-[#8E8E8E]' placeholder='Email' required value={email} onChange={(e) => setEmail(e.target.value)}/>
                 </div>
               </div>
 
