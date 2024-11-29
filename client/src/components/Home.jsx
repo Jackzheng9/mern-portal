@@ -19,7 +19,7 @@ import { toast } from 'react-toastify';
 import { useGetDeepDivesQuery } from '../slices/deepDiveApiSlice';
 import Loader from './Loader';
 import HomeMonthlyAi from './HomeMonthlyAi';
-import { useGetAllSolutionQuery } from '../slices/solutionApiSlice';
+import { useGetSolutionsQuery } from '../slices/solutionApiSlice';
 import HomeSolution from './HomeSolution';
 import { useEditUserMutation } from '../slices/userApiSlice';
 import { setPersonalNotifications } from '../slices/userInfoSlice';
@@ -58,7 +58,7 @@ const Home = () => {
 
  
   const {data, isLoading }= useGetDeepDivesQuery();
-  const {data:solData, isLoading:solLoading, isError, error }= useGetAllSolutionQuery();
+  const {data:solData, isLoading:solLoading, isError, error }= useGetSolutionsQuery();
   const [editUser ] = useEditUserMutation()
 
 
@@ -71,7 +71,7 @@ const Home = () => {
     console.log("Error", error)
     console.log("message", error.message)
     // toast.error("Login expired, please login back.")
-    navigate('/login')
+    return "Something went wrong!"
   }
 
   

@@ -4,12 +4,15 @@ import { MongooseError } from "mongoose";
 
 
 const getAdminAllSolution = async (req,res) => {
+  console.log("get all admin sln hit!")
   const allSolutions = await Solution.find();
   res.status(201).json({message:"Success", solutions:allSolutions})
 }
 
 const getAllSolution = async (req,res) => {
+  console.log("Get all sln hit")
   const allSolutions = await Solution.find();
+
   res.status(201).json({message:"Success", solutions:allSolutions})
 }
 
