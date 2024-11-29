@@ -74,7 +74,7 @@ const Layout = () => {
 
     
 
-    if(notiLoading ){
+    if(notiLoading || userLoading ){
       console.log("Loading running!")
       setIsLoadingState(true)
     }else{
