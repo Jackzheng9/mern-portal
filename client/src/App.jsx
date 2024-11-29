@@ -29,6 +29,11 @@ import Profile from './components/Profile';
 import HomeContent from './components/admin/HomeContent';
 import Terms from './components/admin/terms/Terms';
 import Support from './components/admin/support/Support';
+import RequestPassChange from './components/RequestPassChange';
+import NewPassword from './components/NewPassword';
+
+
+
 function App() {
     
   
@@ -69,6 +74,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/setpassword" element={<SetPassword />} />
+          <Route path="/reset-password" element={<RequestPassChange />} />
+          <Route path="/reset-password/:token" element={<NewPassword />} />
           <Route path="/onboarding" element={<OnBoarding />} />
         </Routes>
       </BrowserRouter>

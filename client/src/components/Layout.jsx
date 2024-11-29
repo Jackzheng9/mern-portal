@@ -32,14 +32,13 @@ const Layout = () => {
   const navigate = useNavigate();
 
   const [isLoadingState, setIsLoadingState] = useState(true)
-  const user = useSelector(state => state.auth.userInfo)
+  let user = null
+  user = useSelector(state => state.auth.userInfo)
   //const userInfo = useSelector(state => state.userInfo.userInfo)
-
-    
+   
   const {data, isLoading:notiLoading, isError:notiIsError} = useGetNotificationsQuery()
   const {data:userData, isLoading:userLoading, isError:userError, error} = useQueryUserByEmailQuery({email:user.email})
-
-
+  
   const [editUser, {isLoading, isError} ] = useEditUserMutation()
 
 
@@ -58,6 +57,12 @@ const Layout = () => {
       return;
     }
 
+    if(user == null){
+      navigate('/login')
+    } 
+
+   
+
     /*
     if( Object.keys(userInfo).length == 0){
       // console.log("Navigating to login screen...")
@@ -69,12 +74,9 @@ const Layout = () => {
 
     
 
-    if(notiLoading || userLoading){
+    if(notiLoading ){
       console.log("Loading running!")
       setIsLoadingState(true)
-    }else if(error){
-      console.log("error",error)
-
     }else{
       console.log("Loading completed")
       setIsLoadingState(false)
@@ -238,7 +240,7 @@ const Layout = () => {
 
 
 
-  },[notiLoading, userLoading])
+  },[notiLoading,userLoading])
 
   // console.log("isLoadingState",isLoadingState)
 

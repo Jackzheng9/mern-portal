@@ -92,7 +92,7 @@ const Login = () => {
       
     } catch (error) {
       console.log(error)
-      toast.error("Something went wrong!")
+      toast.error(error.data.message)
     }
 
     
@@ -139,7 +139,7 @@ const Login = () => {
                     Remembe Me
                   </label> 
                 </div>
-                <Link className="">Forgot Password</Link>
+                <Link to="/reset-password" className="">Forgot Password</Link>
                 
               </div>
 

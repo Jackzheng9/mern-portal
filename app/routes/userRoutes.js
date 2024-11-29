@@ -1,6 +1,6 @@
 import express from 'express'
 import nodemailer from 'nodemailer';
-import { registerUser,userEditAdmin,userLogin,getAllUsers,getUserById,getUserByEmail,editUser,userSetPassword, addFileToUser,removeFileFromUser,queryUserByEmail } from '../controllers/userController.js';
+import { registerUser,userEditAdmin,userLogin,getAllUsers,getUserById,getUserByEmail,editUser,userSetPassword, addFileToUser,removeFileFromUser,queryUserByEmail,resetPasswordRequest,resetPassword } from '../controllers/userController.js';
 import protect from '../middlewares/authMiddleWare.js';
 
 const userRouter = express.Router()
@@ -20,6 +20,8 @@ userRouter.post('/getUser', getUserByEmail)
 userRouter.get('/getuser/:email', queryUserByEmail)
 userRouter.post('/addfile',protect, addFileToUser)
 userRouter.post('/removefile',protect, removeFileFromUser)
+userRouter.post('/reset-password', resetPasswordRequest)
+userRouter.post('/reset-password/:token', resetPassword)
 
 userRouter.get('/email',(req,res) => {
 

@@ -99,8 +99,26 @@ export const userApiSlice = apiSlice.injectEndpoints({
       })
     }),
 
+    reqPassChange:builder.mutation({
+      query:(data) => ({
+        url:`${USERS_URL}/reset-password`,
+        method: "POST",
+        body:data
+      })
+    }),
+
+    setNewPass:builder.mutation({
+      query:(data) => ({
+        url:`${USERS_URL}/reset-password/${data.token}`,
+        method: "POST",
+        body:data
+      })
+    }),
+
+
+
   })
 })
 
 
-export const {useRegisterMutation, useLoginMutation, useGetUsersQuery, useGetUserByIdQuery, useEditUserMutation, useLazyGetUserByIdQuery, useGetUserByEmailMutation, useEditUserAdminMutation, useSetUserPassMutation, useAddFiletoUserMutation, useRemoveFileFromUserMutation, useQueryUserByEmailQuery } = userApiSlice;
+export const {useRegisterMutation, useLoginMutation, useGetUsersQuery, useGetUserByIdQuery, useEditUserMutation, useLazyGetUserByIdQuery, useGetUserByEmailMutation, useEditUserAdminMutation, useSetUserPassMutation, useAddFiletoUserMutation, useRemoveFileFromUserMutation, useQueryUserByEmailQuery, useReqPassChangeMutation, useSetNewPassMutation } = userApiSlice;

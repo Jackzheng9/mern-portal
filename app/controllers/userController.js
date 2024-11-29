@@ -1,6 +1,11 @@
 import User from "../models/userModel.js"
 import generateToken from "../utils/generateToken.js";
 import nodemailer from 'nodemailer';
+import crypto from 'crypto';
+import dotenv from 'dotenv';
+dotenv.config();
+const FRONTEND_URL = process.env.ENVIRONMENT == 'dev' ? process.env.FRONTEND_DEV : process.env.FRONTEND_PROD ; 
+
 
 const registerUser = async (req,res) => {
   const {firstName,lastName,email,phone,company,password} = req.body
@@ -226,23 +231,6 @@ const editUser = async (req,res) => {
     
       user.company = company || user.company ;
       
-      /*
-      if(notifications){
-        const oldNotifications = user.notifications;
-
-        const isIncluded = oldNotifications.some(noti => noti.notification.toString() === notification);
-        //console.log(isIncluded);
-        if(!isIncluded){
-          user.notifications.push({
-            notification: notification,
-            readStatus: true,
-            //receivedAt: new Date(),
-          });
-        }
-        
-      }
-      
-      */
       if(personalNotifications){
         console.log("Adding personal Notifications")
         const oldNotifications = user.personalNotifications;
@@ -500,4 +488,84 @@ const userSetPassword = async (req, res) => {
 
 }
 
-export {registerUser,userEditAdmin,userLogin, getAllUsers,getUserById, getUserByEmail, editUser, userSetPassword, addFileToUser, removeFileFromUser,queryUserByEmail}
+const resetPasswordRequest = async (req,res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ message: 'User not found.' });
+
+    // Generate a reset token
+    const resetToken = crypto.randomBytes(20).toString('hex');
+
+    // Set token and expiration in the database
+    user.resetPasswordToken = resetToken;
+    user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+    await user.save();
+
+    // Send email
+
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false, // use SSL
+      auth: {
+        user: 'mahmud.linked@gmail.com',
+        pass: 'riooftuzfknpqlyc',
+      }
+    });
+
+    // Configure the mailoptions object
+    const resetUrl = `${FRONTEND_URL}/reset-password/${resetToken}`;
+    const mailOptions = {
+      from: 'mahmud.linked@gmail.com',
+      to: email,
+      subject: 'Password Reset',
+      text: `You requested a password reset. Click here to reset your password: ${resetUrl}`
+    };
+    
+  
+
+    await transporter.sendMail(mailOptions);
+
+    res.status(200).json({ message: 'Password reset email sent.' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error resetting password.', error });
+  }
+
+
+
+}
+
+const resetPassword = async (req,res) => {
+
+  const { token } = req.params;
+  const { newPassword } = req.body;
+
+  try {
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (!user) return res.status(400).json({ message: 'Invalid or expired token.' });
+
+    // Hash new password and save it
+    // const salt = await bcrypt.genSalt(10);
+    // user.password = await bcrypt.hash(newPassword, salt);
+
+    user.password = newPassword
+    // Clear reset token and expiration
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+
+    await user.save();
+
+    res.status(200).json({ message: 'Password updated successfully.' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error resetting password.', error });
+  }
+
+
+}
+
+export {registerUser,userEditAdmin,userLogin, getAllUsers,getUserById, getUserByEmail, editUser, userSetPassword, addFileToUser, removeFileFromUser,queryUserByEmail,resetPasswordRequest,resetPassword}

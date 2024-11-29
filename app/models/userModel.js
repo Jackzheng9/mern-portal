@@ -114,6 +114,8 @@ const userSchema = mongoose.Schema({
   notifications: [],
   personalNotifications:[personalNotificationSchema], 
   userEvents:[userEventsSchema],
+  resetPasswordToken: { type: String },
+  resetPasswordExpires: { type: Date },
 
 },{timestamps: true})
 
