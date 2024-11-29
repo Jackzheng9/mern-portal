@@ -9,12 +9,13 @@ import NotificationWhite from '../assets/notificationWhite.svg'
 import dayjs from 'dayjs';
 import { logOut } from '../slices/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEditUserMutation } from '../slices/userApiSlice';
+import { useEditUserMutation, useQueryUserByEmailQuery } from '../slices/userApiSlice';
 import { useGetNotificationsQuery } from '../slices/notificationApiSlice';
 
 
 import Notifications from './Notifications';
 import Loader from './Loader';
+import { resetUserInfoState } from '../slices/userInfoSlice';
 
 
 const Layout = () => {
@@ -23,22 +24,24 @@ const Layout = () => {
   const [showAccOptions, setShowAccOptions] = useState(false)
   const [showNotiPanel, setShowNotiPanel] = useState(false)
   const [allNotifications, setAllNotifications] = useState(false)
+  const [personalNotifications, setPersonalNotifications] = useState(false)
+  const [readNotifications, setReadNotifications] = useState(false)
+  const [userInfo, setUserInfo] = useState(null)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [isLoadingState, setIsLoadingState] = useState(true)
   const user = useSelector(state => state.auth.userInfo)
-  const userInfo = useSelector(state => state.userInfo.userInfo)
-  // console.log("User from redux", userInfo)
+  //const userInfo = useSelector(state => state.userInfo.userInfo)
 
-  const {data, isLoading:notiLoading} = useGetNotificationsQuery()
+    
+  const {data, isLoading:notiLoading, isError:notiIsError} = useGetNotificationsQuery()
+  const {data:userData, isLoading:userLoading, isError:userError, error} = useQueryUserByEmailQuery({email:user.email})
+
 
   const [editUser, {isLoading, isError} ] = useEditUserMutation()
-  const personalNotifications = useSelector(state => state.userInfo.userInfo.personalNotifications);
-  const readNotifications = useSelector(state => state.userInfo.userInfo.notifications);
-  // console.log("all personal Notifications", readNotifications)
-  // console.log("all read Notifications", readNotifications)
+
 
 
   const [unreadIds,setUnreadIds] = useState(null)
@@ -49,90 +52,60 @@ const Layout = () => {
 
 
   useEffect(() => {
-    // console.log("useEffect running!", userInfo);
+    
     if(searchParams.get("setpass")){
       navigate('/setpassword')
       return;
     }
 
+    /*
     if( Object.keys(userInfo).length == 0){
       // console.log("Navigating to login screen...")
       navigate('/login')
       return
     }
 
-    const thisDate = dayjs().date();
-    const thisDay = dayjs().day();
-    // console.log("thisDay", thisDay)
-    const personalNotifications = userInfo.personalNotifications;
-    const scheduleNotifications = personalNotifications.filter(item => item.notificationType == 'schedulemeeting')
-    const linkedinNotifications = personalNotifications.filter(item => item.notificationType == 'linkedinDone')
-    // console.log("linkedinNotifications", linkedinNotifications)
-    const customSolNotifications = personalNotifications.filter(item => item.notificationType == 'customsolutions')
+    */
 
-    if(customSolNotifications.length == 0){
-      const data = {
-        personalNotifications: {
-          message:"Explore tailored AI solutions for your business. Schedule a meeting with our experts to discuss customization options.",
-          notificationType:"customsolutions"
-        }
-      }
-      
-      const edituser = async () => {
-        const apiRes = await editUser(data).unwrap();
-        console.log("apiRes", apiRes)
-      }
-  
-      edituser();
-
-    }
-
-    if(customSolNotifications.length > 0){
-
-      const latestCustomSol = customSolNotifications[customSolNotifications.length -1 ];
-
-      const latestCustomSolDate = latestCustomSol.createdAt;
-      
-      const isInCurrentMonth = dayjs(latestCustomSolDate).isSame(dayjs(), 'month');
-      const isInLastMonth = dayjs(latestCustomSolDate).isSame(dayjs().subtract(1, 'month'), 'month');
-  
-      if (isInCurrentMonth) {
-          console.log("The latest scheduled date is in the current month.");
-      } else if (isInLastMonth) {
-          console.log("The latest scheduled date is in the last month.");
-      } else {
-          console.log("The latest scheduled date is neither in the current month nor in the last month.");
-          
-          const data = {
-            personalNotifications: {
-              message:"Explore tailored AI solutions for your business. Schedule a meeting with our experts to discuss customization options.",
-              notificationType:"customsolutions"
-            }
-          }
-      
-          const edituser = async () => {
-            const apiRes = await editUser(data).unwrap();
-            console.log("apiRes", apiRes)
-          }
-      
-          edituser();     
-      }
-
-
-
-
-
-
-
-    }
     
-    if(thisDay == 1){
-      console.log("this day running!")
-      if(!linkedinNotifications || linkedinNotifications.length == 0){
+
+    if(notiLoading || userLoading){
+      console.log("Loading running!")
+      setIsLoadingState(true)
+    }else if(error){
+      console.log("error",error)
+
+    }else{
+      console.log("Loading completed")
+      setIsLoadingState(false)
+      // console.log("All Notifications data", data)
+      setAllNotifications(data.notifications)
+
+      console.log("User data from api", userData.user[0])
+      setUserInfo(userData.user[0]);
+      const apiUser = userData.user[0];
+      
+
+      const thisDate = dayjs().date();
+      const thisDay = dayjs().day();
+      // console.log("thisDay", thisDay)
+
+      setPersonalNotifications(apiUser.personalNotifications);
+      setReadNotifications(apiUser.notifications)
+
+
+
+      const personalNotifications = apiUser.personalNotifications;
+      const scheduleNotifications = personalNotifications.filter(item => item.notificationType == 'schedulemeeting')
+      const linkedinNotifications = personalNotifications.filter(item => item.notificationType == 'linkedinDone')
+      // console.log("linkedinNotifications", linkedinNotifications)
+      const customSolNotifications = personalNotifications.filter(item => item.notificationType == 'customsolutions')
+  
+      if(customSolNotifications.length == 0){
         const data = {
           personalNotifications: {
-            message:"Join our LinkedIn community to connect with industry peers and stay updated on the latest trends!",
-            notificationType:"linkedin"
+            message:"Explore tailored AI solutions for your business. Schedule a meeting with our experts to discuss customization options.",
+            notificationType:"customsolutions"
           }
         }
         
@@ -142,79 +115,135 @@ const Layout = () => {
         }
     
         edituser();
-
+  
       }
-    }
+  
+      if(customSolNotifications.length > 0){
+  
+        const latestCustomSol = customSolNotifications[customSolNotifications.length -1 ];
+  
+        const latestCustomSolDate = latestCustomSol.createdAt;
+        
+        const isInCurrentMonth = dayjs(latestCustomSolDate).isSame(dayjs(), 'month');
+        const isInLastMonth = dayjs(latestCustomSolDate).isSame(dayjs().subtract(1, 'month'), 'month');
     
-    if(!scheduleNotifications || scheduleNotifications.length == 0){
-      console.log("Run create schedule notification if nothing found!")
-      const data = {
-        personalNotifications: {
-          message:"Ready to discuss your AI solutions? Schedule a meeting with our tech experts now!",
-          notificationType:"schedulemeeting"
+        if (isInCurrentMonth) {
+            console.log("The latest scheduled date is in the current month.");
+        } else if (isInLastMonth) {
+            console.log("The latest scheduled date is in the last month.");
+        } else {
+            console.log("The latest scheduled date is neither in the current month nor in the last month.");
+            
+            const data = {
+              personalNotifications: {
+                message:"Explore tailored AI solutions for your business. Schedule a meeting with our experts to discuss customization options.",
+                notificationType:"customsolutions"
+              }
+            }
+        
+            const edituser = async () => {
+              const apiRes = await editUser(data).unwrap();
+              console.log("apiRes", apiRes)
+            }
+        
+            edituser();     
         }
+  
+  
+  
+  
+  
+  
+  
       }
-  
-      const edituser = async () => {
-        const apiRes = await editUser(data).unwrap();
-        console.log("apiRes", apiRes)
-      }
-  
-      edituser();
-  
-  
-    }
-  
-    if(thisDate == 1){
       
-      console.log("personal notifications", personalNotifications)
-      const latestScheduled = scheduleNotifications[scheduleNotifications.length -1 ];
-      console.log("latestScheduled",latestScheduled)
-      const latestScheduledDate = latestScheduled.createdAt;
-      console.log("latestScheduledDate", latestScheduledDate)
-      const isInCurrentMonth = dayjs(latestScheduledDate).isSame(dayjs(), 'month');
-      const isInLastMonth = dayjs(latestScheduledDate).isSame(dayjs().subtract(1, 'month'), 'month');
-  
-      if (isInCurrentMonth) {
-          console.log("The latest scheduled date is in the current month.");
-      } else if (isInLastMonth) {
-          console.log("The latest scheduled date is in the last month.");
-      } else {
-          console.log("The latest scheduled date is neither in the current month nor in the last month.");
-          
+      if(thisDay == 1){
+        console.log("this day running!")
+        if(!linkedinNotifications || linkedinNotifications.length == 0){
           const data = {
             personalNotifications: {
-              message:"Ready to discuss your AI solutions? Schedule a meeting with our tech experts now!",
-              notificationType:"schedulemeeting"
+              message:"Join our LinkedIn community to connect with industry peers and stay updated on the latest trends!",
+              notificationType:"linkedin"
             }
           }
-      
+          
           const edituser = async () => {
             const apiRes = await editUser(data).unwrap();
             console.log("apiRes", apiRes)
           }
       
-          edituser();     
+          edituser();
+  
+        }
       }
       
-    }
+      if(!scheduleNotifications || scheduleNotifications.length == 0){
+        console.log("Run create schedule notification if nothing found!")
+        const data = {
+          personalNotifications: {
+            message:"Ready to discuss your AI solutions? Schedule a meeting with our tech experts now!",
+            notificationType:"schedulemeeting"
+          }
+        }
+    
+        const edituser = async () => {
+          const apiRes = await editUser(data).unwrap();
+          console.log("apiRes", apiRes)
+        }
+    
+        edituser();
+    
+    
+      }
+    
+      if(thisDate == 1){
+        
+        console.log("personal notifications", personalNotifications)
+        const latestScheduled = scheduleNotifications[scheduleNotifications.length -1 ];
+        console.log("latestScheduled",latestScheduled)
+        const latestScheduledDate = latestScheduled.createdAt;
+        console.log("latestScheduledDate", latestScheduledDate)
+        const isInCurrentMonth = dayjs(latestScheduledDate).isSame(dayjs(), 'month');
+        const isInLastMonth = dayjs(latestScheduledDate).isSame(dayjs().subtract(1, 'month'), 'month');
+    
+        if (isInCurrentMonth) {
+            console.log("The latest scheduled date is in the current month.");
+        } else if (isInLastMonth) {
+            console.log("The latest scheduled date is in the last month.");
+        } else {
+            console.log("The latest scheduled date is neither in the current month nor in the last month.");
+            
+            const data = {
+              personalNotifications: {
+                message:"Ready to discuss your AI solutions? Schedule a meeting with our tech experts now!",
+                notificationType:"schedulemeeting"
+              }
+            }
+        
+            const edituser = async () => {
+              const apiRes = await editUser(data).unwrap();
+              console.log("apiRes", apiRes)
+            }
+        
+            edituser();     
+        }
+        
+      }
 
-    if(notiLoading){
-      setIsLoadingState(true)
-    }else{
-      setIsLoadingState(false)
-      // console.log("All Notifications data", data)
-      setAllNotifications(data.notifications)
+
+
+
     }
     
 
 
 
-  },[])
+  },[notiLoading, userLoading])
 
   // console.log("isLoadingState",isLoadingState)
 
   if(isLoadingState){
+    console.log("Loading state running!")
     return <Loader />
   }
 
@@ -229,6 +258,7 @@ const Layout = () => {
 
   const logoutHandler = () => {
     dispatch(logOut())
+    dispatch(resetUserInfoState())
     navigate('/login')
   }
 

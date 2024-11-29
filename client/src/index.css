@@ -216,3 +216,16 @@ body .rsw-editor{width: 100%;}
 }
 
 .rdrDateRangeWrapper{z-index: 9;}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px  #1C1C1C inset !important;
+    -webkit-text-fill-color: #8E8E8E;
+}
+
+.remember + label img.checked{display:none}
+.remember + label img.normal{display:block}
+.remember:checked + label img.normal{display:none}
+.remember:checked + label img.checked{display:block}

@@ -63,12 +63,15 @@ const Home = () => {
 
 
   if(isLoading || solLoading){
+    console.log("Loading running from home.jsx")
     return <Loader />
   }
 
   if(isError){
     console.log("Error", error)
-    return 'Something went wrong!'
+    console.log("message", error.message)
+    toast.error("Login expired, please login back.")
+    navigate('/login')
   }
 
   

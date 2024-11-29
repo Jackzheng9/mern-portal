@@ -60,9 +60,12 @@ const usersInfotSlice = createSlice({
       state.userInfo.personalNotifications = state.userInfo.personalNotifications || [];
       // Add the new notification
       state.userInfo.personalNotifications.push(action.payload);
+    },
+    resetUserInfoState : (state,action) =>{
+      state.userInfo = null
     }
   }
 })
 
-export const {setInitialInfo, setPersonalEvents, setCompletedfiles,setPersonalNotifications} = usersInfotSlice.actions;
+export const {setInitialInfo, setPersonalEvents, setCompletedfiles,setPersonalNotifications,resetUserInfoState} = usersInfotSlice.actions;
 export default usersInfotSlice.reducer;

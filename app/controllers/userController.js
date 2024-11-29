@@ -43,7 +43,7 @@ const registerUser = async (req,res) => {
 }
 
 const userLogin = async (req,res) => {
-  const {email, password} = req.body
+  const {email, password, rememberMe} = req.body
   console.log("login data",email, password)
 
 
@@ -51,7 +51,7 @@ const userLogin = async (req,res) => {
   try {
     const user = await User.findOne({email});
     if(user && await user.matchPassword(password)){
-      generateToken(res, user._id)
+      generateToken(res, user._id, rememberMe)
       // res.status(200).json({user})
       res.status(200).json({
         ...user.toObject(), // Convert user to a plain object
@@ -210,7 +210,10 @@ const editUser = async (req,res) => {
       user.timezone = timezone || user.timezone ;
       user.image = image || user.image ;
       // user.notifications = notifications || user.notifications ;
-      user.notifications = [...user.notifications, ... notifications ];
+      if(notifications && Array.isArray(notifications)){
+        user.notifications = [...user.notifications, ... notifications ];
+      }
+      
 
       if(password){
         const isMatch = await user.matchPassword(password);
