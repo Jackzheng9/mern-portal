@@ -32,7 +32,7 @@ const Home = () => {
   const user = useSelector(state => state.auth);
   // console.log("User:", user)
 
-/*
+
   useEffect(() => {
     
 
@@ -44,7 +44,7 @@ const Home = () => {
 
     if(!searchParams.get("setpass") && !user.userInfo){
       toast.info("Please login to see the page!")
-      //navigate('/login')
+      navigate('/login')
       return;
     }
     if(user && ( user.userInfo.role == 'superAdmin' || user.userInfo.role == 'admin') ){
@@ -56,7 +56,7 @@ const Home = () => {
   },[])
 
 
-  */
+ 
   const {data, isLoading }= useGetDeepDivesQuery();
   const {data:solData, isLoading:solLoading, isError, error }= useGetAllSolutionQuery();
   const [editUser ] = useEditUserMutation()
@@ -70,12 +70,12 @@ const Home = () => {
   if(isError){
     console.log("Error", error)
     console.log("message", error.message)
-    toast.error("Login expired, please login back.")
+    // toast.error("Login expired, please login back.")
     navigate('/login')
   }
 
   
-  // console.log("data", data)
+  console.log("data", data)
   // console.log("sol data", solData)
   let activeDeepDives = data.deepdives.filter(deepdive => deepdive.active);
   // console.log("activeDeepDives",activeDeepDives)
@@ -110,15 +110,6 @@ const Home = () => {
   return (
     <>
 
-      {/* <div className="linkedIn flex gap-11 px-24 py-[22px] bg-[#282828] items-center">
-        <img src={LinkedInImage} alt="" />
-        <div className="">
-          <h1 className='text-white text-4xl font-semibold mb-4' >Join our LinkedIn community</h1>
-          <p className="">We’re excited to have you here. Explore the Dashboard to stay updated with announcements, special events, and virtual meeting sign-ups. Head</p>
-          <Link className="font-semibold bg-primary-blue px-6 py-3 rounded-[100px] mt-4 inline-block" to="#" >Join Community</Link>
-
-        </div>
-      </div> */}
 
       <div className="home_hero px-12 py-20 rounded-2xl" style={{ backgroundImage: `url(${HomeHero})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="hero_text max-w-[516px]">
@@ -128,10 +119,7 @@ const Home = () => {
         </div> 
       </div>
 
-      {/* <div className="tag flex gap-4 items-center mt-11 mb-9">
-        <img src={BlueDot} alt="" />
-        <p className="text-lg font-semibold">THIS MONTH’S TOPIC: LIFE SCIENCE</p>
-      </div> */}
+
 
       <div className="deepdive mt-16">
         
@@ -140,7 +128,7 @@ const Home = () => {
           <p className="text-xl font-semibold mt-2">(Artificial Intelligence)</p>
         </div>
         
-        <div className="deep_row flex mt-8 gap-6">
+        <div className="deep_row flex mt-8 gap-6 pb-10">
           
           <div className="w-full">
             <img className='rounded-2xl w-full' src={latestDeepDive.image} alt="" />
@@ -188,6 +176,7 @@ const Home = () => {
       </div>
 
       <div className="month_ai mt-16">
+        <p className="font-semibold text-4xl mb-8">This Month in AI - What Did You Miss? </p>
         <HomeMonthlyAi video={monthAiVideos[0]} blog={monthAiBlogs[0]} />
         <HomeMonthlyAi video={monthAiVideos[1]} blog={monthAiBlogs[1]} />
         <HomeMonthlyAi video={monthAiVideos[2]} blog={monthAiBlogs[2]} />
@@ -208,7 +197,7 @@ const Home = () => {
 
       <div className="main_content mt-16 mb-16">
         <div className="flex items-center justify-between mb-6">
-          <h1 className='text-5xl font-semibold'>Solutions For You</h1>
+          <h1 className='text-5xl font-semibold mb-8'>Solutions For You</h1>
           <Link className='flex gap-1 items-center' to="/solutions/">Explore All <img src={ArrowRightUp} alt="" /></Link>
         </div>
 
@@ -217,30 +206,6 @@ const Home = () => {
           {solutions.map(solution => <HomeSolution key={solution._id} solution={solution} />)}
 
         </div>
-
-        {/* <div className="resources_area mt-8">
-          <h1 className='text-5xl font-semibold'>External Resources</h1>
-          <div className="resource_wrap flex gap-6">
-            
-            <div className="resource flex flex-col gap-4 p-6">
-              <p className="font-medium text-lg">Connect your CRM</p>
-              <p className="text-[#999999]">Save your time managing yopur CRM by syncing with DATU</p>
-              <Link className='flex h-12 items-center' to=""><p className="text-[#FF6314]">See All CRM Intergrations</p><img src={ArrowRightTopRed} alt="" /></Link>
-            </div>            
-            <div className="resource flex flex-col gap-4 p-6">
-              <p className="font-medium text-lg">Connect your CRM</p>
-              <p className="text-[#999999]">Save your time managing yopur CRM by syncing with DATU</p>
-              <Link className='flex h-12 items-center' to=""><p className="text-[#FF6314]">See All CRM Intergrations</p><img src={ArrowRightTopRed} alt="" /></Link>
-            </div>            
-            <div className="resource flex flex-col gap-4 p-6">
-              <p className="font-medium text-lg">Connect your CRM</p>
-              <p className="text-[#999999]">Save your time managing yopur CRM by syncing with DATU</p>
-              <Link className='flex h-12 items-center' to=""><p className="text-[#FF6314]">See All CRM Intergrations</p><img src={ArrowRightTopRed} alt="" /></Link>
-            </div>
-
-
-          </div>
-        </div> */}
 
       </div>
     </>

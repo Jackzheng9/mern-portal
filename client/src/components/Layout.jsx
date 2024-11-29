@@ -35,9 +35,11 @@ const Layout = () => {
   let user = null
   user = useSelector(state => state.auth.userInfo)
   //const userInfo = useSelector(state => state.userInfo.userInfo)
-   
+  console.log("user", user)
+  const userEmail = user ? user.email : 'ss'
+  console.log("userEmail",userEmail )
   const {data, isLoading:notiLoading, isError:notiIsError} = useGetNotificationsQuery()
-  const {data:userData, isLoading:userLoading, isError:userError, error} = useQueryUserByEmailQuery({email:user.email})
+  const {data:userData, isLoading:userLoading, isError:userError, error} = useQueryUserByEmailQuery({ email: userEmail })
   
   const [editUser, {isLoading, isError} ] = useEditUserMutation()
 
@@ -297,7 +299,7 @@ const Layout = () => {
           <div className="flex justify-between gap-2 py-4 items-center relative">
             <Link to="/"><img src={Logo} alt="" /></Link>
             <div className="main_menu_wrap">
-              <ul className='flex gap-2'>
+              <ul className='flex gap-10'>
                 <li><NavLink className="text-gray-nine" to="/">Home</NavLink></li>
                 <li><NavLink className="text-gray-nine" to="/solutions">Solutions</NavLink></li>
                 <li><NavLink className="text-gray-nine" to="/resources">Resources</NavLink></li>
@@ -306,7 +308,7 @@ const Layout = () => {
 
             <div className="right_menu_wrap">
               <ul className='flex gap-4 items-center'>
-                <li><NavLink to=""><div className="header_cta bg-primary-blue rounded-[100px] px-6 h-12 flex items-center">Let's Build</div></NavLink></li>
+                <li><NavLink to=""><div className="header_cta bg-primary-blue rounded-[100px] px-6 h-12 flex items-center">Contact Us</div></NavLink></li>
                 <li><NavLink to="/settings"><img src={Settings} alt="" /></NavLink></li>
                 <li>
                   {!showNotiPanel && <img onClick={toggleNotification} className="cursor-pointer" src={Notification} alt="" /> }
@@ -334,7 +336,7 @@ const Layout = () => {
         </div>
       </div>
 
-      <div className="main_content container">
+      <div className="main_content container mt-11">
         <Outlet />
       </div>
 

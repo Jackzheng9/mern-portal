@@ -4,6 +4,13 @@ import UserIcon from '../assets/user.svg'
 import { useRegisterMutation } from '../slices/userApiSlice';
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
+import LeftBg from '../assets/login-left-bottom-bg.png'
+import RightBg from '../assets/Login-right-top-bg.png'
+
+
+
+
+
 
 const Register = () => {
   const [firstName, setFirstName] = useState('');
@@ -38,8 +45,8 @@ const Register = () => {
 
   return (
     <>
-      <div className="max-w-[540px] rounded-xl   mx-auto my-[158px] bg-gradient-to-br from-[#ECECEC] to-[#494340] p-[1px]">
-        <div className="bg-[#070707] backdrop-blur  rounded-xl p-10">
+      <div className="max-w-[540px] rounded-xl   mx-auto my-[158px] bg-gradient-to-br from-[#ECECEC] to-[#494340] p-[1px] relative">
+        <div className="bg-[#070707] backdrop-blur  rounded-xl p-10 relative z-20">
           <img src={Logo} alt="" className='mx-auto' />
           <form onSubmit={formHandler} action="" className='mt-4'>
             
@@ -69,7 +76,7 @@ const Register = () => {
               </div>
             </div>
 
-            <div className="form-group flex flex-col md:flex-row w-full mb-6">
+            <div className="form-group flex flex-col md:flex-row w-full mb-8">
               <div className="flex flex-col gap-3 w-full">
                 <label htmlFor="phone" className='text-white'>Phone Number</label>
                 <input type="text" id="phone" className='bg-[#1C1C1C] text-input text-white px-4 py-2 rounded-md w-full' placeholder='Phone Number' required value={phone} onChange={(e) => setPhone(e.target.value)}/>
@@ -90,6 +97,11 @@ const Register = () => {
 
 
         </div>
+
+        <img src={LeftBg} className='absolute w-[600px] left-[-20%] bottom-[-20%] z-10' alt="" />
+        <img src={RightBg} className='absolute w-[800px] right-[-20%] top-[-20%] z-10' alt="" />
+
+
       </div>
     </>
   )
