@@ -112,23 +112,22 @@ const AdminUserDetails =  () => {
       <div className="flex justify-between gap-4 mt-6">
         <div className="flex flex-col gap-2 w-full">
           <p className="text-gray-300">First Name <br/></p>
-          <p className="">{user.firstName}</p>
+          <p className="">{user?.firstName}</p>
         </div>
 
         <div className="flex flex-col gap-2 w-full">
           <p className="text-[#B0B0B0]">Last Name <br/></p>
-          <p className="">{user.lastName}</p>
+          <p className="">{user?.lastName}</p>
         </div>
 
         <div className="flex flex-col gap-2 w-full">
           <p className="text-gray-300">Company Name <br/></p>
-          <p className="">{user.company}</p>
+          <p className="">{user?.company}</p>
         </div>
 
+      </div>
 
 
-
-      </div>      
       <div className="flex justify-between gap-4 mt-5">
 
         <div className="flex flex-col gap-2 w-full">
@@ -143,11 +142,14 @@ const AdminUserDetails =  () => {
 
         <div className="flex flex-col gap-2 w-full">
           <p className="text-gray-300">Phone Number <br/></p>
-          <p className="">{user.phone}</p>
+          <p className="">{user?.phone}</p>
         </div>
 
+      </div>
 
-
+      <div className="company_details mt-5">
+        <p className="font-semibold text-[#B0B0B0] mb-2">About company</p>
+        <p className="">{user?.companyDetails?.desc }</p>
       </div>
 
       <div className="h-[1px] w-full bg-[#222227] mt-5 mb-6"></div>
@@ -259,7 +261,7 @@ const AdminUserDetails =  () => {
               </div>
               <div
                 onClick={() => userEditHandler("Accepted")}
-                className="modal_button rounded-[100px] border border-primary-blue bg-primary-blue w-[352px] h-[44px] flex justify-center items-center w-full cursor-pointer"
+                className="modal_button rounded-[100px] border border-primary-blue bg-primary-blue w-[352px] h-[44px] flex justify-center items-center cursor-pointer"
               >
                 Accept
               </div>

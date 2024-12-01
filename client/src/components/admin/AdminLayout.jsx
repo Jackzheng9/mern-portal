@@ -47,8 +47,16 @@ const AdminLayout = () => {
   // }
   // console.log("data", data)
   // const user = data.user[0];
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-
+  if(!user){
+    console.log("user not found!")
+    toast.info("Please login again!")
+    dispatch(logOut())
+    navigate('/login?admin=true')
+    return;
+  }
 
 
   const [showUserOptions, setShowUserOptions] = useState(false)
@@ -64,8 +72,7 @@ const AdminLayout = () => {
 
 
 
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+
   
   const logOutHandler = () => {
     dispatch(logOut())
@@ -146,18 +153,18 @@ const AdminLayout = () => {
     <>
 
       {showLoader && <Loader />}
-      <div className="admin_container mx-auto px-[40px] max-w-[1480px] relative">
+      <div className="admin_container mx-auto px-[20px] max-w-[1480px] relative bg-[#111116]">
         
-        <div className="header flex justify-between items-center py-5 border-b border-[#222227] mb-6">
+        <div className="header flex justify-between items-center py-5 border-b border-[#222227]">
           <img src={Logo} alt="" />
           <div className='flex justify-end gap-4 items-center'>
             <div className="cursor-pointer relative">
               <img onClick={userOptionsHandler} className='w-10 h-10 rounded-[100%]' src={image} alt="" />
 
               {showUserOptions && (
-                <ul className="user_dropdown absolute top-[100%] py-8 px-6 mt-2 bg-[#111116] z-10 rounded right-0">
-                  <li onClick={() => {setShowUserOptions(false);  setShowProfile(true)}} className='flex gap-2 font-medium px-2 py-4 mb-2.5'><img src={ProfileIcon} alt="" />Profile</li>
-                  <li onClick={() => {setShowUserOptions(false);  setShowLogout(true)}} className='flex gap-2 font-medium px-2 py-4'><img src={LogOutIcon} alt="" /> Logout</li>
+                <ul className="user_dropdown absolute top-[100%] py-6 px-2 mt-2 bg-[#111116] z-10 rounded right-2 w-[130px]">
+                  <li onClick={() => {setShowUserOptions(false);  setShowProfile(true)}} className='flex gap-2 font-medium px-2 h-[36px] mb-2.5 items-center'><img className='h-4' src={ProfileIcon} alt="" />Profile</li>
+                  <li onClick={() => {setShowUserOptions(false);  setShowLogout(true)}} className='flex gap-2 font-medium px-2 h-[36px] items-center'><img className='h-4'  src={LogOutIcon} alt="" /> Logout</li>
                 </ul>
               )}
               
@@ -204,11 +211,15 @@ const AdminLayout = () => {
               <input id="solImg" className='hidden' type="file" onChange={imageHandler} />
               </div>
               
-
-              <p className="text-sm mt-8 mb-1.5">Email</p>
-              <p className="mb-5">{user.email}</p>
-
+              
               {!showPassForm && (
+                <>
+                <div className="t">
+                <p className="text-sm mt-8 mb-1.5">Email</p>
+                <p className="mb-5">{user.email}</p>
+              </div>
+
+
                 <div className="flex justify-between">
                   <div className="t">
                     <p className="text-sm mt-8 mb-1.5">Password</p>
@@ -216,30 +227,32 @@ const AdminLayout = () => {
                   </div>
                   <img onClick={() => setShowPassForm(true)} className='cursor-pointer max-w-[168px]' src={ChangePass} alt="" />
                 </div>
+                </>
 
               )}
               
-              {showPassForm && (
+              { showPassForm && (
                 <div className="editPasssword my-11">
                 <form onSubmit={changePassHandler}>
                   
-                  <div className="formgroup flex gap-8 mb-10">
+                  <div className="formgroup flex flex-col gap-1.5 mb-5">
                     <label className='w-[232px]' htmlFor="">Current password</label>
-                    <input value={password} onChange={(e) => setPassword(e.target.value)} className='border border-[#282828] h-11 flex items-center px-6 bg-transparent rounded-md' type="password" placeholder='••••••••' required  />
+                    <input value={password} onChange={(e) => setPassword(e.target.value)} className='border border-[#282828] h-11 flex items-center px-6 rounded-md bg-[#1B1B1F] w-full' type="password" placeholder='••••••••' required  />
                   </div>
 
-                  <div className="formgroup flex gap-8 mb-10">
+                  <div className="formgroup flex flex-col gap-1.5 mb-5">
                     <label className='w-[232px]' htmlFor="">New password</label>
                     <div>
-                      <input value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className='border border-[#282828] h-11 flex items-center px-6 bg-transparent rounded-md' type="password" placeholder='••••••••' required  />
+                      <input value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className='border border-[#282828] h-11 flex items-center px-6 rounded-md bg-[#1B1B1F] w-full' type="password" placeholder='••••••••' required  />
                       <p className='text-[#667085] mt-2'>Your new password must be more than 6 characters.</p>
                     </div>
                     
                   </div>
-                  <div className="formgroup flex gap-8">
+
+                  <div className="formgroup flex flex-col gap-1.5">
                     <label className='w-[232px]' htmlFor="">Confirm New password</label>
                     <div>
-                      <input value={confirmNewPassword} onChange={(e) => setConfirmNewPassword(e.target.value)} className='border border-[#282828] h-11 flex items-center px-6 bg-transparent rounded-md' type="password" placeholder='••••••••' required />
+                      <input value={confirmNewPassword} onChange={(e) => setConfirmNewPassword(e.target.value)} className='border border-[#282828] h-11 flex items-center px-6 rounded-md bg-[#1B1B1F] w-full' type="password" placeholder='••••••••' required />
                     </div>
                     
                   </div>
@@ -261,7 +274,7 @@ const AdminLayout = () => {
         )}
         
 
-        <div className="admin_content flex gap-4">
+        <div className="admin_content flex">
           
           <div className="admin_left_bar w-full max-w-[264px] p-6 basis-0 grow-[1] border-r border-[#222227]">
             <ul className="admin_lists flex flex-col gap-2">
@@ -274,7 +287,7 @@ const AdminLayout = () => {
               {/* <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md' to="/admin/demo"><img src={KeyIcon} alt="" />Demo Request</NavLink></li> */}
             </ul>
           </div>
-          <div className="admin_right_content basis-0 grow-[2] max-w-[1112px]">
+          <div className="admin_right_content basis-0 grow-[2] max-w-[1176px] p-6 pr-0">
             <Outlet />
           </div>
         </div>

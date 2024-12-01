@@ -59,6 +59,11 @@ const Layout = () => {
       return;
     }
 
+    if(searchParams.get("admin")){
+      navigate('/admin-login')
+      return;
+    }
+
     if(user == null){
       navigate('/login')
     } 

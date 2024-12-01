@@ -31,11 +31,10 @@ import Terms from './components/admin/terms/Terms';
 import Support from './components/admin/support/Support';
 import RequestPassChange from './components/RequestPassChange';
 import NewPassword from './components/NewPassword';
-
+import AdminLogin from './components/AdminLogin';
 
 
 function App() {
-    
   
   return (
     <>
@@ -73,6 +72,7 @@ function App() {
 
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/setpassword" element={<SetPassword />} />
           <Route path="/reset-password" element={<RequestPassChange />} />
           <Route path="/reset-password/:token" element={<NewPassword />} />

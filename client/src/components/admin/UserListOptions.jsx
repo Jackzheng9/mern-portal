@@ -84,18 +84,13 @@ const UserListOptions = ({ user, changeUserStatus }) => {
       </OutsideClickHandler>
 
       {showOptions && (
-        <div className="user_options absolute p-4 rounded-md right-16 top-2 z-10 flex flex-col gap-4">
+        <div className="user_options absolute p-4 rounded-md right-16 top-2 z-10 flex flex-col gap-4 text-[#B0B0B0] font-medium text-base">
           <Link to={`/admin/user/${user._id}`}>
             <div className="option_modal flex gap-2 cursor-pointer">
               <img src={Eye} alt="" /> View Details
             </div>
           </Link>
-          {/* <div
-            onClick={showConfirmOptionsHandler}
-            className="userlink flex gap-2 cursor-pointer"
-          >
-            <img src={Eye} alt="" /> View Details
-          </div> */}
+
 
 
           <div

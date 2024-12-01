@@ -26,7 +26,8 @@ import { setPersonalNotifications } from '../slices/userInfoSlice';
 
 const Home = () => {
   const [searchParams] = useSearchParams();
-  // console.log("Params",searchParams.get("setpass"))
+  console.log("Params",searchParams.get("setpass"))
+  console.log("Params",searchParams.get("admin"))
 
   const navigate = useNavigate();
   const user = useSelector(state => state.auth);
@@ -38,9 +39,10 @@ const Home = () => {
 
     
     if(searchParams.get("setpass")){
-      navigate('/setpassword')
+      //navigate('/setpassword')
       return;
-    }
+    }    
+    
 
     if(!searchParams.get("setpass") && !user.userInfo){
       toast.info("Please login to see the page!")

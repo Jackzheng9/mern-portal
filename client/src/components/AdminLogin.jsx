@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Logo from '../assets/logo.svg'
+import Logo from '../assets/LogoBlue.svg'
 import LeftBg from '../assets/login-left-bottom-bg.png'
 import RightBg from '../assets/Login-right-top-bg.png'
 import Checkbox from '../assets/Checkbox.svg'
@@ -16,7 +16,7 @@ import dayjs from 'dayjs';
 
 import Loader from './Loader';
 
-const Login = () => {
+const AdminLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false); 
@@ -50,43 +50,6 @@ const Login = () => {
       if(apiData.role == 'admin' || apiData.role == 'superAdmin'){
         navigate('/admin/dashboard')
       }else{
-        const userAgent = navigator.userAgent;
-        let browserName = 'Unknown';
-        let browserVersion = 'Unknown';
-    
-        if (userAgent.includes('Chrome') && !userAgent.includes('Edg')) {
-          browserName = 'Google Chrome';
-          browserVersion = userAgent.split('Chrome/')[1].split(' ')[0];
-        } else if (userAgent.includes('Firefox')) {
-          browserName = 'Mozilla Firefox';
-          browserVersion = userAgent.split('Firefox/')[1];
-        } else if (userAgent.includes('Safari') && !userAgent.includes('Chrome')) {
-          browserName = 'Safari';
-          browserVersion = userAgent.split('Version/')[1].split(' ')[0];
-        } else if (userAgent.includes('Edg')) {
-          browserName = 'Microsoft Edge';
-          browserVersion = userAgent.split('Edg/')[1];
-        } else if (userAgent.includes('Opera') || userAgent.includes('OPR')) {
-          browserName = 'Opera';
-          browserVersion = userAgent.split('OPR/')[1];
-        }
-    
-        const data = {
-          browserInfo:{
-            name: browserName,
-            version: browserVersion,
-            platform: navigator.platform,
-            userAgent: userAgent,
-            time:new Date().toISOString()
-          }
-        }
-        
-        try {
-          const apiRes = await editUser(data).unwrap();
-        } catch (error) {
-          console.error("Failed to edit user:", error);
-        }
-          
         navigate('/')
       }
       
@@ -104,10 +67,15 @@ const Login = () => {
   return (
     <>
       <div className="login_wrap">
-        <div className="max-w-[540px] rounded-xl   mx-auto mt-[158px] bg-gradient-to-br from-[#ECECEC] to-[#494340] p-[1px] relative">
-          <div className="bg-[#070707] backdrop-blur  rounded-xl p-10 relative z-20">
-            <img src={Logo} alt="" className='mx-auto' />
-            <form onSubmit={formHandler} action="" className='mt-4'>
+        {/* <div className="max-w-[540px] rounded-xl   mx-auto mt-[158px] bg-gradient-to-br from-[#ECECEC] to-[#494340] p-[1px] relative"> */}
+        <div className="max-w-[540px] rounded-xl   mx-auto my-[158px] p-[1px] relative">
+          <div className="bg-[#222227] backdrop-blur  rounded-xl p-10 relative z-20">
+            <img src={Logo} alt="" className='mx-auto h-11' />
+            <div className="mt-6 flex flex-col justify-center items-center">
+              <p className="text-3xl font-semibold mb-3">Log in to your account</p>
+              <p className="text-[#E7E7E7]">Welcome back! Please enter your details.</p>
+            </div>
+            <form onSubmit={formHandler} action="" className='mt-8'>
 
 
               <div className="form-group flex flex-col md:flex-row w-full mb-6">
@@ -129,22 +97,6 @@ const Login = () => {
 
               
 
-              <div className="flex justify-between mb-10">
-                <div className="flex gap-2 items-center">
-                <input id="remember" type="checkbox" checked={rememberMe}
-                    onChange={(e) => setRememberMe(e.target.checked)} className='remember hidden' />
-                  <label htmlFor="remember" className="flex gap-2">
-                    <img src={Checkbox} alt="" className="normal" />
-                    <img src={CheckboxSelected} alt="" className="checked" />
-                    Remembe Me
-                  </label> 
-                </div>
-                <Link to="/reset-password" className="">Forgot Password</Link>
-                
-              </div>
-
-              
-
               <div className="form-group flex flex-col md:flex-row w-full mb-6">
                 <input type="submit" className='text-white bg-primary-blue font-semibold text-base leading-6 py-3 text-center w-full rounded-3xl border border-primary-blue cursor-pointer' value="Login" />
               </div>
@@ -152,18 +104,14 @@ const Login = () => {
 
             </form>
 
-            <Link to="/register/" className="flex flex-col gap-4 justify-center items-center">
-              <img className='w-8 h-8' src={Key} alt="" />
-              <p className="font-mediul">Request An Access</p>
-            </Link>
           </div>
 
-          <img src={LeftBg} className='absolute w-[600px] left-[-20%] bottom-[-20%] z-10' alt="" />
-          <img src={RightBg} className='absolute w-[800px] right-[-20%] top-[-20%] z-10' alt="" />
+          <img src={LeftBg} className='hidden absolute w-[600px] left-[-20%] bottom-[-20%] z-10' alt="" />
+          <img src={RightBg} className='hidden absolute w-[800px] right-[-20%] top-[-20%] z-10' alt="" />
         </div>
       </div>
     </>
   )
 }
 
-export default Login
+export default AdminLogin

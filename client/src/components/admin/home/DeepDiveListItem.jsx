@@ -10,7 +10,7 @@ import { useEditItem } from '../../../context/editItemContext';
 
 const DeepDiveListItem = ({item, deleteHandler}) => {
 
-  // console.log("Deep Dive Item", item)
+  console.log("Deep Dive Item", item)
   const [showOptions, setShowOptions] = useState(false)
 
   const optionsToggleHandler = () => {
@@ -36,12 +36,17 @@ const DeepDiveListItem = ({item, deleteHandler}) => {
     editItemHandler("deep dive", item);
   };
 
+  const truncateTitle = (description, number) => {
+    const words = description.split(' ');
+    return words.length > number ? words.slice(0, number).join(' ') + '...' : description;
+  };
+
 
   return (
     <>
       <div className="item_wrap p-6 flex gap-3 mx-2.5 bg-[#1B1B1F] rounded-md">
         <div className="basis-0 grow-[2] shrink-0">
-          <img className='min-w-[188px] max-h-[136px]' src={item.image} alt="" />
+          <img className={`w-[188px] ${item.type=='aisaas' ? 'h-[110px]' :'h-[136px]'}  rounded`} src={item.image} alt="" />
         </div>
         <div className="basis-0 grow-[3]">
 
@@ -81,8 +86,8 @@ const DeepDiveListItem = ({item, deleteHandler}) => {
 
           </div>
 
-          <h2 className="title font-semibold leading-6 ">{item.title}</h2>
-          <p className="text-[#B0B0B0]">{item.description}</p>
+          <h2 className="title font-semibold leading-6 ">{truncateTitle(item.title,3)}</h2>
+          <p className="text-[#B0B0B0]">{truncateTitle(item.description,6)}</p>
 
 
 

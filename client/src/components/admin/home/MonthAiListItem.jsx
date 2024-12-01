@@ -38,17 +38,26 @@ export const MonthAiListItem = ({item, deleteHandler}) => {
     deleteHandler('monthly',id)
   }
 
+  const truncateDescription = (description) => {
+    const words = description.split(' ');
+    return words.length > 6 ? words.slice(0, 6).join(' ') + '...' : description;
+  };
+  const truncateTitle = (description) => {
+    const words = description.split(' ');
+    return words.length > 3 ? words.slice(0, 3).join(' ') + '...' : description;
+  };
+
   return (
     <>
-      <div className="flex  mt-2 mb-2 relative p-1.5">
+      <div className="flex  mt-2 mb-2 relative p-1.5 pl-6 h-[72px] items-center justify-between">
         <div className='grow-[2] flex gap-2 items-center w-full max-w-[409px]'>
-          <div className=""><img className='max-w-[76px]' src={item.image} alt="" /></div>
+          <div className=""><img className='w-[76px] h-[55px]' src={item.image} alt="" /></div>
           <div className="t">
-            <p className="font-medium mb-2">{item.title}</p>
-            <p className="text-[#B0B0B0] text-xs">{item.description}</p>
+            <p className="font-medium mb-2">{truncateTitle(item.title)}</p>
+            <p className="text-[#B0B0B0] text-xs">{truncateDescription(item.description)}</p>
           </div> 
         </div>
-        <div className='grow-[1]'>
+        <div className='grow flex-1'>
               {item.active && (<div className="button inline">
                 <p className='text-[#027A48] border border-[#027A48] rounded-[100px] h-6 inline-flex items-center px-2 justify-center'>Active</p>
               </div>) }
@@ -57,11 +66,11 @@ export const MonthAiListItem = ({item, deleteHandler}) => {
                 <p className='text-[#F79009] border border-[#F79009] rounded-[100px] h-6 inline-flex items-center px-2 justify-center'>Inactive</p>
               </div> }          
         </div>
-        <div className='grow-[1]'>{item.postType}</div>
-        <div className='grow-[1]'>{formatDate(item.createdAt)}</div>
-        <div className='grow-[1]'>
+        <div className='grow flex-1 basis-0'>{item.postType}</div>
+        <div className='grow flex-1 basis-0'>{formatDate(item.createdAt)}</div>
+        <div className='grow flex-1 basis-0 max-w-[94px]'>
 
-        <OutsideClickHandler onOutsideClick={outSideClickHandler}>
+          <OutsideClickHandler onOutsideClick={outSideClickHandler}>
               <img onClick={optionsToggleHandler} className='min-h-3.5 cursor-pointer' src={VerDots} alt="" />
               {showOptions && (
 

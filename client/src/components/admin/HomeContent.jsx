@@ -24,6 +24,7 @@ import { DateRangePicker } from 'react-date-range';
 import { useDispatch,useSelector } from 'react-redux'
 import { setStatus,setDate,setSearchTerm } from '../../slices/monthAiListSlice'
 import dayjs from 'dayjs'
+import { logOut } from '../../slices/authSlice'
 
 
 
@@ -299,7 +300,9 @@ const HomeContent = () => {
     return <Loader />
   }
   if(isError || queryIsError ){
-    console.log("Error occured", error )
+    console.log("Error occured", error,queryError )
+    toast.info("Please login again!")
+    dispatch(logOut())
   }
 
 
@@ -315,7 +318,7 @@ const HomeContent = () => {
 
   return (
     <EditItemProvider editItemHandler={editItemHandler}>
-      <div onClick={contentClickHandler} className='home_content_wrap relative p-6'>
+      <div onClick={contentClickHandler} className='home_content_wrap relative'>
         
         <div className='flex justify-between items-center mb-6'>
           <p className='font-medium text-2xl'>Home Content</p>
@@ -338,10 +341,10 @@ const HomeContent = () => {
           </div>   
         </div>
         
-        <p className="text-lg font-semibold">Monthly Deep Dive</p>
+        <p className="text-lg font-semibold mb-4">Monthly Deep Dive</p>
         <MonthlyDeepDive items={deepDives}  deleteHandler={deleteContentHandler} />
         
-        <p className="text-lg font-semibold mt-8">AI Saas Tool</p>
+        <p className="text-lg font-semibold mt-8 mb-4">AI Saas Tool</p>
         <MonthlyDeepDive items={aisaas}  deleteHandler={deleteContentHandler} />
         
         <div  className="flex justify-between items-center mt-8 ">

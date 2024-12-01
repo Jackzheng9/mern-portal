@@ -190,7 +190,7 @@ const Admin = () => {
           <div className="flex flex-col">
             <p className="text-[#E7E7E7] text-sm font-semibold">Total Requests</p>
             <p className="font-bold text-xl text-bold color-white">{data.total}</p>
-            <p className="text-sm text-[#E7E7E7]">All request including pending, accepted</p>
+            <p className="text-xs text-[#E7E7E7]">All request including pending, accepted</p>
           </div>
         </div>
 
@@ -215,7 +215,7 @@ const Admin = () => {
 
       </div>
 
-      <div className="users_list mt-20">
+      <div className="users_list mt-11">
         <div className="user_list_header flex justify-between items-center">
           <p className="font-bold text-2xl">Access Request</p>
           <div className="flex items-center gap-4">
@@ -244,14 +244,14 @@ const Admin = () => {
             </div>
             
             <div className="status_selector flex gap-1 items-center">
-              <p className="status_selector_trigger flex flex-row gap-1 items-center bg-[#1B1B1F] py-2.5 px-3.5 rounded-lg cursor-pointer" onClick={() => setShowStateSelector(!showStateSelector)} >All <img src={AllIcon} alt="" /></p> 
+              <p className="status_selector_trigger flex flex-row gap-1 items-center bg-[#1B1B1F] py-2.5 px-3.5 rounded-lg cursor-pointer text-[#888888]" onClick={() => setShowStateSelector(!showStateSelector)} >All <img src={AllIcon} alt="" /></p> 
               {showStateSelector && (
-                <div className="statusSelect w-[200px] bg-[#1B1B1F] px-4 py-5 rounded">
+                <div className="statusSelect w-[230px] bg-[#1B1B1F] px-4 py-5 rounded">
                   <ul>
-                    <li onClick={statusSelectHandler} data-value="All" className='flex gap-2'>{statusFilterTerm !=="All" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="All" && <img src={CheckBoxSelected} alt="" /> }  All</li>
-                    <li onClick={statusSelectHandler} data-value="Accepted" className='flex gap-2'>{statusFilterTerm !=="Accepted" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="Accepted" && <img src={CheckBoxSelected} alt="" /> } Accepted</li>
-                    <li  onClick={statusSelectHandler} data-value="Pending" className='flex gap-2'>{statusFilterTerm !=="Pending" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="Pending" && <img src={CheckBoxSelected} alt="" /> } Pending</li>
-                    <li onClick={statusSelectHandler} data-value="Rejected" className='flex gap-2'>{statusFilterTerm !=="Rejected" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="Rejected" && <img src={CheckBoxSelected} alt="" /> } Rejected</li>
+                    <li onClick={statusSelectHandler} data-value="All" className='flex gap-2 h-11 items-center cursor-pointer'>{statusFilterTerm !=="All" && <img className='h-4' src={CheckBox} alt="" /> } {statusFilterTerm =="All" && <img className='h-4' src={CheckBoxSelected} alt="" /> }  All</li>
+                    <li onClick={statusSelectHandler} data-value="Accepted" className='flex gap-2 h-11 items-center cursor-pointer'>{statusFilterTerm !=="Accepted" && <img className='h-4' src={CheckBox} alt="" /> } {statusFilterTerm =="Accepted" && <img className='h-4' src={CheckBoxSelected} alt="" /> } Accepted</li>
+                    <li  onClick={statusSelectHandler} data-value="Pending" className='flex gap-2 h-11 items-center cursor-pointer'>{statusFilterTerm !=="Pending" && <img className='h-4' src={CheckBox} alt="" /> } {statusFilterTerm =="Pending" && <img className='h-4' src={CheckBoxSelected} alt="" /> } Pending</li>
+                    <li onClick={statusSelectHandler} data-value="Rejected" className='flex gap-2 h-11 items-center cursor-pointer'>{statusFilterTerm !=="Rejected" && <img className='h-4' src={CheckBox} alt="" /> } {statusFilterTerm =="Rejected" && <img className='h-4' src={CheckBoxSelected} alt="" /> } Rejected</li>
                   </ul>
                 </div>
               )}
@@ -260,11 +260,11 @@ const Admin = () => {
           </div>
         </div>
 
-        <div className="user_list_col_name flex justify-between text-[#B0B0B0] mb-3 mt-4">
-          <p className="w-full">Company Name</p>
-          <p className="w-full">Request Date</p>
-          <p className="w-full">Status</p>
-          <p className="w-full max-w-[97px] flex justify-center">Actions</p>
+        <div className="user_list_col_name flex justify-between text-[#B0B0B0] mb-3 mt-4 pr-6">
+          <p className="w-full pl-6">Company Name</p>
+          <p className="w-full pl-6">Request Date</p>
+          <p className="w-full pl-6">Status</p>
+          <p className="w-full pl-6 max-w-[97px] flex justify-center">Actions</p>
         </div>
 
       </div>

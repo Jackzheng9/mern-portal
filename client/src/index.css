@@ -215,7 +215,11 @@ body .rsw-editor{width: 100%;}
   }
 }
 
-.rdrDateRangeWrapper{z-index: 9;}
+.rdrDateRangeWrapper{z-index: 9; background: #1B1B1F; color:#B0B0B0}
+body .rdrDateRangeWrapper .rdrDay .rdrDayNumber span, .rdrMonthAndYearPickers select{color:#B0B0B0 !important;}
+.rdrDateDisplayWrapper{background: #1B1B1F;}
+.rdrDateDisplayWrapper .rdrDateDisplay input{background: #1B1B1F;}
+
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
@@ -229,3 +233,5 @@ input:-webkit-autofill:active{
 .remember + label img.normal{display:block}
 .remember:checked + label img.normal{display:none}
 .remember:checked + label img.checked{display:block}
+.admin_container {background: #111116;}
+.carousel-button-group{margin-top: 16px;}
