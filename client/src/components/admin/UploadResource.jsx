@@ -293,7 +293,7 @@ const UploadResource = ({hideUploadContent,setShowUpload}) => {
         
         {showLoader && <Loader />}
         <div className="flex justify-between">
-          <p className="text-2xl">Upload Monthly Content</p>
+          <p className="text-2xl font-semibold text-white">Upload Monthly Content</p>
           <img onClick={hideUploadContent} src={BtnCloseLg} alt="" className="cursor-pointer" />
         </div>
 
@@ -305,7 +305,8 @@ const UploadResource = ({hideUploadContent,setShowUpload}) => {
               <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={monthlyTag} onChange={(e) => setMonthlyTag(e.target.value)} placeholder='Monthly Tag goes here...' />
             </div>
 
-            <div className="inputGroup flex flex-col gap-1.5 bg-[#1B1B1F] rounded-2xl px-12 py-6 mb-5">
+            <div className="inputGroup bg-[#1B1B1F] rounded-2xl p-2 mb-5">
+            <div className="inputGroup flex flex-col gap-1.5 border border-dashed border-[#3D3D3D] rounded-2xl px-12 py-6">
               <label htmlFor="solImg" className='cursor-pointer'>
                 <img className='w-12 mx-auto block' src={UploadIcon} alt="" />
                 <p className="max-w-64 mx-auto text-primary-blue text-center">Click to upload Thumbnail <span className='text-gray-600'>or drag and drop SVG, PNG, JPG </span> </p>
@@ -316,7 +317,8 @@ const UploadResource = ({hideUploadContent,setShowUpload}) => {
                 <p className="">{resourceImageName}</p>
               </div>
               
-            </div>                
+            </div>               
+            </div>               
 
             <div className="inputGroup flex flex-col gap-1.5 mb-7">
               <label htmlFor="">Deep Dive Title</label>

@@ -4,6 +4,7 @@ import { useGetTermsQuery } from '../../../slices/termsApiSlice';
 import Loader from '../../Loader';
 import TermsDetails from './TermsDetails';
 import TermsEdit from './TermsEdit';
+import { toast } from 'react-toastify';
 
 const Terms = () => {
   // const [showCreate, setShowCreate] = useState(false);
@@ -24,23 +25,29 @@ const Terms = () => {
 
   // console.log("Data", data)
 
-
+  const editCancelHandler = () => {
+    setShowEdit(false);
+    
+  }
 
   return (
-    <>
-      <div className="flex justify-between items-center mb-8">
+    <div className='pr-6'>
+      <div className="flex justify-between items-center mb-9">
         <h1 className="font-medium text-2xl">Terms & Conditions</h1>
-        <button onClick={editShowHandler} className='flex items-center h-11 px-10 bg-primary-blue rounded-[100px] gap-2 font-semibold'>
-          <img src={Pencil} alt="" />
-          Edit
-        </button>
+        {!showEdit && (
+          <button onClick={editShowHandler} className='flex items-center h-11 px-10 bg-primary-blue rounded-[100px] gap-2 font-semibold'>
+            <img src={Pencil} alt="" /> Edit
+          </button>
+
+        )}
+        
       </div>
 
       {!showEdit && <TermsDetails content={data.terms[0].content} />}
 
-      {showEdit && <TermsEdit setShowEdit={setShowEdit} content={data.terms[0].content} /> }
+      {showEdit && <TermsEdit editCancelHandler={editCancelHandler} content={data.terms[0].content} /> }
       
-    </>
+    </div>
   )
 }
 

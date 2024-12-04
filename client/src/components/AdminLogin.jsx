@@ -38,7 +38,7 @@ const AdminLogin = () => {
     const formData = {
       email,password, rememberMe
     }
-    console.log("data", formData)
+    // console.log("data", formData)
 
     
     try {

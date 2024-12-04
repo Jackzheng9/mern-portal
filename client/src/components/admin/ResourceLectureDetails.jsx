@@ -6,6 +6,8 @@ import VideoIcon from '../../assets/video_icon.svg'
 import PdfIcon from '../../assets/pdf_icon.svg'
 import DeleteIcon from '../../assets/Delete_icon.svg'
 import UploadBlueIcon from '../../assets/upload-blue-arrow.svg'
+import ArrowTop from '../../assets/chevron-top.png'
+import ArrowDown from '../../assets/chevron-bottom.png'
 
 
 
@@ -15,6 +17,7 @@ const ResourceLectureDetails = ({lecture,tempFiles, index,fileChangeHandler,lect
   // console.log("Files",lecture.files)
   const [showUploadPan,setShowUploadPan] = useState(false)
   const [showEdit,setShowEdit] = useState(false)
+  const [showLectFiles,setShowLectFiles] = useState(false)
 
   const uploadFiles = (index) =>{
     setShowUploadPan(false);
@@ -47,26 +50,40 @@ const ResourceLectureDetails = ({lecture,tempFiles, index,fileChangeHandler,lect
   return (
     <>
       {!showEdit &&  (
-        <div className="lecture_content mb-6">
+        <div className="lecture_content mb-8">
           <div className=" flex gap-4 mb-6">
             
-            <div className="grow  basis-0">
-              <img src={lecture.image} alt="" />
+            <div className="grow  basis-0 max-w-[200px]">
+              <img src={lecture.image} alt="" className=' h-[180px] rounded-lg'/>
             </div>
             
             <div className="grow-[2] basis-0">
-              <div className="edit_btn flex justify-end">
+              <div className="edit_btn flex justify-end mb-6">
                 <div onClick={setEdit} className="flex gap-2 pl-9 pr-11 h-11 items-center border border-primary-blue rounded-[100px] text-primary-blue cursor-pointer">
                   <img src={Pencil} className='' alt="" />Edit
                 </div>
               </div>
-              <p className="font-medium text-2xl mb-4">{lecture.title}</p>
+              <div className="titleRow flex justify-between items-center mb-4">
+                <p className="font-medium text-2xl ">{lecture.title}</p>
+                <div>
+                  {showLectFiles && <img onClick={() => setShowLectFiles(!showLectFiles)} src={ArrowTop} alt="" className='cursor-pointer' />}
+                  {!showLectFiles && <img onClick={() => setShowLectFiles(!showLectFiles)} src={ArrowDown} alt="" className='cursor-pointer' />}
+                  
+                  
+                </div>
+
+              </div>
+              
               <p className="">{lecture.desc}</p>
               
       
             </div>
+
+
           </div>
-          <div className="lecture_files">
+          {showLectFiles && (
+
+            <div className="lecture_files">
             {lecture.files.map((file,fileIndex) => {
               return(
                 <li className="flex justify-between items-center mb-2" key={fileIndex}>
@@ -78,7 +95,9 @@ const ResourceLectureDetails = ({lecture,tempFiles, index,fileChangeHandler,lect
               )
             })}
 
-          </div>
+            </div>
+          )}
+
         </div>
       )}
       

@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { MonthAiListItem } from './MonthAiListItem'
+import ArrowLeft from '../../../assets/page-arrow-left.svg'
+import ArrowRight from '../../../assets/page-arrow-right.svg'
 
 const MonthAiList = ({items, deleteHandler}) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,25 +28,30 @@ const MonthAiList = ({items, deleteHandler}) => {
       </div>
       {currentItems.map(item => <MonthAiListItem key={item._id} item={item} deleteHandler={deleteHandler} />)}
       
-      <div className="pagination">
-        <button 
+      <div className="pagination py-6 flex justify-between text-[#5D5D5D]">
+        <button  className='flex gap-2 items-center'
           onClick={() => handlePageChange(currentPage - 1)} 
           disabled={currentPage === 1}
         >
+          <img className='w-5' src={ArrowLeft} alt="" />
           Previous
         </button>
+        <div className="pages ">
         
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button key={index + 1} onClick={() => handlePageChange(index + 1)}>
-            {index + 1}
-          </button>
-        ))}
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button key={index + 1} onClick={() => handlePageChange(index + 1)} className={`${currentPage === index + 1 ? 'current' : ''} font-medium text-sm leading-5 py-2.5 px-4`} >
+              {index + 1}
+              
+            </button>
+          ))}
+        </div>
         
-        <button 
+        <button className='flex gap-2 items-center' 
           onClick={() => handlePageChange(currentPage + 1)} 
           disabled={currentPage === totalPages}
         >
           Next
+          <img className='w-5' src={ArrowRight} alt="" />
         </button>
       </div>
     </div>

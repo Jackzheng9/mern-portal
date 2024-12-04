@@ -73,7 +73,8 @@ const Home = () => {
     console.log("Error", error)
     console.log("message", error.message)
     // toast.error("Login expired, please login back.")
-    return "Something went wrong!"
+    // return "Something went wrong!"
+    navigate('/login')
   }
 
   

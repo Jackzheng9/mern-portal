@@ -31,8 +31,8 @@ import Terms from './components/admin/terms/Terms';
 import Support from './components/admin/support/Support';
 import RequestPassChange from './components/RequestPassChange';
 import NewPassword from './components/NewPassword';
+// import AdminLogin from './components/AdminLogin';
 import AdminLogin from './components/AdminLogin';
-
 
 function App() {
   

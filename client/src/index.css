@@ -235,3 +235,4 @@ input:-webkit-autofill:active{
 .remember:checked + label img.checked{display:block}
 .admin_container {background: #111116;}
 .carousel-button-group{margin-top: 16px;}
+.pagination .current{color:#454545; background-color: #1B1B1F;}

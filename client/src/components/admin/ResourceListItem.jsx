@@ -14,9 +14,9 @@ const ResourceListItem = ({resource}) => {
 
 
   return (
-    <div className="flex items-center py-5">
+    <div className="flex items-center py-4 justify-between text-gray-300 font-medium relative">
 
-      <div className=" flex items-center gap-4 grow-[2] basis-0"><img src={resource.image} className='w-8 h-8' alt="" /><p className="">{resource.title}</p></div>
+      <div className=" flex items-center gap-4 grow-[2] basis-0"><img src={resource.image} className='w-8 h-8' alt="" /><p className="text-white">{resource.title}</p></div>
       <div className="grow basis-0">{resource.status}</div>
       <div className="grow basis-0">{Months[resource.month]} </div>
       <div className="grow basis-0">{resource.tag}</div>

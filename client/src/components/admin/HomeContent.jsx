@@ -331,9 +331,9 @@ const HomeContent = () => {
             {showLoader && <Loader />}
             {showSelector && (
               <ul className="upload_select absolute top-[100%] left-0 bg-[#111116] border border-[#222227] rounded outline-none py-6 px-2 z-10">
-                <li onClick={() => uploadSelectHandler('deepdive')} className='cursor-pointer text-[#B0B0B0] hover:text-white font-medium broder-b border-[#222227] px-4 py-2' >Monthly Deep Dive</li>
-                <li onClick={() => uploadSelectHandler('aisaas')} className='cursor-pointer text-[#B0B0B0] hover:text-white font-medium broder-b border-[#222227] px-4 py-2' >AI Saas tool</li>
-                <li onClick={() => uploadSelectHandler('monthai')} className='cursor-pointer text-[#B0B0B0] hover:text-white font-medium px-4 py-2' >This month in AI</li>
+                <li onClick={() => uploadSelectHandler('deepdive')} className='cursor-pointer text-[#B0B0B0] hover:text-white font-medium border-b border-[#222227] px-4 py-2' >Monthly Deep Dive</li>
+                <li onClick={() => uploadSelectHandler('aisaas')} className='cursor-pointer text-[#B0B0B0] hover:text-white font-medium border-b border-[#222227] px-4 py-2' >AI Saas tool</li>
+                <li onClick={() => uploadSelectHandler('monthai')} className='cursor-pointer text-[#B0B0B0] hover:text-white font-medium px-4 py-2 border-b border-[#222227]' >This month in AI</li>
               </ul>
 
             )}
@@ -430,7 +430,7 @@ const HomeContent = () => {
           <form onSubmit={editSubmitHandler}>
           
             <div className="edit_deepDive_container fixed left-0 top-0 w-[100%] h-[100vh] backdrop-blur-sm flex items-center justify-center">
-              <div className="max-w-[720px] w-full h-full mx-auto top-[0] bg-[#111116] p-6 left-[30%] rounded-md overflow-y-auto">
+              <div className="max-w-[720px] w-full h-full mx-auto top-[0] bg-[#1B1B1F] p-6 left-[30%] rounded-md overflow-y-auto">
                 <div className="flex justify-between items-start">
                   <div className="">
                     <p className="text-2xl font-semibold mb-1">Monthly Deep  Dive</p>
@@ -470,7 +470,7 @@ const HomeContent = () => {
                   </div>
                 )}
                 
-                <div className="inputGroup flex flex-col gap-1.5 mb-7">
+                <div className="inputGroup flex flex-col gap-1.5 mb-7 mt-5">
                   <label htmlFor="">Title</label>
                   <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={title} onChange={(e) => setTitle(e.target.value)}  placeholder='Title goes here...' required />
                 </div>

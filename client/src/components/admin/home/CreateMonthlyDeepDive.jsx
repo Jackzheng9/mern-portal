@@ -3,6 +3,7 @@ import FolderIcon from '../../../assets/FolderIcon.svg'
 import BluePlus from '../../../assets/BluePlus.svg'
 import UploadIcon from '../../../assets/UploadIcon.svg'
 import CloseIcon from '../../../assets/Close-dimmed.svg'
+import UploadBG from '../../../assets/HomeContentUploadBg.png'
 import uploadImage from '../../../utils/imageUpload'
 import slugify from 'slugify'
 import { useCreateDeepDiveMutation } from '../../../slices/deepDiveApiSlice'
@@ -91,7 +92,7 @@ const CreateMonthlyDeepDive = ({closeHandler,type}) => {
 
   return (
     <div className='create_monthly w-full absolute flex justify-center top-[0px] backdrop-blur-[2px]'>
-      <div className="create_monthly_inner w-full max-w-[720px] bg-[#111116] p-11">
+      <div className="create_monthly_inner w-full max-w-[720px] bg-[#1B1B1F] p-11">
         <div className="flex justify-between items-start ">
           <div className=''>
             {type == 'deepdive' && (
@@ -128,17 +129,18 @@ const CreateMonthlyDeepDive = ({closeHandler,type}) => {
           )}
           
 
-          <div className="inputGroup flex flex-col gap-1.5 bg-[#1B1B1F] rounded-2xl px-12 py-6 mb-7">
-            <label htmlFor="solImg" className='cursor-pointer'>
-              <img className='w-12 mx-auto block' src={UploadIcon} alt="" />
-              <p className="max-w-64 mx-auto text-primary-blue text-center">Click to upload <span className='text-[#B0B0B0]'>or drag and drop SVG, PNG, JPG </span> </p>
-            </label>
-            <input id="solImg" className='hidden' type="file" onChange={imageHandler} />
-            <div className="flex items-center gap-2">
-              <img src={image} alt="" className='w-10' />
-              <p className="">{imageName}</p>
-            </div>
-            
+          <div className="inputGroup flex flex-col gap-1.5 bg-[#1B1B1F] rounded-2xl p-1 mb-7">
+            <div className="border border-dashed border-[#3D3D3D] rounded-xl p-6" >
+              <label htmlFor="solImg" className='cursor-pointer'>
+                <img className='w-12 mx-auto block' src={UploadIcon} alt="" />
+                <p className="max-w-64 mx-auto text-primary-blue text-center">Click to upload <span className='text-[#B0B0B0]'>or drag and drop SVG, PNG, JPG </span> </p>
+              </label>
+              <input id="solImg" className='hidden' type="file" onChange={imageHandler} />
+              <div className="flex items-center gap-2">
+                <img src={image} alt="" className='w-10' />
+                <p className="">{imageName}</p>
+              </div>
+            </div>  
           </div>
 
           <div className="inputGroup flex flex-col gap-1.5 mb-7">

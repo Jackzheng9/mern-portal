@@ -62,7 +62,7 @@ const ResourceListOptions = ({resource}) => {
   }
 
   return (
-    <div className="grow basis-0 relative w-full">
+    <div className="grow basis-0 relative w-full max-w-[97px] flex justify-center">
       <OutsideClickHandler onOutsideClick={outSideClickHandler}>
         <span
           onClick={optionClickHandler}
@@ -73,7 +73,7 @@ const ResourceListOptions = ({resource}) => {
       </OutsideClickHandler>
 
       {showOptions && (
-        <div className="min-w-[180px]  absolute p-4 rounded-md left-8 top-2 z-10 flex flex-col gap-4 bg-[#1B1B1F]">
+        <div className="min-w-[180px]  absolute p-4 rounded-md right-20 top-2 z-10 flex flex-col gap-4 bg-[#1B1B1F]">
           <Link to={`/admin/resources/${resource.slug}`}>
             <div className="option_modal flex gap-2 cursor-pointer">
               <img src={Eye} alt="" /> View Content

@@ -49,7 +49,7 @@ export const MonthAiListItem = ({item, deleteHandler}) => {
 
   return (
     <>
-      <div className="flex  mt-2 mb-2 relative p-1.5 pl-6 h-[72px] items-center justify-between">
+      <div className="flex   relative p-2 pl-6 h-[72px] border-b border-[#222227] items-center justify-between">
         <div className='grow-[2] flex gap-2 items-center w-full max-w-[409px]'>
           <div className=""><img className='w-[76px] h-[55px]' src={item.image} alt="" /></div>
           <div className="t">
@@ -66,8 +66,8 @@ export const MonthAiListItem = ({item, deleteHandler}) => {
                 <p className='text-[#F79009] border border-[#F79009] rounded-[100px] h-6 inline-flex items-center px-2 justify-center'>Inactive</p>
               </div> }          
         </div>
-        <div className='grow flex-1 basis-0'>{item.postType}</div>
-        <div className='grow flex-1 basis-0'>{formatDate(item.createdAt)}</div>
+        <div className='grow flex-1 basis-0 text-[#B0B0B0]'>{item.postType}</div>
+        <div className='grow flex-1 basis-0 text-[#B0B0B0]'>{formatDate(item.createdAt)}</div>
         <div className='grow flex-1 basis-0 max-w-[94px]'>
 
           <OutsideClickHandler onOutsideClick={outSideClickHandler}>

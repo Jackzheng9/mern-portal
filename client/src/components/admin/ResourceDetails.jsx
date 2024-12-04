@@ -23,8 +23,8 @@ const ResourceDetails = () => {
   return (
     <>
       <div className="header flex justify-between">
-        <Link to='/admin/resources/' className="flex gap-2 text-2xl font-semibold w-[250px] items-center">
-          <img className='w-6' src={ArrowLeft} alt="" /> Monthly content
+        <Link to='/admin/resources/' className="flex gap-2 text-2xl font-semibold  items-center">
+          <img className='w-6' src={ArrowLeft} alt="" /> Monthly Content Details
         </Link>
 
         {/* <Link to={`/admin/resources/${data.resource.slug}/edit`} className="flex gap-2 items-center w-[200px] bg-primary-blue justify-center h-11 rounded-[100px] cursor-pointer ">

@@ -271,15 +271,15 @@ const Resources = () => {
         </form>
 
         <div className="relative">
-          <p onClick={() => setShowStateSelector(!showStateSelector) }  className="text-gray-300 font-medium flex gap-1 items-center cursor-pointer">All
+          <p onClick={() => setShowStateSelector(!showStateSelector) }  className="text-gray-300 font-medium flex gap-1 items-center cursor-pointer border border-[#3D3D3D] rounded-lg px-3.5 py-2.5">All
           <img src={Bars} className='w-5' alt="" /> </p>
 
           {showStateSelector && (
-            <div className="statusSelect w-[200px] bg-[#565b56] px-4 py-5 rounded">
+            <div className="statusSelect w-[200px] bg-[#1B1B1F] px-4 py-5 rounded-lg border border-[#222227] font-medium text-[#B0B0B0]">
               <ul>
-                <li onClick={statusSelectHandler} data-value="All" className='flex gap-2'>{statusFilterTerm !=="All" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="All" && <img src={CheckBoxSelected} alt="" /> }  All</li>
-                <li onClick={statusSelectHandler} data-value="Published" className='flex gap-2'>{statusFilterTerm !=="Published" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="Published" && <img src={CheckBoxSelected} alt="" /> } Published</li>
-                <li  onClick={statusSelectHandler} data-value="Unpublished" className='flex gap-2'>{statusFilterTerm !=="Unpublished" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="Unpublished" && <img src={CheckBoxSelected} alt="" /> } Unpublished</li>
+                <li onClick={statusSelectHandler} data-value="All" className='flex gap-2 h-11 items-center'>{statusFilterTerm !=="All" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="All" && <img src={CheckBoxSelected} alt="" /> }  All</li>
+                <li onClick={statusSelectHandler} data-value="Published" className='flex gap-2 h-11 items-center'>{statusFilterTerm !=="Published" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="Published" && <img src={CheckBoxSelected} alt="" /> } Published</li>
+                <li  onClick={statusSelectHandler} data-value="Unpublished" className='flex gap-2 h-11 items-center'>{statusFilterTerm !=="Unpublished" && <img src={CheckBox} alt="" /> } {statusFilterTerm =="Unpublished" && <img src={CheckBoxSelected} alt="" /> } Unpublished</li>
                 
               </ul>
             </div>

@@ -289,8 +289,8 @@ const ResourceDetailsContent = ({resource}) => {
         
         {!showTitleEdit && (
           <div className="title_content flex gap-6">
-            <div className="basis-0 grow">
-              <img src={resource.image} alt="" />
+            <div className="basis-0 grow max-w-[300px]">
+              <img src={resource.image} alt="" className='rounded-lg h-[179px]' />
             </div>
             <div className="basis-0 grow-[2]">
               
