@@ -6,8 +6,9 @@ import Loader from './Loader';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { setUnReadNotifications } from '../slices/NotificationSlice';
+import OutsideClickHandler from "react-outside-click-handler";
 
-const NotificaionContent = ({all, read, personal, handleUnreadIds}) => {
+const NotificaionContent = ({all, read, personal, handleUnreadIds, outSideClickHandler}) => {
   console.log("All", all)
   console.log("Read", read)
   console.log("Personal", personal)
@@ -15,20 +16,10 @@ const NotificaionContent = ({all, read, personal, handleUnreadIds}) => {
   const dispatch = useDispatch();
   const [showLoader, setShowLoader] = useState(false)
 
-  const combined = [...all, ...personal]
+  // const combined = [...all, ...personal]
+  const combined = [...all, ...personal].sort((a, b) => dayjs(b.createdAt) - dayjs(a.createdAt));
+  // console.log("combined", combined)
   
-  const newRead = [
-    "674726dd3d3b0e43e3e9c273",
-    "674727073d3b0e43e3e9c296",
-    "674809cf53dd3f52d2031652",
-    "674809cf53dd3f52d2031654",
-    "674809cf53dd3f52d2031656",
-    "674809cf53dd3f52d2031658",
-    "67481de353dd3f52d203167e",
-    "67481de353dd3f52d2031684",
-    "67481de553dd3f52d203169c",
-    
-]
 
 // const notInNewRead = combined.filter(notification => !newRead.includes(notification._id));
 // console.log("Notifications not in newRead", notInNewRead);
@@ -55,8 +46,18 @@ const NotificaionContent = ({all, read, personal, handleUnreadIds}) => {
 
   const [editUserMutation ] = useEditUserMutation();
 
+  const handleOutSideClick = (e) => {
+    outSideClickHandler(e)
+  }
+
+
+
+
+
+
   return (
-      <div className="notifications_panel absolute w-[452px] max-w-full top-[100%] right-0 py-8 px-6 bg-black">
+    <OutsideClickHandler onOutsideClick={handleOutSideClick}>
+      <div className="notifications_panel absolute w-[452px] max-w-full top-[100%] right-0 py-8 px-6 bg-black z-10">
         {showLoader && <Loader />}
         <div className="notifications_header flex justify-between items-center mb-8">
           <p className="font-medium">Notifications</p>
@@ -115,6 +116,7 @@ const NotificaionContent = ({all, read, personal, handleUnreadIds}) => {
 
         </div>
       </div>
+    </OutsideClickHandler>
   )
 }
 

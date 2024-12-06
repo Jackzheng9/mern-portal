@@ -95,13 +95,13 @@ export const SupportListItem = ({faq}) => {
 
 
   return (
-    <div className=''>
+    <div className='border-b border-[#222227] py-4'>
 
-      <div className="faqs_header flex justify-between text-[#B0B0B0] mt-8 gap-11">
+      <div className="faqs_header flex justify-between text-[#B0B0B0] gap-11 items-center">
         
         <div className="content w-full pr-4">
           
-          <div onClick={() => setShowAnswer(!showAnswer)} className="question flex justify-between items-center cursor-pointer mb-4">
+          <div onClick={() => setShowAnswer(!showAnswer)} className="question flex justify-between items-center cursor-pointer">
             <p className="text-white font-medium">{question}</p>
             <img src={AngelDownBlue}  className="w-4" alt="" />
           </div>

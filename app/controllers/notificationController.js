@@ -3,6 +3,7 @@ import { MongooseError } from "mongoose";
 
 const getAll = async (req,res) => {
   const notifications = await Notification.find();
+  // const notifications = await Notification.find().sort({ createdAt: -1 });
   res.status(200).json({message:"Get all notifications", notifications})
 }
 

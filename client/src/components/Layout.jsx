@@ -11,6 +11,9 @@ import { logOut } from '../slices/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEditUserMutation, useQueryUserByEmailQuery } from '../slices/userApiSlice';
 import { useGetNotificationsQuery } from '../slices/notificationApiSlice';
+import OutsideClickHandler from "react-outside-click-handler";
+
+
 
 
 import Notifications from './Notifications';
@@ -90,7 +93,7 @@ const Layout = () => {
       // console.log("All Notifications data", data)
       setAllNotifications(data.notifications)
 
-      console.log("User data from api", userData.user[0])
+      // console.log("User data from api", userData.user[0])
       setUserInfo(userData.user[0]);
       const apiUser = userData.user[0];
       
@@ -295,6 +298,21 @@ const Layout = () => {
   let userInitial = `${user.firstName.slice(0,1)}${user.lastName.slice(0,1)}`;
   userInitial = userInitial.toUpperCase()
 
+  const outSideClickHandler = (e) => {
+    //console.log("e",e)
+    if (e.target.classList.contains("notifications_panel")) {
+    } else {
+      setShowNotiPanel(false)
+    }
+  };
+
+
+  const profileOutSideClick = (e) => {
+    if (e.target.classList.contains("user_options")) {
+    } else {
+      setShowAccOptions(false)
+    }
+  }
 
   return (
     <>
@@ -313,12 +331,12 @@ const Layout = () => {
 
             <div className="right_menu_wrap">
               <ul className='flex gap-4 items-center'>
-                <li><NavLink to=""><div className="header_cta bg-primary-blue rounded-[100px] px-6 h-12 flex items-center">Contact Us</div></NavLink></li>
+                <li><NavLink to="/contact"><div className="header_cta bg-primary-blue rounded-[100px] px-6 h-12 flex items-center">Contact Us</div></NavLink></li>
                 <li><NavLink to="/settings"><img src={Settings} alt="" /></NavLink></li>
                 <li>
                   {!showNotiPanel && <img onClick={toggleNotification} className="cursor-pointer" src={Notification} alt="" /> }
                   {showNotiPanel && <img onClick={toggleNotification} className=" cursor-pointer" src={NotificationWhite} alt="" /> }
-                  { showNotiPanel && <Notifications all={allNotifications} personal = {personalNotifications} read={readNotifications} handleUnreadIds={handleUnreadIds} />}
+                  { showNotiPanel && <Notifications all={allNotifications} personal = {personalNotifications} read={readNotifications} handleUnreadIds={handleUnreadIds} outSideClickHandler={outSideClickHandler} />}
                 </li>
                 <li className='relative'>
                   <div onClick={accountOptionsHandler} className="initials bg-dark-blue text-lg font-medium h-12 w-12 rounded-[100px] flex items-center justify-center cursor-pointer">
@@ -326,11 +344,13 @@ const Layout = () => {
                   </div>
 
                   {showAccOptions && (
-                    <ul className="absolute top-[100%] min-w-[180px] bg-black p-4 w-full l-0">
-                      <li onClick={logoutHandler} className='cursor-pointer'>Logout</li>
-                      <li className='cursor-pointer'><Link to="/profile">Profile</Link></li>
-                      {/* <li className='cursor-pointer'><Link to="/settings">Settings</Link></li> */}
-                    </ul>
+                    <OutsideClickHandler onOutsideClick={profileOutSideClick}>
+                      <ul className="user_options absolute top-[100%] min-w-[180px] bg-black p-4 w-full l-0">
+                        <li onClick={logoutHandler} className='cursor-pointer'>Logout</li>
+                        <li className='cursor-pointer'><Link to="/profile">Profile</Link></li>
+                        {/* <li className='cursor-pointer'><Link to="/settings">Settings</Link></li> */}
+                      </ul>
+                    </OutsideClickHandler>
                   )}
                   
                 </li>

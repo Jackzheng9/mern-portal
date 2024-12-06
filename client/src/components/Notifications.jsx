@@ -5,7 +5,7 @@ import { useQueryUserByEmailQuery } from '../slices/userApiSlice';
 import Loader from './Loader';
 import NotificaionContent from './NotificaionContent';
 
-const Notifications = ({all, personal, read, handleUnreadIds}) => {
+const Notifications = ({all, personal, read, handleUnreadIds, outSideClickHandler}) => {
 
   // console.log("All Notifications", all)
   // console.log("readNotifications", read)
@@ -45,7 +45,7 @@ const Notifications = ({all, personal, read, handleUnreadIds}) => {
   */
 
   return (
-    <div><NotificaionContent all={all} read = {read} personal={personal} handleUnreadIds={handleUnreadIds} /></div>
+    <div><NotificaionContent all={all} read = {read} personal={personal} handleUnreadIds={handleUnreadIds} outSideClickHandler={outSideClickHandler} /></div>
   )
 }
 

@@ -31,8 +31,8 @@ import Terms from './components/admin/terms/Terms';
 import Support from './components/admin/support/Support';
 import RequestPassChange from './components/RequestPassChange';
 import NewPassword from './components/NewPassword';
-// import AdminLogin from './components/AdminLogin';
 import AdminLogin from './components/AdminLogin';
+import Contact from './components/contact/Contact';
 
 function App() {
   
@@ -50,6 +50,7 @@ function App() {
             <Route path="/resources/file/" element={<UsrRsrcLectFileDetails />} />   
             <Route path="/settings" element={<Settings />} />  
             <Route path="/profile" element={<Profile />} />
+            <Route path="/contact" element={<Contact />} />
 
             
             {/* <Route path="*" element={<NoPage />} /> */}

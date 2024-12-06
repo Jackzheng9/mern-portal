@@ -65,7 +65,7 @@ const Home = () => {
 
 
   if(isLoading || solLoading){
-    console.log("Loading running from home.jsx")
+    // console.log("Loading running from home.jsx")
     return <Loader />
   }
 
@@ -134,7 +134,7 @@ const Home = () => {
         <div className="deep_row flex mt-8 gap-6 pb-10">
           
           <div className="w-full">
-            <img className='rounded-2xl w-full' src={latestDeepDive.image} alt="" />
+            <img className='rounded-2xl w-full h-[400px]' src={latestDeepDive.image} alt="" />
             <div className="flex gap-4 mt-6 items-start">
               <img className='mt-2' src={RedBar} alt="" />
               <div className="t">
@@ -147,8 +147,8 @@ const Home = () => {
           </div>
 
           <div className="w-full">
-            <img className='rounded-2xl w-full ' src={latestAiSaas.image} alt="" />
-            <div className="flex gap-4 mt-6">
+            <img className='rounded-2xl w-full h-[400px]' src={latestAiSaas.image} alt="" />
+            <div className="flex gap-4 mt-6 ">
               <img className='' src={RedBar} alt="" />
               <div className="t">
                 <p className="text-3xl mb-3 ">{latestAiSaas.title}</p>

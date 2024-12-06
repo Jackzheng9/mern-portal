@@ -27,6 +27,7 @@ import uploadImage from '../../utils/imageUpload'
 import Loader from '../Loader';
 import { useEditUserMutation,useQueryUserByEmailQuery } from '../../slices/userApiSlice';
 import { toast } from 'react-toastify';
+import OutsideClickHandler from "react-outside-click-handler";
 
 
 
@@ -147,7 +148,12 @@ const AdminLayout = () => {
 
   }
 
-
+  const profileOutSideClick = (e) => {
+    if (e.target.classList.contains("user_dropdown")) {
+    } else {
+      setShowUserOptions(false)
+    }
+  }
 
   return (
     <>
@@ -160,14 +166,16 @@ const AdminLayout = () => {
             <img src={Logo} alt="" />
             <div className='flex justify-end gap-4 items-center'>
               <div className="cursor-pointer relative">
-                <img onClick={userOptionsHandler} className='w-10 h-10 rounded-[100%]' src={image} alt="" />
+                <OutsideClickHandler onOutsideClick={profileOutSideClick} >
+                  <img onClick={userOptionsHandler} className='w-10 h-10 rounded-[100%]' src={image} alt="" />
 
-                {showUserOptions && (
-                  <ul className="user_dropdown absolute top-[100%] py-6 px-2 mt-2 bg-[#111116] z-10 rounded right-2 w-[130px]">
-                    <li onClick={() => {setShowUserOptions(false);  setShowProfile(true)}} className='flex gap-2 font-medium px-2 h-[36px] mb-2.5 items-center'><img className='h-4' src={ProfileIcon} alt="" />Profile</li>
-                    <li onClick={() => {setShowUserOptions(false);  setShowLogout(true)}} className='flex gap-2 font-medium px-2 h-[36px] items-center'><img className='h-4'  src={LogOutIcon} alt="" /> Logout</li>
-                  </ul>
-                )}
+                  {showUserOptions && (
+                    <ul className="user_dropdown absolute top-[100%] py-6 px-2 mt-2 bg-[#111116] z-10 rounded right-2 w-[130px]">
+                      <li onClick={() => {setShowUserOptions(false);  setShowProfile(true)}} className='flex gap-2 font-medium px-2 h-[36px] mb-2.5 items-center'><img className='h-4' src={ProfileIcon} alt="" />Profile</li>
+                      <li onClick={() => {setShowUserOptions(false);  setShowLogout(true)}} className='flex gap-2 font-medium px-2 h-[36px] items-center'><img className='h-4'  src={LogOutIcon} alt="" /> Logout</li>
+                    </ul>
+                  )}
+                </OutsideClickHandler>
                 
 
 
