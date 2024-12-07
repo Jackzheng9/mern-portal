@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from 'react'
-import NotifyIcon from '../assets/notify_icon.svg'
+import YellowDot from '../assets/YellowDot.svg'
 import { useEditUserMutation } from '../slices/userApiSlice';
 import { useDispatch } from 'react-redux';
 import Loader from './Loader';
@@ -57,7 +57,7 @@ const NotificaionContent = ({all, read, personal, handleUnreadIds, outSideClickH
 
   return (
     <OutsideClickHandler onOutsideClick={handleOutSideClick}>
-      <div className="notifications_panel absolute w-[452px] max-w-full top-[100%] right-0 py-8 px-6 bg-black z-10">
+      <div className="notifications_panel absolute w-[452px] max-w-full top-[100%] right-0 py-8 px-6 bg-[#131514] z-10 rounded-xl">
         {showLoader && <Loader />}
         <div className="notifications_header flex justify-between items-center mb-8">
           <p className="font-medium">Notifications</p>
@@ -74,7 +74,7 @@ const NotificaionContent = ({all, read, personal, handleUnreadIds, outSideClickH
             <ul>
               
               {combined.map(notification => <li  key={notification._id} className='flex gap-6 items-center justify-between mb-6 cursor-pointer'>
-                <div><img src={NotifyIcon} className='min-w-11' alt="" /></div>
+                <div>{unReadIds.includes(notification._id) ? <img src={YellowDot} className='' alt="" /> : '' }</div>
                 <div className="w-[230px]">
                   <p className="noti_title text-[#BFC0C1] font-semibold text-sm mb-2">{notification.title}</p>
                   <p className="noti_text text-[#BFC0C1] text-xs">{notification.message}</p>
@@ -96,7 +96,7 @@ const NotificaionContent = ({all, read, personal, handleUnreadIds, outSideClickH
             <ul>
               
               {unReadNotifications.map(notification => <li key={notification._id} className='flex gap-6 items-center justify-between mb-6 cursor-pointer'>
-                <div><img src={NotifyIcon} className='min-w-11' alt="" /></div>
+                {/* <div><img src={YellowDot} className='' alt="" /></div> */}
                 <div className="w-[230px]" >
                   <p className="noti_title text-[#BFC0C1] font-semibold text-sm mb-2">{notification.title}</p>
                   <p className="noti_text text-[#BFC0C1] text-xs">{notification.message}</p>

@@ -62,14 +62,19 @@ const EditSolutionForm = ({solution}) => {
     // console.log("Event fired!")
 
     if(event.target.name === 'image'){
-      //console.log("Img",event.target.files[0])
-      stateData[index]["imgName"]  = event.target.files[0].name
+      // console.log("Img",event.target.files[0])
+      const fileName = event.target.files[0].name;
       const imageUrl = await uploadImage(event.target.files[0])
-      //console.log("Url", imageUrl)
-      stateData[index]["image"] = imageUrl;
-      //console.log("image saved")
-      setBenefits(stateData);
-    }else{
+      const updatedItem = { ...stateData[index],image:imageUrl, imgName: fileName };
+
+      const updatedStateData = [
+        ...stateData.slice(0, index),
+        updatedItem,
+        ...stateData.slice(index + 1)
+    ];
+    setBenefits(updatedStateData);
+    
+  }else{
       stateData[index][event.target.name] = event.target.value;
       setBenefits(stateData);
     }

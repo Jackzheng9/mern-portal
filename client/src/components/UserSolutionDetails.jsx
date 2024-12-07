@@ -67,7 +67,7 @@ const UserSolutionDetails = () => {
             <div className="w-full p-16 text-3xl font-bold uppercase border-r border-[#414141]">{workflow.title}</div>
             <div className="w-full p-20">
               <p className="">{workflow.desc}</p>
-              <img src={workflow.image} alt="" />
+              <img src={workflow.image} className='mt-8' alt="" />
             </div>
           </div>
 
@@ -140,7 +140,7 @@ const UserSolutionDetails = () => {
               <div className="tab_content_point mb-4 p-14">
                 <div className="flex justify-between mb-4">
                   <p className="font-bold text-2xl">1- Initial Call</p>
-                  <p className="time bg-[#F87A46] px-8 h-8 flex items-center font-medium rounded-[100px] text-black">Dur: 1hr</p>
+                  <p className="time bg-[#F87A46] px-2 h-8 flex items-center font-medium rounded-[100px] text-black">Dur: 1hr</p>
 
                 </div>
                 
@@ -151,7 +151,7 @@ const UserSolutionDetails = () => {
               <div className="tab_content_point mb-4 p-14">
                 <div className="flex justify-between mb-4">
                   <p className="font-bold text-2xl">2- Proposal Document Preparation</p>
-                  <p className="time bg-[#F87A46] px-8 h-8 flex items-center font-medium rounded-[100px] text-black">Dur: 1 w</p>
+                  <p className="time bg-[#F87A46] px-2 h-8 flex items-center font-medium rounded-[100px] text-black">Dur: 1 w</p>
 
                 </div>
                 
@@ -163,7 +163,7 @@ const UserSolutionDetails = () => {
               <div className="tab_content_point mb-4 p-14">
                 <div className="flex justify-between mb-4">
                   <p className="font-bold text-2xl">3- Discussion on Proposed Solution</p>
-                  <p className="time bg-[#F87A46] px-8 h-8 flex items-center font-medium rounded-[100px] text-black">Dur: 2hr</p>
+                  <p className="time bg-[#F87A46] px-2 h-8 flex items-center font-medium rounded-[100px] text-black">Dur: 2hr</p>
 
                 </div>
                 
@@ -174,7 +174,7 @@ const UserSolutionDetails = () => {
               <div className="tab_content_point mb-4 p-14">
                 <div className="flex justify-between mb-4">
                   <p className="font-bold text-2xl">4- Approval of Proposed Solution</p>
-                  <p className="time bg-[#F87A46] px-8 h-8 flex items-center font-medium rounded-[100px] text-black">Dur: 1 w</p>
+                  <p className="time bg-[#F87A46] px-2 h-8 flex items-center font-medium rounded-[100px] text-black">Dur: 1 w</p>
 
                 </div>
                 
@@ -194,7 +194,7 @@ const UserSolutionDetails = () => {
                 <div className="tab_content_point mb-4 p-14">
                   <div className="flex justify-between mb-4">
                     <p className="font-bold text-2xl">1- Design & Planning</p>
-                    <p className="time bg-[#F87A46] px-8 h-8 flex items-center font-medium rounded-[100px] text-black">Dur: 1hr</p>
+                    <p className="time bg-[#F87A46] px-2 h-8 flex items-center font-medium rounded-[100px] text-black">Dur: 1hr</p>
 
                   </div>
                   
@@ -205,7 +205,7 @@ const UserSolutionDetails = () => {
                 <div className="tab_content_point mb-4 p-14">
                   <div className="flex justify-between mb-4">
                     <p className="font-bold text-2xl">2- Proposal Document Preparation</p>
-                    <p className="time bg-[#F87A46] px-8 h-8 flex items-center font-medium rounded-[100px] text-black">Dur: 1 w</p>
+                    <p className="time bg-[#F87A46] px-2 h-8 flex items-center font-medium rounded-[100px] text-black">Dur: 1 w</p>
 
                   </div>
                   
@@ -217,7 +217,7 @@ const UserSolutionDetails = () => {
                 <div className="tab_content_point mb-4 p-14">
                   <div className="flex justify-between mb-4">
                     <p className="font-bold text-2xl">3- Discussion on Proposed Solution</p>
-                    <p className="time bg-[#F87A46] px-8 h-8 flex items-center font-medium rounded-[100px] text-black">Dur: 2hr</p>
+                    <p className="time bg-[#F87A46] px-2 h-8 flex items-center font-medium rounded-[100px] text-black">Dur: 2hr</p>
 
                   </div>
                   
@@ -228,7 +228,7 @@ const UserSolutionDetails = () => {
                 <div className="tab_content_point mb-4 p-14">
                   <div className="flex justify-between mb-4">
                     <p className="font-bold text-2xl">4- Approval of Proposed Solution</p>
-                    <p className="time bg-[#F87A46] px-8 h-8 flex items-center font-medium rounded-[100px] text-black">Dur: 1 w</p>
+                    <p className="time bg-[#F87A46] px-2 h-8 flex items-center font-medium rounded-[100px] text-black">Dur: 1 w</p>
 
                   </div>
                   
@@ -248,7 +248,7 @@ const UserSolutionDetails = () => {
                 <div className="tab_content_point mb-4 p-14">
                   <div className="flex justify-between mb-4">
                     <p className="font-bold text-2xl">Development</p>
-                    <p className="time bg-[#F87A46] px-8 h-8 flex items-center font-medium rounded-[100px] text-black">Dur: 1hr</p>
+                    <p className="time bg-[#F87A46] px-2 h-8 flex items-center font-medium rounded-[100px] text-black">Dur: 1hr</p>
 
                   </div>
                   
@@ -259,7 +259,7 @@ const UserSolutionDetails = () => {
                 <div className="tab_content_point mb-4 p-14">
                   <div className="flex justify-between mb-4">
                     <p className="font-bold text-2xl">2- Proposal Document Preparation</p>
-                    <p className="time bg-[#F87A46] px-8 h-8 flex items-center font-medium rounded-[100px] text-black">Dur: 1 w</p>
+                    <p className="time bg-[#F87A46] px-2 h-8 flex items-center font-medium rounded-[100px] text-black">Dur: 1 w</p>
 
                   </div>
                   
@@ -271,7 +271,7 @@ const UserSolutionDetails = () => {
                 <div className="tab_content_point mb-4 p-14">
                   <div className="flex justify-between mb-4">
                     <p className="font-bold text-2xl">3- Discussion on Proposed Solution</p>
-                    <p className="time bg-[#F87A46] px-8 h-8 flex items-center font-medium rounded-[100px] text-black">Dur: 2hr</p>
+                    <p className="time bg-[#F87A46] px-2 h-8 flex items-center font-medium rounded-[100px] text-black">Dur: 2hr</p>
 
                   </div>
                   
@@ -282,7 +282,7 @@ const UserSolutionDetails = () => {
                 <div className="tab_content_point mb-4 p-14">
                   <div className="flex justify-between mb-4">
                     <p className="font-bold text-2xl">4- Approval of Proposed Solution</p>
-                    <p className="time bg-[#F87A46] px-8 h-8 flex items-center font-medium rounded-[100px] text-black">Dur: 1 w</p>
+                    <p className="time bg-[#F87A46] px-2 h-8 flex items-center font-medium rounded-[100px] text-black">Dur: 1 w</p>
 
                   </div>
                   
@@ -303,6 +303,7 @@ const UserSolutionDetails = () => {
         </div>
       </div>
 
+      <div className="h-8"></div>
       <CTA />
 
 

@@ -1,8 +1,10 @@
 // Users Solutions Page
 import React, { useState } from 'react'
 import SearchIcon from '../assets/search-dim.svg'
+import ctaspiralbg from '../assets/ctaspiralbg.png'
+
 import UserSolutionsList from './UserSolutionsList'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useGetSolutionsQuery } from '../slices/solutionApiSlice'
 import { setSearchTerm } from '../slices/SolutionListSlice'
 import { useDispatch, useSelector } from 'react-redux'
@@ -14,6 +16,7 @@ const UserSolutions = () => {
   // console.log("data", data)
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const searchFilterTerm = useSelector(state => state.solutionsFilter.searchTerm)
   // console.log("term from slice",searchFilterTerm )
 
@@ -49,7 +52,8 @@ const UserSolutions = () => {
         }
       }
       const apiRes = await editUser(data).unwrap();
-      console.log("apiRes", apiRes)
+      // console.log("apiRes", apiRes)
+      navigate('/contact')
   }
 
 
@@ -74,6 +78,8 @@ const UserSolutions = () => {
           <UserSolutionsList solutions={filteredSolutions} />
         </div>
 
+        
+
         <div className="">
           <h1 className="mb-6 font-semibold text-5xl">Available Solutions </h1>
           <UserSolutionsList solutions={filteredSolutions} />
@@ -81,16 +87,20 @@ const UserSolutions = () => {
 
         <div className="solution_cta mt-8 relative py-[102px] px-[109px] flex items-center justify-between rounded-xl bg-[#131514] gap-6">
           
-          <div className="max-w-[60%]">
-            <p className="font-semibold text-4xl">Book a Call for a Custom AI Solution</p>
+          <div className="max-w-[60%] relative z-20">
+            <p className="font-semibold text-4xl mb-4">Book a Call for a Custom AI Solution</p>
             <p className="">If you're interested in a similar tool, schedule a meeting to discuss your needs. We'll create a custom solution tailored to your business requirements.</p>
           </div>
 
-          <div className="">
+          <div className=" relative z-20">
             <Link to="" className="bg-primary-blue rounded-[100px] h-11 flex items-center px-6 cursor-pointer">
-              <p onClick={scheduleMeetingHandler} className="">Schedule Now</p>
+              <p onClick={scheduleMeetingHandler} className="cursor-pointer">Schedule Now</p>
             </Link>
           </div>
+
+          <img src={ctaspiralbg} className='absolute z-10' alt="" />
+
+
         </div>
 
       </div>

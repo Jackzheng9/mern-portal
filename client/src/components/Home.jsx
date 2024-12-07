@@ -3,6 +3,9 @@ import { BrowserRouter, Routes, Route,useParams,useSearchParams,useNavigate  } f
 import LinkedInImage from '../assets/LinkedInImage.svg'
 import BlueDot from '../assets/BlueDot.svg'
 import ArrowRightUp from '../assets/arrow-right-up.svg'
+import CtaBgRight from '../assets/CtaBgRight.svg'
+import CtaBgLeft from '../assets/CTABGLeft.svg'
+import UserHomeLowerCtaBg from '../assets/UserHomeLowerCtaBg.png'
 import SolImg from '../assets/solution-1.png'
 import ArrowRightTopRed from '../assets/arrow-right-top-red.svg'
 import SolutionImg from '../assets/solution-1.png'
@@ -127,7 +130,7 @@ const Home = () => {
       <div className="deepdive mt-16">
         
         <div className="flex items-start gap-4">
-          <p className="text-4xl font-semibold">This Month’s Deep Dive</p>
+          <p className="text-4xl leading-[52px] font-semibold">This Month’s Deep Dive</p>
           <p className="text-xl font-semibold mt-2">(Artificial Intelligence)</p>
         </div>
         
@@ -164,8 +167,8 @@ const Home = () => {
 
       </div>
 
-      <div className="home_network bg-[#1E1E1E] rounded-2xl py-16 px-4 mt-16" >
-          <div className="max-w-[638px] w-full mx-auto">
+      <div className="home_network bg-[#1E1E1E] rounded-2xl py-16 px-4 mt-16 relative overflow-hidden" >
+          <div className="max-w-[638px] w-full mx-auto ">
             <div className="flex gap-4 justify-center mb-8">
               <img src={NetEmail} className='w-10 h-10' alt="" />
               <img src={NetFolder} className='w-10 h-10' alt="" />
@@ -175,24 +178,29 @@ const Home = () => {
             <p className="text-[40px] font-semibold text-center">Your Network for Success</p>
             <p className="text-lg font-medium text-center text-[#F2F2F2]">Unlock exclusive benefits, personalized insights, and a community that’s ready to help you succeed. Join us today and start your journey to becoming a key player in our field.</p>
             <button className='mx-auto bg-primary-blue rounded-[100px] mt-8 px-6 h-12 flex items-center font-semibold'>Grow with Us</button>
+            <img src={CtaBgLeft} className='absolute w-[600px] -left-[100px] top-0' alt="" />
+            <img src={CtaBgRight} className='absolute w-[600px] -right-[100px] bottom-0' alt="" />
           </div>
       </div>
 
-      <div className="month_ai mt-16">
-        <p className="font-semibold text-4xl mb-8">This Month in AI - What Did You Miss? </p>
+      <div className="month_ai mt-16 ">
+        <p className="font-semibold text-4xl mb-8 mt-2">This Month in AI - What Did You Miss? </p>
         <HomeMonthlyAi video={monthAiVideos[0]} blog={monthAiBlogs[0]} />
+        <div className="h-9"></div>
         <HomeMonthlyAi video={monthAiVideos[1]} blog={monthAiBlogs[1]} />
+        <div className="h-9"></div>
         <HomeMonthlyAi video={monthAiVideos[2]} blog={monthAiBlogs[2]} />
 
 
       </div>
 
-      <div className="home_network bg-[#1E1E1E] rounded-2xl py-16 px-4 mt-16" >
+      <div className="home_network bg-[#1E1E1E] rounded-2xl py-16 px-4 mt-16 relative" >
           <div className="max-w-[762px] w-full mx-auto">
             <p className="text-4xl font-semibold text-center mb-6">Connect with Like-minded Professionals</p>
             <p className="text-lg font-medium text-center text-[#F2F2F2]">Our community is more than just a group of people; it’s a thriving ecosystem of innovation, support, and growth. Join us to be part of the conversation and make your mark</p>
             <button className='mx-auto bg-primary-blue rounded-[100px] mt-8 px-6 h-12 flex items-center font-semibold'>Become a Member</button>
           </div>
+          <img src={UserHomeLowerCtaBg} className='absolute bottom-0' alt="" />
       </div>
 
 

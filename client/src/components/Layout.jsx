@@ -38,9 +38,9 @@ const Layout = () => {
   let user = null
   user = useSelector(state => state.auth.userInfo)
   //const userInfo = useSelector(state => state.userInfo.userInfo)
-  console.log("user", user)
+  // console.log("user", user)
   const userEmail = user ? user.email : 'ss'
-  console.log("userEmail",userEmail )
+  // console.log("userEmail",userEmail )
   const {data, isLoading:notiLoading, isError:notiIsError} = useGetNotificationsQuery()
   const {data:userData, isLoading:userLoading, isError:userError, error} = useQueryUserByEmailQuery({ email: userEmail })
   
@@ -85,12 +85,12 @@ const Layout = () => {
     
 
     if(notiLoading || userLoading ){
-      console.log("Loading running!")
+      // console.log("Loading running!")
       setIsLoadingState(true)
     }else{
-      console.log("Loading completed")
+      // console.log("Loading completed")
       setIsLoadingState(false)
-      // console.log("All Notifications data", data)
+      console.log("All Notifications data", data)
       setAllNotifications(data.notifications)
 
       // console.log("User data from api", userData.user[0])
@@ -255,7 +255,7 @@ const Layout = () => {
   // console.log("isLoadingState",isLoadingState)
 
   if(isLoadingState){
-    console.log("Loading state running!")
+    // console.log("Loading state running!")
     return <Loader />
   }
 
@@ -365,7 +365,7 @@ const Layout = () => {
         <Outlet />
       </div>
 
-      <div className="footer container py-4">
+      <div className="footer container pt-4 pb-6">
         <div className="flex justify-between">
           <div className="footer_left flex items-center gap-3 text-[#EFEFEF]">
             <p className="">&copy; 2024 - All rights reserved</p>
