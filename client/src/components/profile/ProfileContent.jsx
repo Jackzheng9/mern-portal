@@ -3,13 +3,15 @@ import { useEditUserMutation } from '../../slices/userApiSlice'
 import Loader from '../Loader'
 import { toast } from 'react-toastify'
 import UploadIcon from '../../assets/UploadIcon.svg'
+import Pencil from '../../assets/PencilBlackCircled.svg'
 import uploadImage from '../../utils/imageUpload'
+import dayjs from 'dayjs'
 
 
 const ProfileContent = ({user, showEdit, setShowEdit}) => {
   console.log("user", user)
 
-  const [image, setImage] = useState("")
+  const [image, setImage] = useState(user.image)
   const [imageName, setImageName] = useState("")
   const [firstName, setFirstName] = useState(user.firstName ? user.firstName : "")
   const [lastName, setLastName] = useState(user.lastName ? user.lastName : '')
@@ -45,9 +47,6 @@ const ProfileContent = ({user, showEdit, setShowEdit}) => {
   if (isError){
     return 'Something went wrong!'
   }
-
-
-
 
 
 
@@ -90,7 +89,7 @@ const ProfileContent = ({user, showEdit, setShowEdit}) => {
           <p className="text-[40px] text-[#F8F8F8] font-semibold mb-8">Personal  Info</p>
           <div className='profile_info'>
             
-            <div className='info_row flex mb-4'>
+            <div className='info_row flex mb-4 gap-4'>
               
               <div className='w-full max-w-[300px]'>
                 <p className="text-[#8E8E8E] mb-1.5">First Name</p>
@@ -104,7 +103,7 @@ const ProfileContent = ({user, showEdit, setShowEdit}) => {
 
             </div>
 
-            <div className='info_row flex mb-4'>
+            <div className='info_row flex mb-4 gap-4'>
               
               <div className='w-full max-w-[300px]'>
                 <p className="text-[#8E8E8E] mb-1.5">Email</p>
@@ -118,7 +117,7 @@ const ProfileContent = ({user, showEdit, setShowEdit}) => {
 
             </div>
 
-            <div className='info_row flex mb-4'>
+            <div className='info_row flex mb-4 gap-4'>
               
               <div className='w-full max-w-[300px]'>
                 <p className="text-[#8E8E8E] mb-1.5">City</p>
@@ -132,7 +131,7 @@ const ProfileContent = ({user, showEdit, setShowEdit}) => {
 
             </div>
 
-            <div className='info_row flex mb-4'>
+            <div className='info_row flex mb-4 gap-4'>
               
               <div className='w-full max-w-[300px]'>
                 <p className="text-[#8E8E8E] mb-1.5">Country</p>
@@ -151,80 +150,92 @@ const ProfileContent = ({user, showEdit, setShowEdit}) => {
         </div>
 
       )}
+
+      {showEdit && (
+      <div className="profile_header flex justify-between items-center mb-8">
+          
+        <div className="flex gap-6 items-center">
+          <label htmlFor="solImg" className='cursor-pointer'>
+            <div className="relative">
+              <img src={image ? image : UserProfile} className='rounded-[100%] w-[154px] h-[154px]' alt="" />
+              <img src={Pencil} className='absolute right-0 bottom-0 cursor-pointer' alt="" />
+            </div>
+          </label>
+          <input id="solImg" className='hidden' type="file" onChange={imageHandler} />
+
+          <div className="">
+            <p className="text-[#F8F8F8] font-semibold text-2xl mb-4">{user.firstName} {user.lastName}</p>
+            <p className="text-lg font-medium text-[#F8F8F8] mb-2">DAT U member</p>
+            <p className="text-sm font-medium text-[#F8F8F8]">Joined on {dayjs(user.createdAt).format('MMMM D, YYYY')}</p>
+          </div>
+        </div>
+        
+      </div>
+
+
+
+      )}
       
 
       {showEdit && (
-        <div className="edit_profile_content">
-        <p className="text-[40px] text-[#F8F8F8] font-semibold mb-8">Edit Personal  Info</p>
+      <div className="edit_profile_content">
+        <p className="text-[40px] text-[#F8F8F8] font-semibold mb-8">Personal  Info</p>
         <div className='profile_info'>
 
           <form onSubmit={formSubmitHandler}>
-
-            <div className="inputGroup flex flex-col gap-1.5 bg-[#1B1B1F] rounded-2xl px-12 py-6 mb-7">
-              <label htmlFor="solImg" className='cursor-pointer'>
-                <img className='w-12 mx-auto block' src={UploadIcon} alt="" />
-                <p className="max-w-64 mx-auto text-primary-blue text-center">Click to upload Thumbnail <span className='text-gray-600'>or drag and drop SVG, PNG, JPG </span> </p>
-              </label>
-              <input id="solImg" className='hidden' type="file" onChange={imageHandler} />
-              <div className="flex items-center gap-2">
-                <img src={image} alt="" className='w-10' />
-                <p className="">{imageName}</p>
-              </div>
-              
-            </div>
           
-            <div className='info_row flex mb-4'>
+            <div className='info_row flex mb-4 gap-4'>
               
-              <div className='w-full max-w-[300px]'>
+              <div className='w-full'>
                 <p className="text-[#8E8E8E] mb-1.5">First Name</p>
-                <input value={firstName} onChange={e => setFirstName(e.target.value)} className='h-11 flex px-3.5 items-center bg-[#131514] rounded-md' placeholder='First Name' type="text" />
+                <input value={firstName} onChange={e => setFirstName(e.target.value)} className='h-11 flex px-3.5 items-center bg-[#131514] rounded-md w-full' placeholder='First Name' type="text" />
               </div>
 
-              <div className='w-full max-w-[300px]'>
+              <div className='w-full '>
                 <p className="text-[#8E8E8E] mb-1.5">Last Name</p>
-                <input value={lastName} onChange={e => setLastName(e.target.value)} className='h-11 flex px-3.5 items-center bg-[#131514] rounded-md' placeholder='Last  Name' type="text" />
+                <input value={lastName} onChange={e => setLastName(e.target.value)} className='h-11 flex px-3.5 items-center bg-[#131514] rounded-md w-full' placeholder='Last  Name' type="text" />
               </div>
 
             </div>
 
-            <div className='info_row flex mb-4'>
+            <div className='info_row flex mb-4 gap-4'>
               
-              <div className='w-full max-w-[300px]'>
+              <div className='w-full '>
                 <p className="text-[#8E8E8E] mb-1.5">Email</p>
-                <input value={email} onChange={e => setEmail(e.target.value)} className='h-11 flex px-3.5 items-center bg-[#131514] rounded-md' placeholder='Email' type="text" />
+                <input value={email} onChange={e => setEmail(e.target.value)} className='h-11 flex px-3.5 items-center bg-[#131514] rounded-md w-full' placeholder='Email' type="text" />
               </div>
 
-              <div className='w-full max-w-[300px]'>
+              <div className='w-full '>
                 <p className="text-[#8E8E8E] mb-1.5">Phone Number</p>
-                <input value={phone} onChange={e => setPhone(e.target.value)} className='h-11 flex px-3.5 items-center bg-[#131514] rounded-md' placeholder='Phone Number' type="text" />
+                <input value={phone} onChange={e => setPhone(e.target.value)} className='h-11 flex px-3.5 items-center bg-[#131514] rounded-md w-full' placeholder='Phone Number' type="text" />
               </div>
 
             </div>
 
-            <div className='info_row flex mb-4'>
+            <div className='info_row flex mb-4 gap-4'>
               
-              <div className='w-full max-w-[300px]'>
+              <div className='w-full '>
                 <p className="text-[#8E8E8E] mb-1.5">City</p>
-                <input value={city} onChange={e => setCity(e.target.value)} className='h-11 flex px-3.5 items-center bg-[#131514] rounded-md' placeholder='City' type="text" />
+                <input value={city} onChange={e => setCity(e.target.value)} className='h-11 flex px-3.5 items-center bg-[#131514] rounded-md w-full' placeholder='City' type="text" />
               </div>
 
-              <div className='w-full max-w-[300px]'>
+              <div className='w-full '>
                 <p className="text-[#8E8E8E] mb-1.5">Sate/Province</p>
-                <input value={state} onChange={e => setState(e.target.value)} className='h-11 flex px-3.5 items-center bg-[#131514] rounded-md' placeholder='State/Province' type="text" />
+                <input value={state} onChange={e => setState(e.target.value)} className='h-11 flex px-3.5 items-center bg-[#131514] rounded-md w-full' placeholder='State/Province' type="text" />
               </div>
 
             </div>
 
-            <div className='info_row flex mb-4'>
+            <div className='info_row flex mb-4 gap-4'>
               
-              <div className='w-full max-w-[300px]'>
+              <div className='w-full '>
                 <p className="text-[#8E8E8E] mb-1.5">Country</p>
-                <input value={country} onChange={e => setCountry(e.target.value)} className='h-11 flex px-3.5 items-center bg-[#131514] rounded-md' placeholder='Country' type="text" />
+                <input value={country} onChange={e => setCountry(e.target.value)} className='h-11 flex px-3.5 items-center bg-[#131514] rounded-md w-full' placeholder='Country' type="text" />
               </div>
 
-              <div className='w-full max-w-[300px]'>
+              <div className='w-full '>
                 <p className="text-[#8E8E8E] mb-1.5">Time zone</p>
-                <input value={timezone} onChange={e => setTimezone(e.target.value)} className='h-11 flex px-3.5 items-center bg-[#131514] rounded-md' placeholder='Time Zone' type="text" />
+                <input value={timezone} onChange={e => setTimezone(e.target.value)} className='h-11 flex px-3.5 items-center bg-[#131514] rounded-md w-full' placeholder='Time Zone' type="text" />
               </div>
 
             </div>

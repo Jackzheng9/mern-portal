@@ -81,6 +81,7 @@ const AdminLayout = () => {
   }
 
   const userOptionsHandler = () => {
+    console.log("test",showUserOptions )
     setShowUserOptions(!showUserOptions)
   }
 

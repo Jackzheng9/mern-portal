@@ -5,7 +5,11 @@ import Settings from '../assets/settingsGray.svg'
 import Twitter from '../assets/twitter.svg'
 import LinkedIn from '../assets/linkedIn.svg'
 import Notification from '../assets/notificationGray.svg'
+import ProfileIcon from'../assets/userIcon.svg'
+import LogOutIcon from'../assets/logOutIcon.svg'
 import NotificationWhite from '../assets/notificationWhite.svg'
+import LogoutRed from'../assets/LogoutRed.svg'
+import Close from'../assets/ButtonCloseWhiteX.svg'
 import dayjs from 'dayjs';
 import { logOut } from '../slices/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,6 +34,7 @@ const Layout = () => {
   const [personalNotifications, setPersonalNotifications] = useState(false)
   const [readNotifications, setReadNotifications] = useState(false)
   const [userInfo, setUserInfo] = useState(null)
+  const [showLogout, setShowLogout] = useState(false)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -317,6 +322,8 @@ const Layout = () => {
   return (
     <>
 
+        
+
       <div className="header">
         <div className="container">
           <div className="flex justify-between gap-2 py-4 items-center relative">
@@ -330,7 +337,7 @@ const Layout = () => {
             </div>
 
             <div className="right_menu_wrap">
-              <ul className='flex gap-4 items-center'>
+              <ul className='flex gap-4 items-center relative'>
                 <li><NavLink to="/contact"><div className="header_cta bg-primary-blue rounded-[100px] px-6 h-12 flex items-center">Contact Us</div></NavLink></li>
                 <li><NavLink to="/settings"><img src={Settings} alt="" /></NavLink></li>
                 <li>
@@ -338,21 +345,23 @@ const Layout = () => {
                   {showNotiPanel && <img onClick={toggleNotification} className=" cursor-pointer" src={NotificationWhite} alt="" /> }
                   { showNotiPanel && <Notifications all={allNotifications} personal = {personalNotifications} read={readNotifications} handleUnreadIds={handleUnreadIds} outSideClickHandler={outSideClickHandler} />}
                 </li>
-                <li className='relative'>
+                <li className=''>
+                  <OutsideClickHandler onOutsideClick={profileOutSideClick}>
                   <div onClick={accountOptionsHandler} className="initials bg-dark-blue text-lg font-medium h-12 w-12 rounded-[100px] flex items-center justify-center cursor-pointer">
-                    {userInfo.image ? <img src={userInfo.image} /> : userInitial }
+                    {userInfo.image ? <img src={userInfo.image} className='rounded-full' /> : userInitial }
                   </div>
 
                   {showAccOptions && (
-                    <OutsideClickHandler onOutsideClick={profileOutSideClick}>
-                      <ul className="user_options absolute top-[100%] min-w-[180px] bg-black p-4 w-full l-0">
-                        <li onClick={logoutHandler} className='cursor-pointer'>Logout</li>
-                        <li className='cursor-pointer'><Link to="/profile">Profile</Link></li>
-                        {/* <li className='cursor-pointer'><Link to="/settings">Settings</Link></li> */}
+                    
+                      <ul className="user_options absolute top-[100%] w-[130px] bg-[#1B1B1F] p-4 right-0">
+                        
+                        <li onClick={() => setShowAccOptions(false)} className='cursor-pointer flex items-center gap-2 font-medium px-2 h-[36px] mb-2.5'><Link className='flex items-center gap-2' to="/profile"><img className='h-4' src={ProfileIcon} alt="" />Profile</Link></li>
+                        <li onClick={() => {setShowAccOptions(false);  setShowLogout(true)}}  className='cursor-pointer flex items-center gap-2 font-medium px-2 h-[36px] mb-2.5'><img className='h-4'  src={LogOutIcon} alt="" />Logout</li>
+                        
                       </ul>
-                    </OutsideClickHandler>
+                    
                   )}
-                  
+                  </OutsideClickHandler>
                 </li>
               </ul>
             </div>
@@ -360,6 +369,26 @@ const Layout = () => {
           </div>
         </div>
       </div>
+      {showLogout && (
+          <div className="logout_modal absolute top-0 left-0 w-[100vw] h-[100vh] flex items-center justify-center backdrop-blur z-10 ">
+            <div className="modal_inner rounded-lg px-6 py-4 bg-[#111116] w-full max-w-[400px]">
+              <div className="flex justify-between ">
+                <img src={LogoutRed} className='' alt="" />
+                <img onClick={() => setShowLogout(false)} src={Close} className='cursor-pointer' alt="" />
+              </div>
+
+              <p className="text-lg font-semibold mt-4 mb-1">Logout</p>
+              <p className="text-sm text-[#B0B0B0] ">Are you sure you want to Logout?</p>
+
+              <div className="ctas flex justify-center gap-6 mt-8">
+                <button onClick={() => setShowLogout(false)} className='text-sm font-semibold text-[#B0B0B0] border border-[#B0B0B0] rounded-lg h-11 flex items-center px-6'>Cancel</button>
+                <button onClick={logoutHandler} className='bg-[#D92D20] text-white text-sm font-semibold rounded-lg h-11 flex items-center px-6 '>Logoout</button>
+              </div>
+
+            </div>
+          </div>
+
+      )}
 
       <div className="main_content container mt-11">
         <Outlet />
