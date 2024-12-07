@@ -289,11 +289,11 @@ const AdminLayout = () => {
             <div className="admin_left_bar w-full max-w-[264px] p-6 basis-0 grow-[1] border-r border-[#222227]">
               <ul className="admin_lists flex flex-col gap-2">
                 <li><NavLink className={`flex gap-3 text-base py-3 px-4 rounded-md  text-[#B0B0B0] font-medium`} to="/admin/dashboard"><img src={DashIcon} alt="" />Dashboard</NavLink></li>
-                <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md text-[#B0B0B0] font-medium' to="/admin/home-content"><img src={HomeIcon} alt="" />Home Content</NavLink></li>
-                <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md text-[#B0B0B0] font-medium' to="/admin/solutions/"><img src={SolIcon} alt="" />Manage Solutions</NavLink></li>
-                <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md text-[#B0B0B0] font-medium' to="/admin/resources"><img src={CalIcon} alt="" />Monthly Content</NavLink></li>
-                <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md text-[#B0B0B0] font-medium' to="/admin/terms"><img src={TermsIcon} alt="" />Terms & Conditions</NavLink></li>
-                <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md text-[#B0B0B0] font-medium' to="/admin/support"><img src={InfoIcon} alt="" />Support</NavLink></li>
+                <li><NavLink className='flex gap-3  text-base py-3 px-4 rounded-md text-[#B0B0B0] font-medium' to="/admin/home-content"><img src={HomeIcon} alt="" />Home Content</NavLink></li>
+                <li><NavLink className='flex gap-3  text-base py-3 px-4 rounded-md text-[#B0B0B0] font-medium' to="/admin/solutions/"><img src={SolIcon} alt="" />Manage Solutions</NavLink></li>
+                <li><NavLink className='flex gap-3  text-base py-3 px-4 rounded-md text-[#B0B0B0] font-medium' to="/admin/resources"><img src={CalIcon} alt="" />Monthly Content</NavLink></li>
+                <li><NavLink className='flex gap-3  text-base py-3 px-4 rounded-md text-[#B0B0B0] font-medium' to="/admin/terms"><img src={TermsIcon} alt="" />Terms & Conditions</NavLink></li>
+                <li><NavLink className='flex gap-3  text-base py-3 px-4 rounded-md text-[#B0B0B0] font-medium' to="/admin/support"><img src={InfoIcon} alt="" />Support</NavLink></li>
                 {/* <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md' to="/admin/demo"><img src={KeyIcon} alt="" />Demo Request</NavLink></li> */}
               </ul>
             </div>

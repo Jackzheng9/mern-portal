@@ -34,7 +34,7 @@ const Settings = () => {
     <>
     
       <div className="settings_content mt-20 ">
-        <h1 className="mb-6" >Settings</h1>
+        <h1 className="mb-14 text-3xl font-semibold" >Settings</h1>
 
         <ul className="tab_titles flex gap-2 text-[#667085]">
           <li className={`px-3 py-2 cursor-pointer font-semibold ${activeTab === 'company' ? 'active text-white' : ''}`} onClick={() => setActiveTab('company')}>Company details</li>

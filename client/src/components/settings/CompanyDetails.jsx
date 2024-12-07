@@ -65,18 +65,18 @@ const CompanyDetails = ({user}) => {
       </div>
 
       {!showEdit && (
-        <div className="info_content">
-          <div className="mt-11">
+        <div className="info_content mt-6">
+          <div className="py-5 border-b border-b-[#282828]">
             <p className="settings_name font-medium text-sm mb-4">Company Name</p>
-            <p className="settings_value text-[#667085] text-sm pb-5 border-b border-b-[#282828]">{companyName}</p>   
+            <p className="settings_value text-[#667085] text-sm ">{companyName}</p>   
           </div>
-          <div className="mt-11">
+          <div className="py-5 border-b border-b-[#282828]">
             <p className="settings_name font-medium text-sm mb-4">Website</p>
-            <p className="settings_value text-[#667085] text-sm pb-5 border-b border-b-[#282828]">{website}</p>   
+            <p className="settings_value text-[#667085] text-sm ">{website}</p>   
           </div>
-          <div className="mt-11">
+          <div className="py-5 border-b border-b-[#282828]">
             <p className="settings_name font-medium text-sm mb-4">About company</p>
-            <p className="settings_value text-[#667085] text-sm pb-5 border-b border-b-[#282828]">{desc}</p>   
+            <p className="settings_value text-[#667085] text-sm">{desc}</p>   
           </div>
         </div>
 
@@ -103,7 +103,7 @@ const CompanyDetails = ({user}) => {
               </div>
             </div>
 
-            <div className="flex justify-end gap-4">
+            <div className="flex justify-end gap-4 mt-10">
               <div onClick={() => setShowEdit(false)} className="flex h-11 items-center px-6 border rounded-[100px] cursor-pointer bg-white text-black font-semibold text-sm">Cancel</div>
               <button className='flex items-center h-11 rounded-[100px] bg-primary-blue px-6 font-semibold text-sm'>Save</button>
             </div>

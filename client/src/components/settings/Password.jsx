@@ -59,7 +59,7 @@ const Password = ({user}) => {
 
   return (
     <div className='mt-8'>
-      <div className="page_title flex justify-between">
+      <div className="page_title flex justify-between items-center border-b border-[#282828] pb-5">
         <div>
           <h1 className="font-semibold text-lg">Password</h1>
           <p className="text-[#667085]">Please enter your current password to change your password.</p>
@@ -109,15 +109,15 @@ const Password = ({user}) => {
       
 
 
-      <div className="loggedIn mt-12">
+      <div className="loggedIn mt-6 ">
         <p className="text-sm font-medium">Where you’re logged in</p>
-        <p className="text-sm text-[#667085]">We’ll alert you via olivia@untitledui.com if there is any unusual activity on your account.</p>
+        <p className="text-sm text-[#667085] pb-5 border-b border-[#282828]">We’ll alert you via olivia@untitledui.com if there is any unusual activity on your account.</p>
 
-        <ul className='mt-12'>
+        <ul className='mt-1'>
 
           {browsers.map((browser,index)=>{
 
-            return (<li key={index} className="flex gap-4 mb-10">
+            return (<li key={index} className="flex gap-4 mt-5 border-b border-[#282828] pb-5">
               <div className=""><img src={Desktop} className='' alt="" /></div>
               <div className="">
                 <div className="flex gap-2 items-center">
@@ -133,18 +133,6 @@ const Password = ({user}) => {
           })}
 
 
-
-          {/* <li className="flex gap-4">
-            <div className=""><img src={Desktop} className='' alt="" /></div>
-            <div className="">
-              <div className="flex gap-2 items-center">
-                <p className='text-medium text-sm'>Browser Name</p>
-                <img src={Badge} alt="" />
-              </div>
-              
-              <p className='text-medium text-sm text-[#667085]'>Time</p>
-            </div>
-          </li> */}
         </ul>
       </div>
 
