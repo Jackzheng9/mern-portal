@@ -70,6 +70,7 @@ const HomeContent = () => {
   const [description,setDescription] = useState('');
   const [image,setImage] = useState('');
   const [imageName,setImageName] = useState('');
+  const [type,setType] = useState('');
   const [postType,setPostType] = useState('');
   const [link,setLink] = useState('');
   const [showImageUpload, setShowImageUpload] = useState(false)
@@ -77,6 +78,7 @@ const HomeContent = () => {
   const [toolName, setToolName] = useState('')
   const [pricing, setPricing] = useState('')
   const [bestFor, setBestFor] = useState('')
+  const [videoId, setVideoId] = useState('')
 
 
   const uploadSelectHandler = (selector) =>{
@@ -136,7 +138,7 @@ const HomeContent = () => {
 
 
   const editItemHandler = (type,item) => {
-    console.log("Edit post! " + " " +  type + " " + item)
+    // console.log("Edit post! " + " " +  type )
     console.log("item", item)
     setDeepDiveItem(item)
     setTitle(item.title)
@@ -144,11 +146,13 @@ const HomeContent = () => {
     setImage(item.image)
     setLink(item.link)
     setCheckBoxChecked(item.active)
-    setPostType(item.type)
+    setType(item.type)
+    setPostType(item.postType)
     setToolName(item.toolName)
     setBestFor(item.bestFor)
     setPricing(item.pricing)
     setEditItemType(type)
+    setVideoId(item.videoId)
     
     setShowEdit(true)
   }
@@ -177,7 +181,7 @@ const HomeContent = () => {
     e.preventDefault();
     // console.log("Edit item:",title, image, description, link, checkBoxChecked )
     const data = {
-      title, image, description, link, active:checkBoxChecked,id:deepDiveItem._id, toolName, pricing, bestFor
+      title, image, description, link, active:checkBoxChecked,id:deepDiveItem._id, toolName, pricing, bestFor,videoId
     }
 
     
@@ -440,15 +444,45 @@ const HomeContent = () => {
             <div className="edit_deepDive_container fixed left-0 top-0 w-[100%] h-[100vh] backdrop-blur-sm flex items-center justify-center">
               <div className="max-w-[720px] w-full h-full mx-auto top-[0] bg-[#1B1B1F] p-6 left-[30%] rounded-md overflow-y-auto">
                 <div className="flex justify-between items-start">
+                
+                {type == 'deepdive' && (
                   <div className="">
                     <p className="text-2xl font-semibold mb-1">Monthly Deep  Dive</p>
                     <p className="text-[#B0B0B0] mb-8">Edit the details For the monthly deep  dive</p>
                   </div>
+                )}
+
+                {type == 'aisaas' && (
+                  <div className="">
+                    <p className="text-2xl font-semibold mb-1">AI Saas Tool</p>
+                    <p className="text-[#B0B0B0] mb-8">Edit the details For the monthly tool</p>
+                  </div>
+                )}
+
+                {type == 'monthai' && (
+                  <div className="">
+                    <p className="text-2xl font-semibold mb-1">This Month in AI </p>
+                    <p className="text-[#B0B0B0] mb-8">Edit the details For the monthly AI</p>
+                  </div>
+                )}  
+                  
                   
                   <div className="">
                     <img onClick={() => {setShowEdit(false);setShowImageUpload(false)}} className='cursor-pointer' src={Close} alt="" />
                   </div>
                 </div>
+
+                {type == 'monthai' && (
+                  <div className="mb-8">
+                    <input className='radio_input' type="radio" id="video" name="posttype" value="video" checked={postType === 'video'} onChange={() => setPostType('video')}/><label htmlFor="video">Video</label>
+                    <input className='radio_input' type="radio" id="blog" name="posttype" value="blog" checked={postType === 'blog'} onChange={() => setPostType('blog')}/><label htmlFor="blog">Blog</label>
+                  </div>
+                )}
+                
+
+
+
+
                 
                 {!showImageUpload && (
                   <>
@@ -483,7 +517,7 @@ const HomeContent = () => {
                   <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={title} onChange={(e) => setTitle(e.target.value)}  placeholder='Title goes here...' required />
                 </div>
 
-                {postType == 'aisaas' && (
+                {type == 'aisaas' && (
                   <div className="inputGroup flex flex-col gap-1.5 mb-7 mt-5">
                     <label htmlFor="">Tool Name</label>
                     <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={toolName} onChange={(e) => setToolName(e.target.value)}  placeholder='Tool name...' required />
@@ -496,12 +530,33 @@ const HomeContent = () => {
                   <textarea className='h-32 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow flex items-start' value={description} onChange={(e) => setDescription(e.target.value)} placeholder='Description.....'  />
                 </div>
 
-                <div className="inputGroup flex flex-col gap-1.5 mb-7">
+                {type != 'monthai' && (
+                  <div className="inputGroup flex flex-col gap-1.5 mb-7">
                   <label htmlFor="">Link to the post:</label>
                   <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={link} onChange={(e) => setLink(e.target.value)}  placeholder='https://somelink.com/' required />
                 </div>
+                )}
 
-                {postType == 'aisaas' && (
+                {type == 'monthai' && (
+                  <div className="inputGroup flex flex-col gap-1.5 mb-7">
+                    
+                  <label htmlFor="">{postType == 'video' ? 'Video Id' : 'Link to the post:'}</label>
+                  {postType == 'blog' && (
+                    <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={link} onChange={(e) => setLink(e.target.value)}  placeholder='https://somelink.com/' required />
+
+                  )}
+
+                  {postType == 'video' && (
+                    <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={videoId} onChange={(e) => setVideoId(e.target.value)}  placeholder='DGVJtAHzzDQ' required />
+                  )}
+                  
+
+                  
+                </div>
+                )}
+
+
+                {type == 'aisaas' && (
                   <>
                     <div className="inputGroup flex flex-col gap-1.5 mb-7 mt-5">
                       <label htmlFor="">Best For</label>

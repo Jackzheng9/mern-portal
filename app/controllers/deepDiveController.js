@@ -10,14 +10,14 @@ const getAll = async (req,res) => {
 }
 
 const createDeepDive = async (req,res) => {
-  const { title, description, image,active,slug,link,type,postType,toolName,bestFor, pricing } = req.body;
+  const { title, description, image,active,slug,link,type,postType,toolName,bestFor, pricing,videoId } = req.body;
  
   try {
     if(!title){
       throw new Error("Deep Dive title must not be empty!")
     }
 
-    const newDeepDive = await DeepDive.create({ title, description, image,active,slug,link,type,postType,toolName,bestFor, pricing  });
+    const newDeepDive = await DeepDive.create({ title, description, image,active,slug,link,type,postType,toolName,bestFor, pricing,videoId  });
     res.status(201).json({ message: "New Deep Dive created!", deepdive: newDeepDive });
   } catch (error) {
     if (error instanceof MongooseError) {
@@ -29,8 +29,8 @@ const createDeepDive = async (req,res) => {
 }
 
 const editDeepDive = async (req,res) => {
-  const { title, description, link, image, active,id, postType,toolName,bestFor, pricing } = req.body;
-  console.log("body", req.body)
+  const { title, description, link, image, active,id, postType,toolName,bestFor, pricing,videoId } = req.body;
+  // console.log("body", req.body)
  
   try {
     const deepDive = await DeepDive.findById(id);
@@ -44,6 +44,7 @@ const editDeepDive = async (req,res) => {
     deepDive.toolName = toolName || deepDive.toolName;
     deepDive.bestFor = bestFor || deepDive.bestFor;
     deepDive.pricing = pricing || deepDive.pricing;
+    deepDive.videoId = videoId || deepDive.videoId;
 
     const updatedDeepDive = await deepDive.save();
     res.status(201).json({ message: "Edit done successfully!", deepdive: updatedDeepDive });

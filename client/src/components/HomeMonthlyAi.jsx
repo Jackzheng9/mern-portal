@@ -6,13 +6,17 @@ import YellowBar from '../assets/YellowBar.svg'
 
 
 
-const HomeMonthlyAi = ({video, blog}) => {
+const HomeMonthlyAi = ({video, blog,videoPlayer}) => {
   // console.log("video", video);
+  const showVideo = (videoId) => {
+    videoPlayer(videoId)
+  }
+
   return (
     <div className="row flex gap-8">
 
     <div className="basis-0 grow-[2]">
-      <a href={video.link}>
+      <div className='cursor-pointer' onClick={() => showVideo(video.videoId)}>
         <img src={video.image} className='rounded-2xl w-full h-[272px]' alt="" />
         <div className="flex gap-5 mt-4">
           <img src={GrayBar} className='' alt="" />
@@ -26,7 +30,7 @@ const HomeMonthlyAi = ({video, blog}) => {
             <p className=" mb-3">{video.description}</p>
           </div>
         </div>
-      </a>
+      </div>
 
       
       

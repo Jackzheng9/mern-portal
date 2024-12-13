@@ -49,6 +49,10 @@ const Home = () => {
   const [showVidPlayer,setShowVidPlayer] = useState(false)
   const [videoId,setVideoId] = useState('')
 
+  const showVideoPlayer = (video_id) => {
+    setVideoId(video_id)
+    setShowVidPlayer(true)
+  }
 
   useEffect(() => {
     
@@ -128,10 +132,7 @@ const Home = () => {
     const apiRes = await editUser(data).unwrap();
   }
 
-  const showVideoPlayer = (video_id) => {
-    setVideoId(video_id)
-    setShowVidPlayer(true)
-  }
+
 
   return (
     <>
@@ -228,11 +229,11 @@ const Home = () => {
 
       <div className="month_ai mt-16 ">
         <p className="font-semibold text-4xl mb-8 mt-2">This Month in AI - What Did You Miss? </p>
-        <HomeMonthlyAi video={monthAiVideos[0]} blog={monthAiBlogs[0]} />
+        <HomeMonthlyAi videoPlayer={showVideoPlayer} video={monthAiVideos[0]} blog={monthAiBlogs[0]} />
         <div className="h-9"></div>
-        <HomeMonthlyAi video={monthAiVideos[1]} blog={monthAiBlogs[1]} />
+        <HomeMonthlyAi videoPlayer={showVideoPlayer} video={monthAiVideos[1]} blog={monthAiBlogs[1]} />
         <div className="h-9"></div>
-        <HomeMonthlyAi video={monthAiVideos[2]} blog={monthAiBlogs[2]} />
+        <HomeMonthlyAi videoPlayer={showVideoPlayer} video={monthAiVideos[2]} blog={monthAiBlogs[2]} />
 
 
       </div>
@@ -266,7 +267,7 @@ const Home = () => {
       {showVidPlayer && (
         <div className="fixed top-0 left-0 w-full h-[100vh] flex items-center justify-center backdrop-blur-md">
           <div className="yt_content relative">
-            <img onClick={() => setShowVidPlayer(false)} src={Close} className='w-14 absolute -top-10 -right-6 cursor-pointer' alt="" />
+            <img onClick={() => setShowVidPlayer(false)} src={Close} className='w-14 absolute -top-14 -right-6 cursor-pointer' alt="" />
             <YouTubeVideo video_id={videoId} />
           </div>
           

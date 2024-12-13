@@ -25,6 +25,7 @@ const CreateMonthlyDeepDive = ({closeHandler,type}) => {
   const [imageName,setImageName] = useState('');
   const [link,setLink] = useState('');
   const [postType, setPostType] = useState('');
+  const [videoId, setVideoId] = useState('');
 
 
   const [ createDeepDive , {isLoading, isError}] = useCreateDeepDiveMutation();
@@ -63,7 +64,8 @@ const CreateMonthlyDeepDive = ({closeHandler,type}) => {
       postType,
       toolName,
       bestFor,
-      pricing
+      pricing,
+      videoId
     }
 
     console.log("data", data)
@@ -167,11 +169,38 @@ const CreateMonthlyDeepDive = ({closeHandler,type}) => {
             <label htmlFor="">Description</label>
             <textarea className='h-32 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow flex items-start' value={description} onChange={(e) => setDescription(e.target.value)} placeholder='Description.....'  />
           </div>
+          {type != 'monthai' && (
+            <div className="inputGroup flex flex-col gap-1.5 mb-7">
+              <label htmlFor="">Link to the post:</label>              
+              <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={link} onChange={(e) => setLink(e.target.value)}  placeholder='https://somelink.com/' required />
+            </div>
 
-          <div className="inputGroup flex flex-col gap-1.5 mb-7">
-            <label htmlFor="">Link to the post:</label>
-            <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={link} onChange={(e) => setLink(e.target.value)}  placeholder='https://somelink.com/' required />
-          </div>
+          )}
+
+
+
+          {type == 'monthai' && (
+            <>
+            <div className="inputGroup flex flex-col gap-1.5 mb-7">
+              {/* <label htmlFor="">Link to the post:</label> */}
+              {postType == 'video' ? 'Video Id:' : 'Link to the post:' }
+              
+              {postType == 'blog' && (
+                <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={link} onChange={(e) => setLink(e.target.value)}  placeholder='https://somelink.com/' required />
+              )}
+              
+
+              {postType == 'video' && (
+                <>
+                  <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={videoId} onChange={(e) => setVideoId(e.target.value)}  placeholder='668nUCeBHyY' required />
+                  <p className="help text-xs mt-2 text-gray-300">Help: If the YouTube url is "https://www.youtube.com/watch?v=668nUCeBHyY", then the video id is "668nUCeBHyY". So basically what is after "v=" in the url is the video ID</p>
+                </>
+              )}
+              
+            </div>            
+            
+            </>
+          )}
 
           {type == "aisaas" && (
             <>

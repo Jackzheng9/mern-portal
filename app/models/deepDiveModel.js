@@ -11,6 +11,7 @@ const deepDiveSchema = new mongoose.Schema({
     toolName:{type: String},
     bestFor:{type: String},
     pricing:{type: String},
+    videoId:{type: String},
     link: {
         type: String, 
         validate: {

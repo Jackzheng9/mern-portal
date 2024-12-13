@@ -207,7 +207,7 @@ const AdminLayout = () => {
 
           {showProfile && (
             <div className="logout_modal absolute top-0 left-0 w-[100vw] h-[100vh] flex items-center justify-center backdrop-blur z-10 ">
-              <div className="modal_inner rounded-lg px-6 py-4 bg-[#111116] w-full max-w-[632px]">
+              <div className="modal_inner rounded-lg px-6 py-4 bg-[#111116] w-full max-w-[632px] max-h-[70%] overflow-y-scroll">
                 <div className="flex justify-between ">
                   <p className='text-2xl font-semibold text-white'>Profile </p>
                   <img onClick={() => setShowProfile(false)} src={Close} className='cursor-pointer' alt="" />
