@@ -22,8 +22,13 @@ const UserResources = () => {
     return "Something went wrong!"
   }
 
-  const resources = data.resources.filter(resource => resource.year == curYear)
+  let resources = data.resources.filter(resource => resource.year == curYear)
 
+  const yearChangeHandler = (e) => {
+    console.log("selected year", e.target.value)
+
+  }
+ 
   return (
     <>
       <section className="px-16 h-[480px] w-full flex items-center " style={{ backgroundImage: `url(${HeroImg})` }}>
@@ -43,24 +48,20 @@ const UserResources = () => {
           <form action="">
             <div className="relative">
               <img className='absolute left-[14px] top-[12px] ' src={SearchIcon} alt="" />
-              <input className='searchBordered h-11 bg-transparent rounded-lg pl-11' placeholder="Search" type="text" />
+              <input className='searchBordered h-11 bg-[#131514] rounded-lg pl-11 min-w-[321px]' placeholder="Search" type="text" />
             </div>
           </form>
           <div className="">
-            <select name="" id="" className='bg-transparent border border-[#282828] rounded-sm py-2.5 px-3.5 bg-[#131514] text-[#727374]'>
+            <select onChange={(e) => setCurYear(e.target.value)} value={curYear} name="" id="" className=' border border-[#282828] rounded-sm py-2.5 px-3.5 bg-[#131514] text-[#727374]'>
               <option value="">Year </option>
-              <option value="0">January</option>
-              <option value="1">February</option>
-              <option value="2">March</option>
-              <option value="3">April</option>
-              <option value="4">May</option>
-              <option value="5">June</option>
-              <option value="6">July</option>
-              <option value="7">August</option>
-              <option value="8">September</option>
-              <option value="9">October</option>
-              <option value="10">November</option>
-              <option value="11">December</option>
+              <option value="2024" >2024</option>
+              <option value="2025" >2025</option>
+              <option value="2026" >2026</option>
+              <option value="2027" >2027</option>
+              <option value="2028" >2028</option>
+              <option value="2029" >2029</option>
+              <option value="2030" >2030</option>
+
             </select>
           </div>
         </div>
@@ -69,7 +70,7 @@ const UserResources = () => {
 
       <section className="monthly_section mt-11 mb-10">
         <div className="tab_titles">
-          <ul className='flex justify-between'>
+          <ul className='flex justify-between border-b border-[#282828] pb-2'>
             {Array.from({ length: 12 }, (_, index) => (
               <li 
                 key={index} 

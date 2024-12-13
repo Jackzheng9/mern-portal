@@ -13,8 +13,8 @@ const protect = asyncHandler( async (req,res,next) => {
       next();
 
     }catch(err){
-      res.status(401)
-      throw new Error("Invalid Token!")
+      res.status(401).json({message:"Invalid Token!"})
+      //throw new Error("Invalid Token!")
     }
   }else{
     res.status(401)

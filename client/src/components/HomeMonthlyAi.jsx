@@ -27,6 +27,8 @@ const HomeMonthlyAi = ({video, blog}) => {
           </div>
         </div>
       </a>
+
+      
       
     </div>
 

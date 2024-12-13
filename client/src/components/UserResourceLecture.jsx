@@ -7,10 +7,11 @@ const UserResourceLecture = ({lecture,year, resource, lessonCompleteHandler}) =>
   // console.log("Lecture", lecture)
   const [showFiles, setShowFiles] = useState(false)
   return (
-    <>
+    <div className='mb-6'>
       <div className="title_part flex items-center gap-8">
 
-        <div className="max-w-[300px]"><img src={lecture.image} alt="" /></div>
+        {/* <div className="max-w-[300px]"><img src={lecture.image} alt="" /></div> */}
+        <div className="w-[300px] h-[180px] rounded-lg " style={{ backgroundImage: `url(${lecture.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }} ></div>
         <div className="w-full">
           <div className="flex justify-between items-center">
             <h2 className="font-medium text-2xl mb-4">{lecture.title}</h2>
@@ -34,7 +35,7 @@ const UserResourceLecture = ({lecture,year, resource, lessonCompleteHandler}) =>
       )}
       
 
-    </>
+    </div>
   )
 }
 

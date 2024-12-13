@@ -12,13 +12,14 @@ import { toast } from 'react-toastify'
 
 
 
-
-
 const CreateMonthlyDeepDive = ({closeHandler,type}) => {
   console.log("type",type)
 
   const [checkBoxChecked,setCheckBoxChecked] = useState(true)
   const [title,setTitle] = useState('');
+  const [toolName,setToolName] = useState('');
+  const [bestFor,setBestFor] = useState('');
+  const [pricing,setPricing] = useState('');
   const [description,setDescription] = useState('');
   const [image,setImage] = useState('');
   const [imageName,setImageName] = useState('');
@@ -59,7 +60,10 @@ const CreateMonthlyDeepDive = ({closeHandler,type}) => {
       slug,
       link,
       type,
-      postType
+      postType,
+      toolName,
+      bestFor,
+      pricing
     }
 
     console.log("data", data)
@@ -147,6 +151,16 @@ const CreateMonthlyDeepDive = ({closeHandler,type}) => {
             <label htmlFor="">Title</label>
             <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={title} onChange={(e) => setTitle(e.target.value)}  placeholder='Title goes here...' required />
           </div>
+
+          {type == "aisaas" && (
+            <div className="inputGroup flex flex-col gap-1.5 mb-7">
+              <label htmlFor="">Tool Name</label>
+              <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={toolName} onChange={(e) => setToolName(e.target.value)}  placeholder='Tool name goes here...' required />
+            </div>
+
+          )}
+
+          
           
 
           <div className="inputGroup flex flex-col gap-1.5 mb-5">
@@ -158,6 +172,22 @@ const CreateMonthlyDeepDive = ({closeHandler,type}) => {
             <label htmlFor="">Link to the post:</label>
             <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={link} onChange={(e) => setLink(e.target.value)}  placeholder='https://somelink.com/' required />
           </div>
+
+          {type == "aisaas" && (
+            <>
+              <div className="inputGroup flex flex-col gap-1.5 mb-7">
+                <label htmlFor="">Best For</label>
+                <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={bestFor} onChange={(e) => setBestFor(e.target.value)}  placeholder='Best For...' required />
+              </div>
+              <div className="inputGroup flex flex-col gap-1.5 mb-7">
+                <label htmlFor="">Pricing</label>
+                <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={pricing} onChange={(e) => setPricing(e.target.value)}  placeholder='Pricing...' required />
+              </div>
+            </>
+          )}
+
+
+
 
           <div className="publish_action mb-12 flex gap-2 items-center font-medium">
             <label className="switch" htmlFor='switch'>

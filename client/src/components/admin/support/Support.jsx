@@ -21,7 +21,7 @@ const Support = () => {
   const [checkBoxChecked,setCheckBoxChecked] = useState(true)
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 1;
+  const itemsPerPage = 10;
 
   
   

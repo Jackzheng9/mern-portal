@@ -8,6 +8,9 @@ const deepDiveSchema = new mongoose.Schema({
     active: { type: Boolean },
     type:{type: String},
     postType:{type: String},
+    toolName:{type: String},
+    bestFor:{type: String},
+    pricing:{type: String},
     link: {
         type: String, 
         validate: {

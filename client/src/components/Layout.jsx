@@ -95,10 +95,10 @@ const Layout = () => {
     }else{
       // console.log("Loading completed")
       setIsLoadingState(false)
-      console.log("All Notifications data", data)
+      // console.log("All Notifications data", data)
       setAllNotifications(data.notifications)
 
-      // console.log("User data from api", userData.user[0])
+      console.log("User data from api", userData.user[0])
       setUserInfo(userData.user[0]);
       const apiUser = userData.user[0];
       

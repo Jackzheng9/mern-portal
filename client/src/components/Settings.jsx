@@ -33,7 +33,7 @@ const Settings = () => {
   return (
     <>
     
-      <div className="settings_content mt-20 ">
+      <div className="settings_content mt-20 min-h-[80vh]">
         <h1 className="mb-14 text-3xl font-semibold" >Settings</h1>
 
         <ul className="tab_titles flex gap-2 text-[#667085]">

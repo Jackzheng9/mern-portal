@@ -40,6 +40,7 @@ const HomeContent = () => {
   const [showEdit, setShowEdit] = useState(false);
   const [createItemType, setCreateItemType] = useState('');
   const [editItemType, setEditItemType] = useState('');
+  //const [editItemType, setEditItemType] = useState('');
   
 
   const [showSearch, setShowSearch] = useState(false)
@@ -73,6 +74,9 @@ const HomeContent = () => {
   const [link,setLink] = useState('');
   const [showImageUpload, setShowImageUpload] = useState(false)
   const [checkBoxChecked, setCheckBoxChecked] = useState()
+  const [toolName, setToolName] = useState('')
+  const [pricing, setPricing] = useState('')
+  const [bestFor, setBestFor] = useState('')
 
 
   const uploadSelectHandler = (selector) =>{
@@ -133,15 +137,19 @@ const HomeContent = () => {
 
   const editItemHandler = (type,item) => {
     console.log("Edit post! " + " " +  type + " " + item)
-    // console.log("item", item)
+    console.log("item", item)
     setDeepDiveItem(item)
     setTitle(item.title)
     setDescription(item.description)
     setImage(item.image)
     setLink(item.link)
     setCheckBoxChecked(item.active)
-    setPostType(item.postType)
+    setPostType(item.type)
+    setToolName(item.toolName)
+    setBestFor(item.bestFor)
+    setPricing(item.pricing)
     setEditItemType(type)
+    
     setShowEdit(true)
   }
   const imageChangeHandler = async (e) => {
@@ -167,9 +175,9 @@ const HomeContent = () => {
 
   const editSubmitHandler = async (e) => {
     e.preventDefault();
-    console.log("Edit item:",title, image, description, link, checkBoxChecked )
+    // console.log("Edit item:",title, image, description, link, checkBoxChecked )
     const data = {
-      title, image, description, link, active:checkBoxChecked,id:deepDiveItem._id
+      title, image, description, link, active:checkBoxChecked,id:deepDiveItem._id, toolName, pricing, bestFor
     }
 
     
@@ -474,6 +482,13 @@ const HomeContent = () => {
                   <label htmlFor="">Title</label>
                   <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={title} onChange={(e) => setTitle(e.target.value)}  placeholder='Title goes here...' required />
                 </div>
+
+                {postType == 'aisaas' && (
+                  <div className="inputGroup flex flex-col gap-1.5 mb-7 mt-5">
+                    <label htmlFor="">Tool Name</label>
+                    <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={toolName} onChange={(e) => setToolName(e.target.value)}  placeholder='Tool name...' required />
+                  </div>                 
+                )}
                 
 
                 <div className="inputGroup flex flex-col gap-1.5 mb-5">
@@ -485,6 +500,24 @@ const HomeContent = () => {
                   <label htmlFor="">Link to the post:</label>
                   <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={link} onChange={(e) => setLink(e.target.value)}  placeholder='https://somelink.com/' required />
                 </div>
+
+                {postType == 'aisaas' && (
+                  <>
+                    <div className="inputGroup flex flex-col gap-1.5 mb-7 mt-5">
+                      <label htmlFor="">Best For</label>
+                      <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={bestFor} onChange={(e) => setBestFor(e.target.value)}  placeholder='Best For' required />
+                    </div>
+
+                    <div className="inputGroup flex flex-col gap-1.5 mb-7 mt-5">
+                      <label htmlFor="">Pricing</label>
+                      <input type="text" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow' value={pricing} onChange={(e) => setPricing(e.target.value)}  placeholder='Pricing' required />
+                    </div>
+                  </>               
+                )}
+
+
+
+
 
                 <div className="publish_action mb-12 flex gap-2 items-center font-medium">
                   <label className="switch" htmlFor='switch'>

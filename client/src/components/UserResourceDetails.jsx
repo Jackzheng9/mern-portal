@@ -98,21 +98,9 @@ const lessonCompleteHandler = async (type,fileId) => {
 
   }
   
-  
-
-
-
-  // console.log("allFilesCompleted from inside trigger", allFilesCompleted)
-  /*
-
-*/
 
 
 }
-
-
-
-
 
 
   return (

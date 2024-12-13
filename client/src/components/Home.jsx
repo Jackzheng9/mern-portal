@@ -1,11 +1,14 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { BrowserRouter, Routes, Route,useParams,useSearchParams,useNavigate  } from "react-router-dom";
 import LinkedInImage from '../assets/LinkedInImage.svg'
 import BlueDot from '../assets/BlueDot.svg'
 import ArrowRightUp from '../assets/arrow-right-up.svg'
 import CtaBgRight from '../assets/CtaBgRight.svg'
 import CtaBgLeft from '../assets/CTABGLeft.svg'
+import CheckWhiteCircled from '../assets/CheckWhiteCircled.svg'
+import DollarWhiteCircled from '../assets/DollarWhiteCircled.svg'
 import UserHomeLowerCtaBg from '../assets/UserHomeLowerCtaBg.png'
+import Close from '../assets/xwhite.svg'
 import SolImg from '../assets/solution-1.png'
 import ArrowRightTopRed from '../assets/arrow-right-top-red.svg'
 import SolutionImg from '../assets/solution-1.png'
@@ -26,20 +29,32 @@ import { useGetSolutionsQuery } from '../slices/solutionApiSlice';
 import HomeSolution from './HomeSolution';
 import { useEditUserMutation } from '../slices/userApiSlice';
 import { setPersonalNotifications } from '../slices/userInfoSlice';
+import YouTubeVideo from '../utils/YouTubeVideo'
+
+
+
+
+
+
 
 const Home = () => {
   const [searchParams] = useSearchParams();
-  console.log("Params",searchParams.get("setpass"))
-  console.log("Params",searchParams.get("admin"))
+  // console.log("Params",searchParams.get("setpass"))
+  // console.log("Params",searchParams.get("admin"))
 
   const navigate = useNavigate();
   const user = useSelector(state => state.auth);
   // console.log("User:", user)
+  const [isErrorFound,setIsErrorFound] = useState(false)
+  const [showVidPlayer,setShowVidPlayer] = useState(false)
+  const [videoId,setVideoId] = useState('')
 
 
   useEffect(() => {
     
-
+    if(isErrorFound){
+      navigate('/login')
+    }
     
     if(searchParams.get("setpass")){
       //navigate('/setpassword')
@@ -58,11 +73,11 @@ const Home = () => {
 
     
 
-  },[])
+  },[isErrorFound])
 
 
  
-  const {data, isLoading }= useGetDeepDivesQuery();
+  const {data, isLoading,isError:deepDiveError }= useGetDeepDivesQuery();
   const {data:solData, isLoading:solLoading, isError, error }= useGetSolutionsQuery();
   const [editUser ] = useEditUserMutation()
 
@@ -72,12 +87,12 @@ const Home = () => {
     return <Loader />
   }
 
-  if(isError){
+  if(isError || deepDiveError){
     console.log("Error", error)
     console.log("message", error.message)
     // toast.error("Login expired, please login back.")
     // return "Something went wrong!"
-    navigate('/login')
+    setIsErrorFound(true)
   }
 
   
@@ -113,6 +128,11 @@ const Home = () => {
     const apiRes = await editUser(data).unwrap();
   }
 
+  const showVideoPlayer = (video_id) => {
+    setVideoId(video_id)
+    setShowVidPlayer(true)
+  }
+
   return (
     <>
 
@@ -139,9 +159,13 @@ const Home = () => {
           <div className="w-full">
             <img className='rounded-2xl w-full h-[400px]' src={latestDeepDive.image} alt="" />
             <div className="flex gap-4 mt-6 items-start">
-              <img className='mt-2' src={RedBar} alt="" />
-              <div className="t">
-                <p className="text-3xl mb-3 ">{latestDeepDive.title}</p>
+              
+              <div className="">
+                <div className='flex items-center gap-3 mb-3'>
+                  <img className='mt-2' src={RedBar} alt="" />
+                  <p className="text-3xl  ">{latestDeepDive.title}</p>
+                </div>
+                
                 <p className="text-lg mb-6">{latestDeepDive.description}</p>
 
                 <a className='font-semibold underline' href={latestDeepDive.link}>Learn more</a>
@@ -152,12 +176,31 @@ const Home = () => {
           <div className="w-full">
             <img className='rounded-2xl w-full h-[400px]' src={latestAiSaas.image} alt="" />
             <div className="flex gap-4 mt-6 ">
-              <img className='' src={RedBar} alt="" />
-              <div className="t">
-                <p className="text-3xl mb-3 ">{latestAiSaas.title}</p>
+              
+              <div className="">
+              
+                <div className='flex gap-3 items-center mb-3'>
+                  <img className='' src={RedBar} alt="" />
+                  <p className="text-3xl">{latestAiSaas.title}</p>
+                  <p className="text-3xl font-semibold bg-primary-blue rounded-[100px] h-14 flex items-center px-6 ">{latestAiSaas.toolName}</p>
+                </div>
                 <p className="text-lg mb-6">{latestAiSaas.description}</p>
 
-                <a className='font-semibold underline' href={latestAiSaas.link} >Learn more</a>
+                <div className="best mt-6">
+                  <div className="flex gap-2 items-center ">
+                    <img src={CheckWhiteCircled} alt="" /> <p className='text-sm font-semibold'>Best for:</p>
+                  </div>
+                  <p className="leading-[26px] mt-2">{latestAiSaas.bestFor}</p>
+                </div>
+
+                <div className="best mt-4">
+                  <div className="flex gap-2 items-center ">
+                    <img src={DollarWhiteCircled} alt="" /> <p className='text-sm font-semibold'>Pricing:</p>
+                  </div>
+                  <p className="leading-[26px] mt-2">{latestAiSaas.pricing}</p>
+                </div>
+
+                <a className='font-semibold underline mt-6 block' href={latestAiSaas.link} >Learn more</a>
               </div>
             </div>
           </div>
@@ -219,6 +262,18 @@ const Home = () => {
         </div>
 
       </div>
+
+      {showVidPlayer && (
+        <div className="fixed top-0 left-0 w-full h-[100vh] flex items-center justify-center backdrop-blur-md">
+          <div className="yt_content relative">
+            <img onClick={() => setShowVidPlayer(false)} src={Close} className='w-14 absolute -top-10 -right-6 cursor-pointer' alt="" />
+            <YouTubeVideo video_id={videoId} />
+          </div>
+          
+        </div>
+      )}
+
+      
     </>
   )
 }
