@@ -57,11 +57,10 @@ const NotificaionContent = ({all, read, personal, handleUnreadIds, outSideClickH
 
   return (
     <OutsideClickHandler onOutsideClick={handleOutSideClick}>
-      <div className="notifications_panel absolute w-[452px] max-w-full top-[100%] right-0 py-8 px-6 bg-[#131514] z-10 rounded-xl">
+      <div className="notifications_panel absolute w-[452px]  top-[100%] right-0 py-8 px-6 bg-[#131514] z-10 rounded-xl">
         {showLoader && <Loader />}
         <div className="notifications_header flex justify-between items-center mb-8">
           <p className="font-medium">Notifications</p>
-          <p className="cursor-pointer text-primary-blue font-semibold">Mark All as read</p>
         </div>
         <div className="notifications_content">
           <div className="notifications_list_header flex gap-4 items-center mb-6">

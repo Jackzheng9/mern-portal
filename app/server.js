@@ -19,7 +19,7 @@ import supportRouter from "./routes/supportRouter.js";
 const app = express();
 connect();
 
-const whitelist = ['http://localhost:3000', 'https://auth.mahmud1.xyz', 'https://datu.mahmud1.xyz', 'http://datu.mahmud1.xyz/'];
+const whitelist = ['http://localhost:3000', 'http://localhost:4173', 'https://auth.mahmud1.xyz', 'https://datu.mahmud1.xyz', 'http://datu.mahmud1.xyz/'];
 const corsOptions = {
   credentials: true,
   origin: (origin, callback) => {

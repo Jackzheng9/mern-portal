@@ -285,8 +285,9 @@ const AdminLayout = () => {
           
 
           <div className="admin_content flex">
+
             
-            <div className="admin_left_bar w-full max-w-[264px] p-6 basis-0 grow-[1] border-r border-[#222227]">
+            <div className="admin_left_bar w-full max-w-[264px] p-6 border-r border-[#222227]">
               <ul className="admin_lists flex flex-col gap-2">
                 <li><NavLink className={`flex gap-3 text-base py-3 px-4 rounded-md  text-[#B0B0B0] font-medium`} to="/admin/dashboard"><img src={DashIcon} alt="" />Dashboard</NavLink></li>
                 <li><NavLink className='flex gap-3  text-base py-3 px-4 rounded-md text-[#B0B0B0] font-medium' to="/admin/home-content"><img src={HomeIcon} alt="" />Home Content</NavLink></li>
@@ -297,9 +298,12 @@ const AdminLayout = () => {
                 {/* <li><NavLink className='flex gap-3 font-semibold text-base py-3 px-4 rounded-md' to="/admin/demo"><img src={KeyIcon} alt="" />Demo Request</NavLink></li> */}
               </ul>
             </div>
-            <div className="admin_right_content basis-0 grow-[2] max-w-[1176px] p-6 pr-0">
+
+            {/* <div className="admin_right_content  w-full p-6 pr-0"> */}
+            <div className="admin_right_content flex-1 p-6 pr-0 overflow-hidden">
               <Outlet />
             </div>
+
           </div>
 
           

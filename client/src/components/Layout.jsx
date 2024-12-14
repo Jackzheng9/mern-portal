@@ -305,8 +305,10 @@ const Layout = () => {
 
   const outSideClickHandler = (e) => {
     //console.log("e",e)
+    console.log("outside click handler working!")
     if (e.target.classList.contains("notifications_panel")) {
     } else {
+      toggleNotification()
       setShowNotiPanel(false)
     }
   };

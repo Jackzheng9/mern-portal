@@ -11,7 +11,7 @@ const CTA = () => {
   const scheduleMeetingHandler = async () => {
     const data = {
       personalNotifications : {
-        message:'Meeting clicked!',
+        message:"Thank you for meeting with [Tech Person]. Don't forget to review the discussed solutions and next steps.",
         notificationType:'schedulemeeting',
       }
     }

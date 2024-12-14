@@ -30,7 +30,9 @@ import HomeSolution from './HomeSolution';
 import { useEditUserMutation } from '../slices/userApiSlice';
 import { setPersonalNotifications } from '../slices/userInfoSlice';
 import YouTubeVideo from '../utils/YouTubeVideo'
-
+import { logOut } from '../slices/authSlice';
+import { resetUserInfoState } from '../slices/userInfoSlice';
+import { useDispatch } from 'react-redux';
 
 
 
@@ -43,6 +45,7 @@ const Home = () => {
   // console.log("Params",searchParams.get("admin"))
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const user = useSelector(state => state.auth);
   // console.log("User:", user)
   const [isErrorFound,setIsErrorFound] = useState(false)
@@ -57,7 +60,8 @@ const Home = () => {
   useEffect(() => {
     
     if(isErrorFound){
-      navigate('/login')
+      console.log("dispatching logout")
+      dispatch(logOut())
     }
     
     if(searchParams.get("setpass")){
@@ -92,11 +96,14 @@ const Home = () => {
   }
 
   if(isError || deepDiveError){
-    console.log("Error", error)
+    console.log("Error occured!", error)
     console.log("message", error.message)
     // toast.error("Login expired, please login back.")
     // return "Something went wrong!"
     setIsErrorFound(true)
+    dispatch(logOut())
+    dispatch(resetUserInfoState())
+    navigate('/login')
   }
 
   
