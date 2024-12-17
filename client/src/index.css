@@ -258,3 +258,10 @@ input:-webkit-autofill:active{
   height: 70vh;
   overflow: scroll;
 }
+
+.mobileMenu a.active{color:#CFCFCF;}
+
+
+@media only screen and (max-width:768px){
+  .home_hero{background-position:15% center}
+}

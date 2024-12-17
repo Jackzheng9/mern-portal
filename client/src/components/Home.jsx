@@ -62,6 +62,8 @@ const Home = () => {
     if(isErrorFound){
       console.log("dispatching logout")
       dispatch(logOut())
+      dispatch(resetUserInfoState())
+      navigate('/login')
     }
     
     if(searchParams.get("setpass")){
@@ -101,9 +103,11 @@ const Home = () => {
     // toast.error("Login expired, please login back.")
     // return "Something went wrong!"
     setIsErrorFound(true)
+    /*
     dispatch(logOut())
     dispatch(resetUserInfoState())
     navigate('/login')
+    */
   }
 
   
@@ -145,10 +149,10 @@ const Home = () => {
     <>
 
 
-      <div className="home_hero px-12 py-20 rounded-2xl" style={{ backgroundImage: `url(${HomeHero})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <div className="home_hero px-5  tab:px-12 py-16 tab:py-20 rounded-2xl bg-center" style={{ backgroundImage: `url(${HomeHero})`, backgroundSize: 'cover', }}>
         <div className="hero_text max-w-[516px]">
-          <h1 className="font-semibold text-4xl mb-4">Be Part of the Conversation</h1>
-          <p className="mb-7">Stay ahead of the curve by joining our community, where you’ll find invaluable resources, expert-led webinars, and live events that keep you connected and informed.</p>
+          <h1 className="font-semibold text-3xl tab:text-4xl mb-3 tab:mb-4">Be Part of the Conversation</h1>
+          <p className="text-sm tab:text-base mb-6 tab:mb-7 font-medium">Stay ahead of the curve by joining our community, where you’ll find invaluable resources, expert-led webinars, and live events that keep you connected and informed.</p>
           <button onClick={linkedInHandler} className='bg-primary-blue h-11 flex items-center px-6 rounded-[100px] font-semibold'>Join our Community</button>
         </div> 
       </div>
@@ -157,24 +161,24 @@ const Home = () => {
 
       <div className="deepdive mt-16">
         
-        <div className="flex items-start gap-4">
-          <p className="text-4xl leading-[52px] font-semibold">This Month’s Deep Dive</p>
+        <div className="flex flex-col md:flex-row items-start gap-4">
+          <p className="text-3xxl tab:text-4xl leading-[52px] font-semibold">This Month’s Deep Dive</p>
           <p className="text-xl font-semibold mt-2">(Artificial Intelligence)</p>
         </div>
         
-        <div className="deep_row flex mt-8 gap-6 pb-10">
+        <div className="deep_row flex flex-col tab:flex-row mt-8 gap-6 pb-10">
           
           <div className="w-full">
-            <img className='rounded-2xl w-full h-[400px]' src={latestDeepDive.image} alt="" />
+            <img className='rounded-2xl w-full h-[231px] md:h-[400px]' src={latestDeepDive.image} alt="" />
             <div className="flex gap-4 mt-6 items-start">
               
               <div className="">
                 <div className='flex items-center gap-3 mb-3'>
                   <img className='mt-2' src={RedBar} alt="" />
-                  <p className="text-3xl  ">{latestDeepDive.title}</p>
+                  <p className="text-2xl tab:text-3xl  ">{latestDeepDive.title}</p>
                 </div>
                 
-                <p className="text-lg mb-6">{latestDeepDive.description}</p>
+                <p className="text-base tab:text-lg mb-6">{latestDeepDive.description}</p>
 
                 <a className='font-semibold underline' href={latestDeepDive.link}>Learn more</a>
               </div>
@@ -182,17 +186,17 @@ const Home = () => {
           </div>
 
           <div className="w-full">
-            <img className='rounded-2xl w-full h-[400px]' src={latestAiSaas.image} alt="" />
+            <img className='rounded-2xl w-full h-[231px] md:h-[400px]' src={latestAiSaas.image} alt="" />
             <div className="flex gap-4 mt-6 ">
               
               <div className="">
               
                 <div className='flex gap-3 items-center mb-3'>
                   <img className='' src={RedBar} alt="" />
-                  <p className="text-3xl">{latestAiSaas.title}</p>
+                  <p className="text-2xl tab:text-3xl">{latestAiSaas.title}</p>
                   <p className="text-3xl font-semibold bg-primary-blue rounded-[100px] h-14 flex items-center px-6 ">{latestAiSaas.toolName}</p>
                 </div>
-                <p className="text-lg mb-6">{latestAiSaas.description}</p>
+                <p className="text-base tab:text-lg mb-6">{latestAiSaas.description}</p>
 
                 <div className="best mt-6">
                   <div className="flex gap-2 items-center ">
@@ -226,8 +230,8 @@ const Home = () => {
               <img src={NetRadio} className='w-10 h-10' alt="" />
               <img src={NetCal} className='w-10 h-10' alt="" />
             </div>
-            <p className="text-[40px] font-semibold text-center">Your Network for Success</p>
-            <p className="text-lg font-medium text-center text-[#F2F2F2]">Unlock exclusive benefits, personalized insights, and a community that’s ready to help you succeed. Join us today and start your journey to becoming a key player in our field.</p>
+            <p className="text-2xxl tab:text-[40px] font-semibold text-center mb-4">Your Network for Success</p>
+            <p className="text-sm tab:text-lg font-medium text-center text-[#F2F2F2]">Unlock exclusive benefits, personalized insights, and a community that’s ready to help you succeed. Join us today and start your journey to becoming a key player in our field.</p>
             <button className='mx-auto bg-primary-blue rounded-[100px] mt-8 px-6 h-12 flex items-center font-semibold'>Grow with Us</button>
             <img src={CtaBgLeft} className='absolute w-[600px] -left-[100px] top-0' alt="" />
             <img src={CtaBgRight} className='absolute w-[600px] -right-[100px] bottom-0' alt="" />
@@ -235,7 +239,7 @@ const Home = () => {
       </div>
 
       <div className="month_ai mt-16 ">
-        <p className="font-semibold text-4xl mb-8 mt-2">This Month in AI - What Did You Miss? </p>
+        <p className="font-semibold text-3xxl tab:text-4xl mb-8 mt-2">This Month in AI - What Did You Miss? </p>
         <HomeMonthlyAi videoPlayer={showVideoPlayer} video={monthAiVideos[0]} blog={monthAiBlogs[0]} />
         <div className="h-9"></div>
         <HomeMonthlyAi videoPlayer={showVideoPlayer} video={monthAiVideos[1]} blog={monthAiBlogs[1]} />
@@ -245,13 +249,13 @@ const Home = () => {
 
       </div>
 
-      <div className="home_network bg-[#1E1E1E] rounded-2xl py-16 px-4 mt-16 relative" >
+      <div className="home_network bg-[#1E1E1E] rounded-2xl py-11 tab:py-16 px-8 tab:px-4 mt-16 relative" >
           <div className="max-w-[762px] w-full mx-auto">
             <p className="text-4xl font-semibold text-center mb-6">Connect with Like-minded Professionals</p>
             <p className="text-lg font-medium text-center text-[#F2F2F2]">Our community is more than just a group of people; it’s a thriving ecosystem of innovation, support, and growth. Join us to be part of the conversation and make your mark</p>
             <button className='mx-auto bg-primary-blue rounded-[100px] mt-8 px-6 h-12 flex items-center font-semibold'>Become a Member</button>
           </div>
-          <img src={UserHomeLowerCtaBg} className='absolute bottom-0' alt="" />
+          <img src={UserHomeLowerCtaBg} className='absolute bottom-0 left-0 w-full' alt="" />
       </div>
 
 
@@ -259,11 +263,11 @@ const Home = () => {
 
       <div className="main_content mt-16 mb-16">
         <div className="flex items-center justify-between mb-6">
-          <h1 className='text-5xl font-semibold mb-8'>Solutions For You</h1>
-          <Link className='flex gap-1 items-center' to="/solutions/">Explore All <img src={ArrowRightUp} alt="" /></Link>
+          <h1 className='text-3xxl tab:text-5xl font-semibold mb-8'>Solutions For You</h1>
+          <Link className='hidden tab:flex gap-1 items-center' to="/solutions/">Explore All <img src={ArrowRightUp} alt="" /></Link>
         </div>
 
-        <div className="solutions_area_wrap flex gap-6 justify-between">
+        <div className="solutions_area_wrap flex flex-col tab:flex-row gap-6 justify-between">
 
           {solutions.map(solution => <HomeSolution key={solution._id} solution={solution} />)}
 

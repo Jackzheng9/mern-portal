@@ -7,6 +7,8 @@ import LinkedIn from '../assets/linkedIn.svg'
 import Notification from '../assets/notificationGray.svg'
 import ProfileIcon from'../assets/userIcon.svg'
 import LogOutIcon from'../assets/logOutIcon.svg'
+import MenuBar from'../assets/menuBar.svg'
+import MenuBarWhite from'../assets/menuBarWhite.svg'
 import NotificationWhite from '../assets/notificationWhite.svg'
 import LogoutRed from'../assets/LogoutRed.svg'
 import Close from'../assets/ButtonCloseWhiteX.svg'
@@ -23,6 +25,7 @@ import OutsideClickHandler from "react-outside-click-handler";
 import Notifications from './Notifications';
 import Loader from './Loader';
 import { resetUserInfoState } from '../slices/userInfoSlice';
+import { toast } from 'react-toastify';
 
 
 const Layout = () => {
@@ -35,6 +38,7 @@ const Layout = () => {
   const [readNotifications, setReadNotifications] = useState(false)
   const [userInfo, setUserInfo] = useState(null)
   const [showLogout, setShowLogout] = useState(false)
+  const [showMoibleMenu, setShowMobileMenu] = useState(false)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -92,13 +96,20 @@ const Layout = () => {
     if(notiLoading || userLoading ){
       // console.log("Loading running!")
       setIsLoadingState(true)
-    }else{
+    } else if(userError) {
+      console.log("user error")
+      toast.error("Login expired. Please login again.")
+      dispatch(logOut())
+      dispatch(resetUserInfoState())
+      navigate('/login')
+    } else {
       // console.log("Loading completed")
       setIsLoadingState(false)
       // console.log("All Notifications data", data)
       setAllNotifications(data.notifications)
 
-      console.log("User data from api", userData.user[0])
+      console.log("User data from api", userData)
+      // console.log("User data from api", userData.user[0])
       setUserInfo(userData.user[0]);
       const apiUser = userData.user[0];
       
@@ -330,7 +341,7 @@ const Layout = () => {
         <div className="container">
           <div className="flex justify-between gap-2 py-4 items-center relative">
             <Link to="/"><img src={Logo} alt="" /></Link>
-            <div className="main_menu_wrap">
+            <div className="main_menu_wrap hidden tab:block">
               <ul className='flex gap-10'>
                 <li><NavLink className="text-gray-nine" to="/">Home</NavLink></li>
                 <li><NavLink className="text-gray-nine" to="/solutions">Solutions</NavLink></li>
@@ -339,15 +350,16 @@ const Layout = () => {
             </div>
 
             <div className="right_menu_wrap">
+              
               <ul className='flex gap-4 items-center relative'>
-                <li><NavLink to="/contact"><div className="header_cta bg-primary-blue rounded-[100px] px-6 h-12 flex items-center">Contact Us</div></NavLink></li>
-                <li><NavLink to="/settings"><img src={Settings} alt="" /></NavLink></li>
+                <li className='hidden tab:block'><NavLink to="/contact"><div className="header_cta bg-primary-blue rounded-[100px] px-6 h-12 flex items-center">Contact Us</div></NavLink></li>
+                <li className='hidden tab:block'><NavLink to="/settings"><img src={Settings} alt="" /></NavLink></li>
                 <li>
                   {!showNotiPanel && <img onClick={toggleNotification} className="cursor-pointer" src={Notification} alt="" /> }
                   {showNotiPanel && <img onClick={toggleNotification} className=" cursor-pointer" src={NotificationWhite} alt="" /> }
                   { showNotiPanel && <Notifications all={allNotifications} personal = {personalNotifications} read={readNotifications} handleUnreadIds={handleUnreadIds} outSideClickHandler={outSideClickHandler} />}
                 </li>
-                <li className=''>
+                <li className='hidden tab:block'>
                   <OutsideClickHandler onOutsideClick={profileOutSideClick}>
                   <div onClick={accountOptionsHandler} className="initials bg-dark-blue text-lg font-medium h-12 w-12 rounded-[100px] flex items-center justify-center cursor-pointer">
                     {userInfo.image ? <img src={userInfo.image} className='rounded-full' /> : userInitial }
@@ -365,7 +377,28 @@ const Layout = () => {
                   )}
                   </OutsideClickHandler>
                 </li>
+                <li className='block tab:hidden relative'>
+                  
+                  {!showMoibleMenu && <img onClick={() => setShowMobileMenu(true)} src={MenuBar} alt="" className='' />}
+                  {showMoibleMenu && <img onClick={() => setShowMobileMenu(false)} src={MenuBarWhite} alt="" className='' />}
+                  
+                  
+                  {showMoibleMenu && (
+
+
+                  
+                    <ul className={`mobileMenu absolute top-[calc(100%+12px)] right-0 bg-[#131514] p-5 rounded-lg flex flex-col gap-4 transition-transform duration-500 ${showMoibleMenu ? 'translate-y-0' : '-translate-y-full'}`} style={{ width: `calc(100vw - 40px)` }}>
+                      <li onClick={() => setShowMobileMenu(false)} className='font-medium text-lg h-[30px] flex items-center leading-7 text-[#999999] '><NavLink to="/">Home</NavLink></li>
+                      <li onClick={() => setShowMobileMenu(false)} className='font-medium text-lg h-[30px] flex items-center leading-7 text-[#999999] '><NavLink to="/solutions">Solutions</NavLink></li>
+                      <li onClick={() => setShowMobileMenu(false)} className='font-medium text-lg h-[30px] flex items-center leading-7 text-[#999999] '><NavLink to="/resources">Resources</NavLink></li>
+                      <li onClick={() => setShowMobileMenu(false)} className='font-medium text-lg h-[30px] flex items-center leading-7 text-[#999999] '><NavLink to="/profile">Profile</NavLink></li>
+                      <li onClick={() => setShowMobileMenu(false)} className='font-medium text-lg h-[30px] flex items-center leading-7 text-[#999999] '><NavLink to="/settings">Settings</NavLink></li>
+                      <li onClick={() => setShowMobileMenu(false)} className=''><NavLink className='inline-block' to="/contact"><div className="header_cta bg-primary-blue rounded-[100px] px-8 h-12 flex items-center inline-block">Meetings</div></NavLink></li>
+                    </ul>
+                  )}
+                </li>
               </ul>
+
             </div>
             
           </div>
@@ -397,8 +430,8 @@ const Layout = () => {
       </div>
 
       <div className="footer container pt-4 pb-6">
-        <div className="flex justify-between">
-          <div className="footer_left flex items-center gap-3 text-[#EFEFEF]">
+        <div className="flex flex-col tab:flex-row gap-4 justify-between">
+          <div className="footer_left flex flex-wrap items-center gap-3 text-[#EFEFEF]">
             <p className="">&copy; 2024 - All rights reserved</p>
             <p className="">|</p>
             <p className="">DisruptREADY - Innovate Fearlessly</p>

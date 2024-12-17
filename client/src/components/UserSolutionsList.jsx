@@ -15,7 +15,7 @@ const UserSolutionsList = ({solutions}) => {
   }
 
   return (
-    <div className='flex gap-6  justify-between'>
+    <div className='flex flex-col md:flex-row gap-6  justify-between'>
 
       {solutions.map(solution => <UserSolutionListItem key={solution._id} solution={solution} />)}
 

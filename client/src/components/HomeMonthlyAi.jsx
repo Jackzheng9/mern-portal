@@ -13,7 +13,7 @@ const HomeMonthlyAi = ({video, blog,videoPlayer}) => {
   }
 
   return (
-    <div className="row flex gap-8">
+    <div className="row flex-col md:flex-row  flex gap-8">
 
     <div className="basis-0 grow-[2]">
       <div className='cursor-pointer' onClick={() => showVideo(video.videoId)}>
@@ -22,7 +22,6 @@ const HomeMonthlyAi = ({video, blog,videoPlayer}) => {
           <img src={GrayBar} className='' alt="" />
           <div className='pr-2'>
             <p className="text-2xl font-semibold mb-3">
-              {/* {video.title} */}
               {video.title.split(' ').slice(0, 7).join(' ') + (video.title.split(' ').length > 7 ? '...' : '')}
 
 
