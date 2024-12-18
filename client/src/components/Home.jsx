@@ -58,7 +58,9 @@ const Home = () => {
   }
 
   useEffect(() => {
-    
+    console.log("UseEffect running from Home.jsx, isErrorFound:", isErrorFound);
+
+
     if(isErrorFound){
       console.log("dispatching logout")
       dispatch(logOut())
@@ -87,7 +89,7 @@ const Home = () => {
 
 
  
-  const {data, isLoading,isError:deepDiveError }= useGetDeepDivesQuery();
+  const {data, isLoading,isError:deepDiveError, error:deepDiveErr }= useGetDeepDivesQuery();
   const {data:solData, isLoading:solLoading, isError, error }= useGetSolutionsQuery();
   const [editUser ] = useEditUserMutation()
 
@@ -99,10 +101,12 @@ const Home = () => {
 
   if(isError || deepDiveError){
     console.log("Error occured!", error)
+    console.log("Deep dive Error", deepDiveErr);
     console.log("message", error.message)
     // toast.error("Login expired, please login back.")
     // return "Something went wrong!"
     setIsErrorFound(true)
+    
     /*
     dispatch(logOut())
     dispatch(resetUserInfoState())
@@ -175,7 +179,7 @@ const Home = () => {
               <div className="">
                 <div className='flex items-center gap-3 mb-3'>
                   <img className='mt-2' src={RedBar} alt="" />
-                  <p className="text-2xl tab:text-3xl  ">{latestDeepDive.title}</p>
+                  <p className="text-2xl tab:text-3xl  font-semibold">{latestDeepDive.title}</p>
                 </div>
                 
                 <p className="text-base tab:text-lg mb-6">{latestDeepDive.description}</p>
@@ -193,7 +197,7 @@ const Home = () => {
               
                 <div className='flex gap-3 items-center mb-3'>
                   <img className='' src={RedBar} alt="" />
-                  <p className="text-2xl tab:text-3xl">{latestAiSaas.title}</p>
+                  <p className="text-2xl tab:text-3xl font-semibold">AI SaaS Tool of the Month</p>
                   <p className="text-3xl font-semibold bg-primary-blue rounded-[100px] h-14 flex items-center px-6 ">{latestAiSaas.toolName}</p>
                 </div>
                 <p className="text-base tab:text-lg mb-6">{latestAiSaas.description}</p>

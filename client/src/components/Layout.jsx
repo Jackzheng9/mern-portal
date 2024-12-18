@@ -61,7 +61,11 @@ const Layout = () => {
 
 
 
-
+  // const checkCookieExists = (cookieName) => {
+  //   const cookies = document.cookie.split(';');
+  //   console.log("cookies", cookies)
+  //   return cookies.some(cookie => cookie.trim().startsWith(`${cookieName}=`));
+  // };
 
 
   useEffect(() => {
@@ -78,8 +82,16 @@ const Layout = () => {
 
     if(user == null){
       navigate('/login')
-    } 
+    }
 
+    // if (checkCookieExists('jwt')) {
+    //   console.log('Cookie exists!');
+    // } else {
+    //   console.log('Cookie does not exist.');
+    //   dispatch(logOut())
+    //   dispatch(resetUserInfoState())
+    //   navigate('/login')
+    // }
    
 
     /*
@@ -96,14 +108,14 @@ const Layout = () => {
     if(notiLoading || userLoading ){
       // console.log("Loading running!")
       setIsLoadingState(true)
-    } else if(userError) {
-      console.log("user error")
+    } else if(userError || notiIsError ) {
+      console.log("user or noti error")
       toast.error("Login expired. Please login again.")
       dispatch(logOut())
       dispatch(resetUserInfoState())
       navigate('/login')
     } else {
-      // console.log("Loading completed")
+      console.log("Loading completed with no error")
       setIsLoadingState(false)
       // console.log("All Notifications data", data)
       setAllNotifications(data.notifications)
@@ -343,9 +355,9 @@ const Layout = () => {
             <Link to="/"><img src={Logo} alt="" /></Link>
             <div className="main_menu_wrap hidden tab:block">
               <ul className='flex gap-10'>
-                <li><NavLink className="text-gray-nine" to="/">Home</NavLink></li>
-                <li><NavLink className="text-gray-nine" to="/solutions">Solutions</NavLink></li>
-                <li><NavLink className="text-gray-nine" to="/resources">Resources</NavLink></li>
+                <li><NavLink className="text-gray-nine pb-6" to="/">Home</NavLink></li>
+                <li><NavLink className="text-gray-nine pb-6" to="/solutions">Solutions</NavLink></li>
+                <li><NavLink className="text-gray-nine pb-6" to="/resources">Resources</NavLink></li>
               </ul>
             </div>
 
@@ -425,7 +437,7 @@ const Layout = () => {
 
       )}
 
-      <div className="main_content container mt-11">
+      <div className="main_content container mt-0 tab:mt-11">
         <Outlet />
       </div>
 

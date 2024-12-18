@@ -126,7 +126,7 @@ const UserSolutionDetails = () => {
           
           <div className="tabs_title">
             <ul className='flex tabs_title_list' >
-              <li onClick={() => setActiveTab(1)} className={`font-bold text-sm sm:text-base md:text-2xl py-6 tab:py-8 px-3.5 tab:px-16 cursor-pointer text-center ${activeTab == 1 ? "border-b-4 border-[#0049FF]" : null}`}>Planning and propsel</li>
+              <li onClick={() => setActiveTab(1)} className={`font-bold text-sm sm:text-base md:text-2xl py-6 tab:py-8 px-3.5 tab:px-16 cursor-pointer text-center ${activeTab == 1 ? "border-b-4 border-[#0049FF]" : null}`}>Planning and proposal</li>
               <li onClick={() => setActiveTab(2)} className={`font-bold text-sm sm:text-base md:text-2xl py-6 tab:py-8 px-3.5 tab:px-16 cursor-pointer text-center ${activeTab == 2 ? "border-b-4 border-[#0049FF]" : null}`}>Design and Planning</li>
               <li onClick={() => setActiveTab(3)} className={`font-bold text-sm sm:text-base md:text-2xl py-6 tab:py-8 px-3.5 tab:px-16 cursor-pointer text-center ${activeTab == 3 ? "border-b-4 border-[#0049FF]" : null}`}>Development and Deployment</li>
             </ul>
@@ -148,7 +148,7 @@ const UserSolutionDetails = () => {
                 <b>Participants:</b> Client, Project Manager, Business Analyst.</p>
               </div>              
               
-              <div className="tab_content_point mb-4 p-14">
+              <div className="tab_content_point mb-4 p-8 tab:p-14">
                 <div className="flex justify-between mb-4">
                   <p className="font-bold text-2xl">2- Proposal Document Preparation</p>
                   <p className="time bg-[#F87A46] px-2 h-8 flex items-center font-medium rounded-[100px] text-black shrink-0">Dur: 1 w</p>
@@ -160,7 +160,7 @@ const UserSolutionDetails = () => {
               </div>            
               
 
-              <div className="tab_content_point mb-4 p-14">
+              <div className="tab_content_point mb-4 p-8 tab:p-14">
                 <div className="flex justify-between mb-4">
                   <p className="font-bold text-2xl">3- Discussion on Proposed Solution</p>
                   <p className="time bg-[#F87A46] px-2 h-8 flex items-center font-medium rounded-[100px] text-black shrink-0">Dur: 2hr</p>
@@ -171,7 +171,7 @@ const UserSolutionDetails = () => {
                 <b>Participants:</b> Client, Project Manager, Business Analyst, Solution Architect.</p>
               </div>
 
-              <div className="tab_content_point mb-4 p-14">
+              <div className="tab_content_point mb-4 p-8 tab:p-14">
                 <div className="flex justify-between mb-4">
                   <p className="font-bold text-2xl">4- Approval of Proposed Solution</p>
                   <p className="time bg-[#F87A46] px-2 h-8 flex items-center font-medium rounded-[100px] text-black shrink-0">Dur: 1 w</p>
@@ -202,7 +202,7 @@ const UserSolutionDetails = () => {
                 <b>Participants:</b> Software Business Analyst</p>
               </div>              
               
-              <div className="tab_content_point mb-4 p-14">
+              <div className="tab_content_point mb-4 p-8 tab:p-14">
                 <div className="flex justify-between mb-4">
                   <p className="font-bold text-2xl">2- Wireframes and Design</p>
                   <p className="time bg-[#F87A46] px-2 h-8 flex items-center font-medium rounded-[100px] text-black shrink-0">Dur: 2 w</p>
@@ -214,7 +214,7 @@ const UserSolutionDetails = () => {
               </div>            
               
 
-              <div className="tab_content_point mb-4 p-14">
+              <div className="tab_content_point mb-4 p-8 tab:p-14">
                 <div className="flex justify-between mb-4">
                   <p className="font-bold text-2xl">3- Get Approval from the Client</p>
                   <p className="time bg-[#F87A46] px-2 h-8 flex items-center font-medium rounded-[100px] text-black shrink-0">Dur: 1 w</p>
@@ -225,7 +225,7 @@ const UserSolutionDetails = () => {
                 <b>Participants:</b> Project Manager, Client</p>
               </div>
 
-              <div className="tab_content_point mb-4 p-14">
+              <div className="tab_content_point mb-4 p-8 tab:p-14">
                 <div className="flex justify-between mb-4">
                   <p className="font-bold text-2xl">4- Work on Feedback and Finalize Design</p>
                   <p className="time bg-[#F87A46] px-2 h-8 flex items-center font-medium rounded-[100px] text-black shrink-0">Dur: 1 w</p>
@@ -255,7 +255,7 @@ const UserSolutionDetails = () => {
                 <b>Participants:</b> Frontend Developers</p>
               </div>              
               
-              <div className="tab_content_point mb-4 p-14">
+              <div className="tab_content_point mb-4 p-8 tab:p-14">
                 <div className="flex justify-between mb-4">
                   <p className="font-bold text-2xl">2- Backend Development</p>
                   <p className="time bg-[#F87A46] px-2 h-8 flex items-center font-medium rounded-[100px] text-black shrink-0">Dur: 4-6 w</p>
@@ -267,7 +267,7 @@ const UserSolutionDetails = () => {
               </div>            
               
 
-              <div className="tab_content_point mb-4 p-14">
+              <div className="tab_content_point mb-4 p-8 tab:p-14">
                 <div className="flex justify-between mb-4">
                   <p className="font-bold text-2xl">3- Quality Assurance (QA)</p>
                   <p className="time bg-[#F87A46] px-2 h-8 flex items-center font-medium rounded-[100px] text-black shrink-0">Dur: 2 w</p>
@@ -278,7 +278,7 @@ const UserSolutionDetails = () => {
                 <b>Participants:</b> QA Engineers</p>
               </div>
 
-              <div className="tab_content_point mb-4 p-14">
+              <div className="tab_content_point mb-4 p-8 tab:p-14">
                 <div className="flex justify-between mb-4">
                   <p className="font-bold text-2xl">4- Deployment</p>
                   <p className="time bg-[#F87A46] px-2 h-8 flex items-center font-medium rounded-[100px] text-black shrink-0">Dur: 1 w</p>
@@ -289,7 +289,7 @@ const UserSolutionDetails = () => {
                 <b>Participants:</b> Development Team, DevOps Engineers</p>
               </div>
 
-              <div className="tab_content_point mb-4 p-14">
+              <div className="tab_content_point mb-4 p-8 tab:p-14">
                 <div className="flex justify-between mb-4">
                   <p className="font-bold text-2xl">5- Delivery</p>
                   <p className="time bg-[#F87A46] px-2 h-8 flex items-center font-medium rounded-[100px] text-black shrink-0">Dur: 1-2 days</p>
@@ -319,6 +319,7 @@ const UserSolutionDetails = () => {
 
       <div className="h-8"></div>
       <CTA />
+      <div className="h-8 block tab:hidden"></div>
 
 
     </div>

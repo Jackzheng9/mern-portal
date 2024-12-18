@@ -302,10 +302,17 @@ const Solutions = () => {
                   <label htmlFor="category">Category</label>
                   <select value={category} onChange={categoryChangeHandler } name="category" id="category" className='h-10 px-3 py-2 bg-transparent border border-[#3D3D3D] rounded-lg text-gray-300 inputShadow'>
                     <option value="">Select One</option>
-                    <option value="Technology">Technology</option>
-                    <option value="Healthcare">Healthcare</option>
-                    <option value="Finance">Finance</option>
                     <option value="Education">Education</option>
+                    <option value="Real Estate">Real Estate</option>
+                    <option value="Construction">Construction</option>
+                    <option value="Retail">Retail</option>
+                    <option value="Banking ">Banking </option>
+                    <option value="Automotive">Automotive</option>
+                    <option value="Healthcare/ Hospitals">Healthcare/ Hospitals</option>
+                    <option value="Entertainment and media">Entertainment and media</option>
+                    <option value="Telecommunications">Telecommunications</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Finance">Finance</option>
                   </select>
                 </div>
 

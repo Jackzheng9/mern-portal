@@ -11,10 +11,10 @@ const UserResourceItem = ({resource}) => {
 
   if(curMonth < resourceMonth ){
     return (
-      <div href="" className='max-w-[300px] mt-11 inline-block relative'>
+      <div href="" className='max-w-full md:max-w-[300px] mt-11 inline-block relative'>
         <img className='absolute top-3 right-5 w-8' src={Lock} alt="" />
         <div className="tag flex gap-1 items-center mb-11"><img className='w-2' src={BlueDot} alt="" /> <p className="uppercase"></p> {resource.tag}</div>
-        <img className='mb-6 rounded-lg' src={resource.image} alt="" />
+        <img className='mb-6 rounded-lg w-full md:w-auto' src={resource.image} alt="" />
         <p className="mb-4 text-2xl font-medium">{resource.title}</p>
         <p className="">{resource.shortDesc}</p>
       </div>
@@ -22,9 +22,9 @@ const UserResourceItem = ({resource}) => {
   }
 
   return (
-    <Link to={`/resources/${resource.slug}`} className='max-w-[300px] mt-11 inline-block'>
+    <Link to={`/resources/${resource.slug}`} className='max-w-full md:max-w-[300px] mt-11 inline-block'>
       <div className="tag flex gap-1 items-center mb-11"><img className='w-2' src={BlueDot} alt="" /> <p className="uppercase"></p> {resource.tag}</div>
-      <img className='mb-6 rounded-lg' src={resource.image} alt="" />
+      <img className='mb-6 rounded-lg w-full md:w-auto' src={resource.image} alt="" />
       <p className="mb-4 text-2xl font-medium">{resource.title}</p>
       <p className="">{resource.shortDesc}</p>
     </Link>

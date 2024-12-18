@@ -24,8 +24,8 @@ const CTA = () => {
 
 
   return (
-    <div className='bg-[#131514] py-[102px] px-[109px] flex justify-between items-center footer_cta'>
-      <div className="max-w-[699px]">
+    <div className='bg-[#131514] py-4 tab:py-[102px] px-4 tab:px-[109px] flex flex-col tab:flex-row  justify-between items-start tab:items-center gap-8 footer_cta'>
+      <div className="w-[699px] max-w-full">
         <h2 className="text-4xl font-semibold mb-4">Book a Call for a Custom AI Solution</h2>
         <p className="">If you're interested in a similar tool, schedule a meeting to discuss your needs. We'll create a custom solution tailored to your business requirements.</p>
       </div>

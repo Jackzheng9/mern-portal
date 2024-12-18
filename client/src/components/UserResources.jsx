@@ -31,9 +31,9 @@ const UserResources = () => {
  
   return (
     <>
-      <section className="px-16 h-[480px] w-full flex items-center " style={{ backgroundImage: `url(${HeroImg})` }}>
+      <section className="px-4 tab:px-16 h-[351px] tab:h-[480px] w-full flex items-center " style={{ backgroundImage: `url(${HeroImg})` }}>
         <div className="max-w-[800px]">
-          <h2 className="text-4xl font-medium mb-4">Elevate Your Team's Potential</h2>
+          <h2 className="text-2xxl tab:text-4xl font-medium mb-4">Elevate Your Team's Potential</h2>
           <p className="mb-4">Your team deserves the best resources for professional growth, regardless of their experience level. Partner with Datu for Teams to provide a premier platform for creative learning and development.</p>
           <a href="" className="font-semibold px-6 h-11 inline-flex items-center rounded-[100px] bg-primary-blue">Begin Your Course</a>
         </div>
@@ -41,14 +41,14 @@ const UserResources = () => {
 
       <section className="deep_dives mt-8">
         <div className="">
-          <h1 className='text-5xl font-semibold'>Deep dives</h1>
+          <h1 className='text-2xxl tab:text-5xl font-semibold'>Deep dives</h1>
         </div>
 
-        <div className="resource_title_area flex justify-between items-center mt-8">
+        <div className="resource_title_area flex gap-8 justify-between items-center mt-8">
           <form action="">
             <div className="relative">
               <img className='absolute left-[14px] top-[12px] ' src={SearchIcon} alt="" />
-              <input className='searchBordered h-11 bg-[#131514] rounded-lg pl-11 min-w-[321px]' placeholder="Search" type="text" />
+              <input className='searchBordered h-11 bg-[#131514] rounded-lg pl-11 min-w-auto tab:min-w-[321px]' placeholder="Search" type="text" />
             </div>
           </form>
           <div className="">
@@ -70,7 +70,7 @@ const UserResources = () => {
 
       <section className="monthly_section mt-11 mb-10">
         <div className="tab_titles">
-          <ul className='flex justify-between border-b border-[#282828] pb-2'>
+          <ul className='flex justify-between border-b border-[#282828] pb-2 gap-6 overflow-x-auto'>
             {Array.from({ length: 12 }, (_, index) => (
               <li 
                 key={index} 
