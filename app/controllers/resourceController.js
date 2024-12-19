@@ -37,7 +37,9 @@ const editResource = async (req, res) => {
   const { id, title, description, shortDesc, image,imgName, lectures,status, slug,tag, month, year } = req.body;
   // console.log("Body Data", id, title, description, shortDesc, image,imgName, lectures,status, slug,tag, month, year);
 
-  console.log("year", year)
+  // console.log("year", year)
+  // console.log("Lecture files", lectures.files)
+  lectures.forEach(lecture => console.log("files", lecture.files))
  
   try {
 

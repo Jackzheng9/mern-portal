@@ -40,7 +40,7 @@ const Solutions = () => {
   const [showStateSelector, setShowStateSelector] = useState(false)
   const statusFilterTerm = useSelector(state => state.solutionsFilter.status)
   const searchFilterTerm = useSelector(state => state.solutionsFilter.searchTerm)
-
+  const [searchText, setSearchText] = useState(searchFilterTerm)
 
   const dispatch = useDispatch();
 
@@ -214,6 +214,7 @@ const Solutions = () => {
   const searchInputHandler = (e) => {
     const searchTerm = e.target.value;
     dispatch(setSearchTerm(searchTerm))
+    setSearchText(e.target.value)
   }
 
   const statusFilterHandler = (user) => {
@@ -240,6 +241,17 @@ const Solutions = () => {
   const solutions = data.solutions;
   const filteredSolutions = solutions.filter(statusFilterHandler).filter(searchFilterHandler)
 
+  const clearFiltersHandler = () => {
+    dispatch(setStatus('All')) 
+    dispatch(setSearchTerm(''))
+    setSearchText('')
+  }
+
+
+
+
+
+
   return (
     <div className='p-6 relative'>
       <div className="flex items-center justify-between">
@@ -254,11 +266,11 @@ const Solutions = () => {
         <form action="">
           <div className="relative">
             <img className='absolute left-[14px] top-[12px] ' src={SearchIcon} alt="" />
-            <input onChange={searchInputHandler} className='searchBordered h-11 bg-transparent rounded-lg pl-11' placeholder="Search" type="text" />
+            <input value={searchText}  onChange={searchInputHandler } className='searchBordered h-11 bg-transparent rounded-lg pl-11' placeholder="Search" type="text" />
           </div>
         </form>
 
-        <div className="">
+        <div className=" flex gap-4 items-center">
           <p onClick={() => setShowStateSelector(!showStateSelector) } className="text-gray-300 font-medium flex gap-1 items-center bg-[#1B1B1F] border border-[#222227] px-3.5 py-2 rounded-lg cursor-pointer">All
           <img src={Bars} className='w-5' alt="" /></p>
           {showStateSelector && (
@@ -271,7 +283,7 @@ const Solutions = () => {
               </ul>
             </div>
           )}
-
+          <button onClick={clearFiltersHandler} className='bg-[#1B1B1F] text-[#888888] hover:text-[#ddd] h-11 flex items-center px-3.5'>Clear All</button>
 
 
         </div>

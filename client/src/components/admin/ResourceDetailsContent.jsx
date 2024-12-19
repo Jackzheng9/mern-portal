@@ -30,23 +30,23 @@ const ResourceDetailsContent = ({resource}) => {
   const startYear =  currentYear - 5;
   const endYear =  currentYear + 10;
 
-  console.log("currentYear", currentYear)
-  console.log("year", year)
-  console.log("start", startYear)
-  console.log("end", endYear)
+  // console.log("currentYear", currentYear)
+  // console.log("year", year)
+  // console.log("start", startYear)
+  // console.log("end", endYear)
 
   const yearOptions = [];
   for (let i = startYear; i <= endYear; i++) {
     yearOptions.push(<option key={i} value={i}>{i}</option>);
   }
-  console.log("yearOptions", yearOptions)
+  // console.log("yearOptions", yearOptions)
 
   const cloud_name = import.meta.env.VITE_CLOUD_NAME;
   const upload_preset = import.meta.env.VITE_UPLOAD_PRESET;
 
   const submitImage = (e) => {
-    console.log("Image uploaded")
-    console.log(e.target.files[0])
+    // console.log("Image uploaded")
+    // console.log(e.target.files[0])
     const data = new FormData();
     data.append('file', e.target.files[0]);
     
@@ -107,22 +107,22 @@ const ResourceDetailsContent = ({resource}) => {
   }
 
   const fileChangeHandler = (index, event) => {
-    console.log("Index", index);
+    // console.log("Index", index);
     const files = event.target.files;
-    console.log("Files", files);
+    // console.log("Files", files);
     let tempFiles = [];
     [...files].map(file => {
-      console.log("Name", file.name, file.type)
+      // console.log("Name", file.name, file.type)
       tempFiles.push(file)
     })
     setTempFiles(tempFiles);
   }
 
   const removeTempFile = (tempIndex) =>{
-    console.log("remove temp file", tempIndex)
+    // console.log("remove temp file", tempIndex)
     const curTempFiles = [...tempFiles]
     const newFiles = curTempFiles.filter((file, index) => index != tempIndex)
-    console.log("New files", newFiles)
+    // console.log("New files", newFiles)
     setTempFiles(newFiles)
   }
 
@@ -149,7 +149,7 @@ const ResourceDetailsContent = ({resource}) => {
       if (file.type == 'application/pdf' || file.type == 'image/png' || file.type == 'image/svg' || file.type == 'image/jpg') {
         const uploaded = await uploadImageNew(file);
         console.log("Uploaded", uploaded);
-        return { url: uploaded.url, assetType: uploaded.resource_type, assetName: uploaded.display_name };
+        return { url: uploaded.url, assetType: uploaded.format, assetName: uploaded.display_name, totalPage: uploaded.pages };
       } else if (file.type == 'video/mp4') {
         const uploaded = await uploadVideo(file);
         console.log("Uploaded file:", uploaded);
@@ -162,7 +162,7 @@ const ResourceDetailsContent = ({resource}) => {
     currentLectures[index] = { ...currentLectures[index], files: [...curFiles, ...uploadedFiles] };
     setLectures(currentLectures)
     setShowUploadPan(false);
-    console.log("all operation done!")
+    // console.log("all operation done!")
     
     setTempFiles([])
     setShowLoader(false)
@@ -183,16 +183,17 @@ const ResourceDetailsContent = ({resource}) => {
   }
 
   const lectureChangeHandler = async (index,event) => {
+    console.log("Lect change handler working!")
     
     let stateData = [...lectures];
-    console.log("Event fired for index-", index)
-    console.log("Cureent lectures", stateData)
+    // console.log("Event fired for index-", index)
+    // console.log("Cureent lectures", stateData)
     let currLecture = stateData[index]
-    console.log("Cureent lecture", currLecture)
+    // console.log("Cureent lecture", currLecture)
     currLecture = {...currLecture, 'imgName' : 'test'}
     
     if(event.target.name === 'image'){
-      console.log("Img",event.target.files[0])
+      // console.log("Img",event.target.files[0])
       currLecture = {...currLecture, 'imgName' : event.target.files[0].name}
       const imageUrl = await uploadImage(event.target.files[0])
       currLecture = {...currLecture, 'image' :  imageUrl}
@@ -250,7 +251,7 @@ const ResourceDetailsContent = ({resource}) => {
   
     try {
       const resData = await editResource(resoruceData).unwrap();
-      console.log("resData",resData)
+      // console.log("resData",resData)
       toast.success(`Resource - ${title} has been updated successfully!`)
       // setShowUpload(false)
     } catch (error) {

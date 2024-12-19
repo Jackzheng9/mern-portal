@@ -262,7 +262,8 @@ input:-webkit-autofill:active{
 }
 
 .mobileMenu a.active{color:#CFCFCF;}
-
+.shadow-xl canvas, .shadow-xl{width: 100% !important;}
+.pdf_view > div, .pdf_view > div > div, .pdf_view > div > div > div{width: 100% !important;  }
 
 @media only screen and (max-width:768px){
   .home_hero{background-position:15% center}

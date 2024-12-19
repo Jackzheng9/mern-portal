@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 const LessonSchema = mongoose.Schema({
   url:{type:String},
   assetType:{type:String},
-  assetName:{type:String}
+  assetName:{type:String},
+  totalPage:{type:String},
 })
 
 

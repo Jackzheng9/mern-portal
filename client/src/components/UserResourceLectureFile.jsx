@@ -15,8 +15,9 @@ import { setCompletedfiles } from '../slices/userInfoSlice'
 
 
 
-const UserResourceLectureFile = ({file, year, resource, lessonCompleteHandler}) => {
-  // console.log("file",file)
+const UserResourceLectureFile = ({file, year, resource, lessonCompleteHandler, title, index, totalFiles}) => {
+  // console.log("title",title)
+  // console.log("index",index)
   const fileId = file._id;
   // console.log("fileId",fileId)
   const curYear = dayjs().year();
@@ -43,7 +44,7 @@ const UserResourceLectureFile = ({file, year, resource, lessonCompleteHandler}) 
   const isFileMatched = curYearFiles?.some(curFile => curFile.fileId === fileId);
   // console.log("isFileMatched", isFileMatched);
   const userInfo = useSelector(state => state.userInfo.userInfo)
-  console.log("userInfo", userInfo)
+  // console.log("userInfo", userInfo)
 
 
   const dispatch = useDispatch()
@@ -72,14 +73,14 @@ const UserResourceLectureFile = ({file, year, resource, lessonCompleteHandler}) 
   const navigate = useNavigate()
   const showFileDetailsHandler = (fileId) => {
     // console.log("File ID", fileId)
-    dispatch(setCurrentFile({file, resource}))
+    dispatch(setCurrentFile({file, resource, index, fileTitle:title, totalFiles,isFileMatched}))
     navigate('/resources/file/')
   }
 
   return (
     <li  className='flex justify-between items-center mb-6'>
       <div onClick={() => showFileDetailsHandler(fileId)} className="cursor-pointer flex gap-2">
-        <img src={file.assetType == 'image' ? PdfIcon : VideoIcon } alt="" />
+        <img src={file.assetType == 'pdf' || 'image' ? PdfIcon : VideoIcon } alt="" />
         <p className="">{file.assetName}</p>
       </div>
 

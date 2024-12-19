@@ -12,7 +12,7 @@ import ArrowDown from '../../assets/chevron-bottom.png'
 
 
 const ResourceLectureDetails = ({lecture,tempFiles, index,fileChangeHandler,lectureChangeHandler,uploadFileHandler, removeTempFile, deleteLectureFile, setShowSave, cancelEditHandler, publishHandler}) => {
-  console.log("Current Lecture", lecture)
+  // console.log("Current Lecture", lecture)
   // console.log("Current index", index)
   // console.log("Files",lecture.files)
   const [showUploadPan,setShowUploadPan] = useState(false)

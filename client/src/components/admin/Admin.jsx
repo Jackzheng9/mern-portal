@@ -179,10 +179,16 @@ const Admin = () => {
     setShowStateSelector(false)
   }
 
+  const clearFiltersHandler = () => {
+    dispatch(setStatus('All'))
+    dispatch(setDate({}))
+    dispatch(setSearchTerm(''))
+  }
+
  
   return (
     <>
-      <div onClick={contentClickHandler} className="admin_content">
+      <div onClick={contentClickHandler} className="admin_content min-h-[600px]">
       <div className="dashboard_summary flex gap-6 w-full justify-between">
         
         <div className="dashboard_summary_col flex gap-4 items-center px-6 py-8 bg-[#1B1B1F] w-full">
@@ -257,6 +263,8 @@ const Admin = () => {
               )}
 
             </div>
+
+            <button onClick={clearFiltersHandler} className='bg-[#1B1B1F] text-[#888888] hover:text-[#ddd] h-11 flex items-center px-3.5'>Clear All</button>
           </div>
         </div>
 

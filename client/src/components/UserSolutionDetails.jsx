@@ -140,7 +140,7 @@ const UserSolutionDetails = () => {
               <div className="tab_content_point mb-4 p-8 tab:p-14">
                 <div className="flex justify-between mb-4">
                   <p className="font-bold text-2xl">1- Initial Call</p>
-                  <p className="time bg-[#F87A46] px-2 h-8 flex items-center font-medium rounded-[100px] text-black shrink-0 shrink-0">Dur: 1hr</p>
+                  <p className="time bg-[#F87A46] px-2 h-8 flex items-center font-medium rounded-[100px] text-black shrink-0">Dur: 1hr</p>
 
                 </div>
                 

@@ -146,7 +146,7 @@ const UploadResource = ({hideUploadContent,setShowUpload}) => {
         let curFiles = currentLecture[index].files
         console.log("Current files", curFiles)
         let newFiles = [...curFiles, {url:uploaded.url, assetType:uploaded.format, assetName:uploaded.
-          display_name}]
+          display_name, totalPage: uploaded.pages}]
         currentLecture[index].files = newFiles;
         setLectures(currentLecture)
         setShowUploadPan(false)

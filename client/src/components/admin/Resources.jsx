@@ -250,6 +250,12 @@ const Resources = () => {
     setShowStateSelector(false)
   }
 
+  const clearFiltersHandler = () => {
+    dispatch(setStatus('All')) 
+    dispatch(setSearchTerm(''))
+    setSearchText('')
+  }
+
   return (
     <div className='px-6 relative'>
       <div className="flex items-center justify-between">
@@ -270,7 +276,7 @@ const Resources = () => {
           </div>
         </form>
 
-        <div className="relative">
+        <div className="relative flex gap-4 items-center">
           <p onClick={() => setShowStateSelector(!showStateSelector) }  className="text-gray-300 font-medium flex gap-1 items-center cursor-pointer border border-[#3D3D3D] rounded-lg px-3.5 py-2.5">All
           <img src={Bars} className='w-5' alt="" /> </p>
 
@@ -285,7 +291,7 @@ const Resources = () => {
             </div>
           )}
 
-
+          <button onClick={clearFiltersHandler} className='bg-[#1B1B1F] text-[#888888] hover:text-[#ddd] h-11 flex items-center px-3.5'>Clear All</button>
 
         </div>
 

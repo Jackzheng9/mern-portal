@@ -42,7 +42,10 @@ const Contact = () => {
           {/* <div className="p-6 bg-white w-full h-auto">
             
           </div> */}
-          <div  data-url="https://calendly.com/henryhaysceo/riley-calndly?hide_event_type_details=1&hide_gdpr_banner=1&background_color=1a1a1a&text_color=ffffff&primary_color=f4f4f4" className="calendly-widget calendly-inline-widget h-[600px] w-[320px]"></div>
+          {/* <div  data-url="https://calendly.com/henryhaysceo/riley-calndly?hide_event_type_details=1&hide_gdpr_banner=1&background_color=1a1a1a&text_color=ffffff&primary_color=f4f4f4" className="calendly-widget calendly-inline-widget h-[600px] w-[320px]"></div> */}
+
+          <div className="calendly-inline-widget" data-url="https://calendly.com/brickelldigital/intro?hide_gdpr_banner=1" ></div>
+
           
 
         </div>

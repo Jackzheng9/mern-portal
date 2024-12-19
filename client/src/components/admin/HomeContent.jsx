@@ -328,9 +328,18 @@ const HomeContent = () => {
   monthai = monthai.filter(searchFilterHandler).filter(dateFilterHandler).filter(statusFilterHandler);
   // console.log("monthai filtered", monthai)
 
+  const clearFiltersHandler = () => {
+    dispatch(setStatus('All'))
+    dispatch(setDate({}))
+    dispatch(setSearchTerm(''))   
+  }
+
+
+
+
   return (
     <EditItemProvider editItemHandler={editItemHandler}>
-      <div onClick={contentClickHandler} className='home_content_wrap relative'>
+      <div onClick={contentClickHandler} className='home_content_wrap relative min-h-[1500px]'>
         
         <div className='flex justify-between items-center mb-6'>
           <p className='font-medium text-2xl'>Home Content</p>
@@ -398,6 +407,8 @@ const HomeContent = () => {
                 </div>
               )}
             </div>
+
+            <button onClick={clearFiltersHandler} className='bg-[#1B1B1F] text-[#888888] hover:text-[#ddd] h-11 flex items-center px-3.5'>Clear All</button>
 
 
 
