@@ -21,5 +21,4 @@ const notifiationSlice = createSlice({
 })
 
 export const {setAllNotifications,setUnReadNotifications } = notifiationSlice.actions;
-// export const {setAllNotifications} = notifiationSlice.actions;
 export default notifiationSlice.reducer;

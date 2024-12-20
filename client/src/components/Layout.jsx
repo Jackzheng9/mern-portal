@@ -61,12 +61,6 @@ const Layout = () => {
 
 
 
-  // const checkCookieExists = (cookieName) => {
-  //   const cookies = document.cookie.split(';');
-  //   console.log("cookies", cookies)
-  //   return cookies.some(cookie => cookie.trim().startsWith(`${cookieName}=`));
-  // };
-
 
   useEffect(() => {
     
@@ -84,24 +78,6 @@ const Layout = () => {
       navigate('/login')
     }
 
-    // if (checkCookieExists('jwt')) {
-    //   console.log('Cookie exists!');
-    // } else {
-    //   console.log('Cookie does not exist.');
-    //   dispatch(logOut())
-    //   dispatch(resetUserInfoState())
-    //   navigate('/login')
-    // }
-   
-
-    /*
-    if( Object.keys(userInfo).length == 0){
-      // console.log("Navigating to login screen...")
-      navigate('/login')
-      return
-    }
-
-    */
 
     
 
@@ -115,12 +91,12 @@ const Layout = () => {
       dispatch(resetUserInfoState())
       navigate('/login')
     } else {
-      console.log("Loading completed with no error")
+      // console.log("Loading completed with no error")
       setIsLoadingState(false)
       // console.log("All Notifications data", data)
       setAllNotifications(data.notifications)
 
-      console.log("User data from api", userData)
+      // console.log("User data from api", userData)
       // console.log("User data from api", userData.user[0])
       setUserInfo(userData.user[0]);
       const apiUser = userData.user[0];
@@ -405,7 +381,7 @@ const Layout = () => {
                       <li onClick={() => setShowMobileMenu(false)} className='font-medium text-lg h-[30px] flex items-center leading-7 text-[#999999] '><NavLink to="/resources">Resources</NavLink></li>
                       <li onClick={() => setShowMobileMenu(false)} className='font-medium text-lg h-[30px] flex items-center leading-7 text-[#999999] '><NavLink to="/profile">Profile</NavLink></li>
                       <li onClick={() => setShowMobileMenu(false)} className='font-medium text-lg h-[30px] flex items-center leading-7 text-[#999999] '><NavLink to="/settings">Settings</NavLink></li>
-                      <li onClick={() => setShowMobileMenu(false)} className=''><NavLink className='inline-block' to="/contact"><div className="header_cta bg-primary-blue rounded-[100px] px-8 h-12 flex items-center inline-block">Meetings</div></NavLink></li>
+                      <li onClick={() => setShowMobileMenu(false)} className=''><NavLink className='inline-block' to="/contact"><div className="header_cta bg-primary-blue rounded-[100px] px-8 h-12 flex items-center">Meetings</div></NavLink></li>
                     </ul>
                   )}
                 </li>
