@@ -253,7 +253,7 @@ const UploadResource = ({hideUploadContent,setShowUpload}) => {
 
     const notificationData = {
       title:`New resource- ${resourceTitle} released`,
-      message:`New resource- "${resourceTitle}" released`,
+      message:`New course for this month is available: ${resourceTitle}. Check it out now!`,
       type:"monthlycontent"
     }
 

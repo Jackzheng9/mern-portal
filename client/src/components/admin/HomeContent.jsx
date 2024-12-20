@@ -25,6 +25,7 @@ import { useDispatch,useSelector } from 'react-redux'
 import { setStatus,setDate,setSearchTerm } from '../../slices/monthAiListSlice'
 import dayjs from 'dayjs'
 import { logOut } from '../../slices/authSlice'
+import { useCreateNotificationMutation } from '../../slices/notificationApiSlice'
 
 
 
@@ -79,6 +80,8 @@ const HomeContent = () => {
   const [pricing, setPricing] = useState('')
   const [bestFor, setBestFor] = useState('')
   const [videoId, setVideoId] = useState('')
+
+  const [ createNotification ] = useCreateNotificationMutation();
 
 
   const uploadSelectHandler = (selector) =>{
@@ -184,9 +187,16 @@ const HomeContent = () => {
       title, image, description, link, active:checkBoxChecked,id:deepDiveItem._id, toolName, pricing, bestFor,videoId
     }
 
+    const notificationData = {
+      title: `Home content published` ,
+      message:`New resource available: ${title}. Explore the latest insights and tools. `,
+      type: 'homecontent'
+    }
+
     
     try {
       const editedItem = await editDeepDive(data).unwrap();
+      const notiRes = await createNotification(notificationData).unwrap();
       console.log("editedItem", editedItem)
       toast.success("Edit done successfully!")
     } catch (error) {

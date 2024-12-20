@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEditUserMutation, useQueryUserByEmailQuery } from '../slices/userApiSlice';
 import { useGetNotificationsQuery } from '../slices/notificationApiSlice';
 import OutsideClickHandler from "react-outside-click-handler";
+import { setAllNotifications, setPersonalNotifications, setReadNotifications } from '../slices/NotificationSlice';
 
 
 
@@ -30,12 +31,16 @@ import { toast } from 'react-toastify';
 
 const Layout = () => {
 
+  // const allNotificationsState = useSelector(state => state.notification.allNotifications)
+  // const readNotificationsState = useSelector(state => state.notification.readNotifications)
+  // const personalNotificationsState = useSelector(state => state.notification.presonalNotifications)
+
   const [searchParams] = useSearchParams();
   const [showAccOptions, setShowAccOptions] = useState(false)
   const [showNotiPanel, setShowNotiPanel] = useState(false)
-  const [allNotifications, setAllNotifications] = useState(false)
-  const [personalNotifications, setPersonalNotifications] = useState(false)
-  const [readNotifications, setReadNotifications] = useState(false)
+  const [allNotifications, setAllNotifications] = useState()
+  const [personalNotifications, setPersonalNotifications] = useState()
+  const [readNotifications, setReadNotifications] = useState()
   const [userInfo, setUserInfo] = useState(null)
   const [showLogout, setShowLogout] = useState(false)
   const [showMoibleMenu, setShowMobileMenu] = useState(false)
@@ -95,6 +100,7 @@ const Layout = () => {
       setIsLoadingState(false)
       // console.log("All Notifications data", data)
       setAllNotifications(data.notifications)
+      // console.log("data.notifications",data.notifications)
 
       // console.log("User data from api", userData)
       // console.log("User data from api", userData.user[0])
@@ -254,7 +260,7 @@ const Layout = () => {
 
 
 
-  },[notiLoading,userLoading])
+  },[notiLoading,userLoading,data,userData])
 
   // console.log("isLoadingState",isLoadingState)
 
@@ -346,6 +352,7 @@ const Layout = () => {
                   {!showNotiPanel && <img onClick={toggleNotification} className="cursor-pointer" src={Notification} alt="" /> }
                   {showNotiPanel && <img onClick={toggleNotification} className=" cursor-pointer" src={NotificationWhite} alt="" /> }
                   { showNotiPanel && <Notifications all={allNotifications} personal = {personalNotifications} read={readNotifications} handleUnreadIds={handleUnreadIds} outSideClickHandler={outSideClickHandler} />}
+                  
                 </li>
                 <li className='hidden tab:block'>
                   <OutsideClickHandler onOutsideClick={profileOutSideClick}>

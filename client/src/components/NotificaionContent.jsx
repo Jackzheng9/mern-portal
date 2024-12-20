@@ -5,10 +5,12 @@ import { useDispatch } from 'react-redux';
 import Loader from './Loader';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { setUnReadNotifications } from '../slices/NotificationSlice';
+import { setReadNotifications } from '../slices/NotificationSlice';
 import OutsideClickHandler from "react-outside-click-handler";
 
 const NotificaionContent = ({all, read, personal, handleUnreadIds, outSideClickHandler}) => {
+  
+  
   console.log("All", all)
   console.log("Read", read)
   console.log("Personal", personal)
@@ -75,10 +77,10 @@ const NotificaionContent = ({all, read, personal, handleUnreadIds, outSideClickH
               {combined.map(notification => <li  key={notification._id} className='flex gap-6 items-center justify-between mb-6 cursor-pointer'>
                 <div>{unReadIds.includes(notification._id) ? <img src={YellowDot} className='' alt="" /> : '' }</div>
                 <div className="w-[230px]">
-                  <p className="noti_title text-[#BFC0C1] font-semibold text-sm mb-2">{notification.title}</p>
+                  {/* <p className="noti_title text-[#BFC0C1] font-semibold text-sm mb-2">{notification.title}</p> */}
                   <p className="noti_text text-[#BFC0C1] text-xs">{notification.message}</p>
                 </div>
-                <div className="min-w-[55px]">
+                <div className="w-full max-w-[120px]">
                   <p className='text-[#BFC0C1]'>{dayjs(notification.createdAt).fromNow()}</p>
                 </div>
               </li>)}

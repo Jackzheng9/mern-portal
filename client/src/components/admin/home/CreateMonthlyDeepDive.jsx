@@ -72,7 +72,7 @@ const CreateMonthlyDeepDive = ({closeHandler,type}) => {
 
     const notificationData = {
       title: `Home content published` ,
-      message:`New content published - ${title} `,
+      message:`New resource available: ${title}. Explore the latest insights and tools. `,
       type: 'homecontent'
     }
     
