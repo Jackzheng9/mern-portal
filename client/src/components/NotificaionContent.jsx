@@ -17,7 +17,7 @@ const NotificaionContent = ({all, read, personal, handleUnreadIds, outSideClickH
   dayjs.extend(relativeTime);
   const dispatch = useDispatch();
   const [showLoader, setShowLoader] = useState(false)
-
+  personal = personal.filter(noti => noti.notificationType != 'linkedinDone')
   // const combined = [...all, ...personal]
   const combined = [...all, ...personal].sort((a, b) => dayjs(b.createdAt) - dayjs(a.createdAt));
   // console.log("combined", combined)

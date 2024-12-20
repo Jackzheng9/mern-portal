@@ -111,7 +111,7 @@ const Layout = () => {
       const thisDate = dayjs().date();
       const thisDay = dayjs().day();
       // console.log("thisDay", thisDay)
-
+      console.log("apiUser.personalNotifications",apiUser.personalNotifications)
       setPersonalNotifications(apiUser.personalNotifications);
       setReadNotifications(apiUser.notifications)
 
@@ -180,7 +180,7 @@ const Layout = () => {
       }
       
       if(thisDay == 1){
-        console.log("this day running!")
+        console.log("this dayn 1 running!")
         if(!linkedinNotifications || linkedinNotifications.length == 0){
           const data = {
             personalNotifications: {

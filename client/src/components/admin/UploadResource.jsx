@@ -58,7 +58,7 @@ const UploadResource = ({hideUploadContent,setShowUpload}) => {
       body:data
     })
     .then(res => res.json())
-    .then(data => setResourceImage(data.url))
+    .then(data => setResourceImage(data.secure_url))
     setResourceImageName(e.target.files[0].name)
 
   }
@@ -73,7 +73,7 @@ const UploadResource = ({hideUploadContent,setShowUpload}) => {
       body:data
     })
     .then(res => res.json())
-    .then(data => data.url)
+    .then(data => data.secure_url)
     return uploaded
   }
 
@@ -145,7 +145,7 @@ const UploadResource = ({hideUploadContent,setShowUpload}) => {
         console.log("Current Lectures", currentLecture)
         let curFiles = currentLecture[index].files
         console.log("Current files", curFiles)
-        let newFiles = [...curFiles, {url:uploaded.url, assetType:uploaded.format, assetName:uploaded.
+        let newFiles = [...curFiles, {url:uploaded.secure_url, assetType:uploaded.format, assetName:uploaded.
           display_name, totalPage: uploaded.pages}]
         currentLecture[index].files = newFiles;
         setLectures(currentLecture)
