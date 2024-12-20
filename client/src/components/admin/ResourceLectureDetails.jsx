@@ -174,7 +174,7 @@ const ResourceLectureDetails = ({lecture,tempFiles, index,fileChangeHandler,lect
 
               <div className="flex justify-end gap-4">
                 <p onClick={() => setShowUploadPan(false)} className="h-11 flex items-center px-5 border rounded-[100px] cursor-pointer">Cancel</p>
-                <div onClick={() => uploadFiles(index)} className="cursor-pointer h-11 flex items-center px-5 border border-primary-blue rounded-[100px] cursor-pointer bg-primary-blue">
+                <div onClick={() => uploadFiles(index)} className="cursor-pointer h-11 flex items-center px-5 border border-primary-blue rounded-[100px] bg-primary-blue">
                   Upload
                 </div>
               </div>

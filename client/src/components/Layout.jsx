@@ -412,7 +412,7 @@ const Layout = () => {
 
               <div className="ctas flex justify-center gap-6 mt-8">
                 <button onClick={() => setShowLogout(false)} className='text-sm font-semibold text-[#B0B0B0] border border-[#B0B0B0] rounded-lg h-11 flex items-center px-6'>Cancel</button>
-                <button onClick={logoutHandler} className='bg-[#D92D20] text-white text-sm font-semibold rounded-lg h-11 flex items-center px-6 '>Logoout</button>
+                <button onClick={logoutHandler} className='bg-[#D92D20] text-white text-sm font-semibold rounded-lg h-11 flex items-center px-6 '>Logout</button>
               </div>
 
             </div>
